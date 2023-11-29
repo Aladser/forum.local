@@ -18,20 +18,20 @@
     <?php if (!is_null($data)) { ?>
         <?php if (isset($data['publicUsername'])) { ?>
             <h3 class='text-center p-4 text-white bg-c4c4c4'>
-                Месенджер
+                Деловой чат
                 <span id='clientuser' data-clientuser-publicname=<?php echo $data['publicUsername']; ?>>
                             <?php echo $data['user-email']; ?>
                         </span>
             </h3>
         <?php } elseif (isset($data['user-email'])) { ?>
             <h3 class='text-center p-4 text-white bg-c4c4c4'>
-                Месенджер<span id='userhost'> <?php echo $data['user-email']; ?></span>
+                Деловой чат<span id='userhost'> <?php echo $data['user-email']; ?></span>
             </h3>
         <?php } elseif (isset($data['csrfToken'])) { ?>
-            <h3 class='text-center p-4 text-white bg-c4c4c4'>Месенджер</h3>
+            <h3 class='text-center p-4 text-white bg-c4c4c4'>Деловой чат</h3>
         <?php } ?>
     <?php } else { ?>
-        <h3 class='text-center p-4 text-white bg-c4c4c4'>Месенджер</h3>
+        <h3 class='text-center p-4 text-white bg-c4c4c4'>Деловой чат</h3>
     <?php } ?>
 </header>
 
