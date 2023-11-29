@@ -55,6 +55,7 @@ class UserController extends Controller
         }
     }
 
+    // регистрация пользователя
     public function register()
     {
         if (!$this->users->existsUser($_POST['email'])) {
