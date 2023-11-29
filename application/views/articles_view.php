@@ -1,7 +1,7 @@
 <div class='w-50 mx-auto'>
-    <div id='block-buttons' class='pb-4'>
-        <input type="button" value="Новая тема" class='btn border border-dark fs-5'>
-    </div>
+    <a href="/article/create">
+        <p class='btn border border-dark p-2 ps-4 pe-4'>Новая тема</p>
+    </a>
 
     <table class='table-articles table' id='table-articles'>
         <thead>

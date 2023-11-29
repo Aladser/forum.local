@@ -23,4 +23,12 @@ class ArticleController extends Controller
 
         $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', 'articles.js', 'Форум - главная', $data);
     }
+
+    public function create()
+    {
+        // логин пользователя
+        $data['login'] = UserController::getLoginFromClient();
+
+        $this->view->generate('template_view.php', 'create-article_view.php', null, null, 'Форум - создать тему', $data);
+    }
 }
