@@ -14,8 +14,26 @@
 </head>
 <body>
 
-<header><h3 class='text-center p-4 text-white bg-c4c4c4'><?php echo $pageName; ?></h3></header>
+<header>
+    <div class='text-center text-white bg-c4c4c4 d-flex justify-content-between'>
+        <?php if (!is_null($data)) {?>
+            <?php if (array_key_exists('login', $data)) {?>
+                <h3 class='p-4 w-90'><?php echo $pageName; ?></h3>
+                <div class='d-flex justify-content-end'>
+                    <div class='d-flex align-items-center justify-content-between px-5 border-start border-end border-2 border-light'><?php echo $data['login']; ?></div>
+                    <a href="/Main?logout=true" class='text-white bg-c4c4c4 text-decoration-none'>
+                        <div class='h-100 d-flex align-items-center px-4'>Выйти</div>
+                    </a>
+                </div>
+            <?php } ?>
+        <?php } else { ?>
+            <h3 class='p-4 w-100'><?php echo $pageName; ?></h3>
+        <?php } ?>
+    </div>
+</header>
+
 <?php include $content_view; ?>
+
 <?php if (!empty($content_js)) { ?>
     <script type='text/javascript' src="http://buscor.local/application/js/<?php echo $content_js; ?>"></script>
 <?php } ?>
