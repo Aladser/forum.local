@@ -4,17 +4,58 @@ namespace Aladser\Controllers;
 
 use Aladser\Core\Controller;
 use Aladser\Core\DB\DBCtl;
-use Aladser\Models\UsersDBTableModel;
+use Aladser\Models\UserModel;
 
 /** контрллер проверки уникальности никнейма */
 class UserController extends Controller
 {
-    private UsersDBTableModel $users;
+    private UserModel $users;
 
     public function __construct(DBCtl $dbCtl = null)
     {
         parent::__construct($dbCtl);
         $this->users = $dbCtl->getUsers();
+    }
+
+    // регистрация пользователя
+    public function register()
+    {
+        if (!$this->users->exists($_POST['login'])) {
+            $email = $_POST['login'];
+            $password = $_POST['password'];
+            $isRegUser = $this->users->add($email, $password) === 1;
+            $data = $isRegUser ? 'user_registered' : 'add_user_error';
+        } else {
+            $data['result'] = 'user_exists';
+        }
+
+        echo json_encode($data);
+    }
+
+    // авторизация
+    public function login()
+    {
+        $login = $_POST['login'];
+        $password = $_POST['password'];
+        // проверка аутентификации
+        if ($this->users->exists($login)) {
+            // проверка введенных данных
+            $isValidLogin = $this->users->check($login, $password) == 1;
+            if ($isValidLogin) {
+                // сессия
+                $_SESSION['auth'] = 1;
+                $_SESSION['login'] = $login;
+                // куки
+                setcookie('auth', 1, time() + 60 * 60 * 24, '/');
+                setcookie('login', $login, time() + 60 * 60 * 24, '/');
+
+                echo json_encode(['result' => 1]);
+            } else {
+                echo 'Неправильный пароль';
+            }
+        } else {
+            echo 'Пользователь не существует';
+        }
     }
 
     public function isUniqueNickname()
@@ -29,45 +70,6 @@ class UserController extends Controller
         $nickname = htmlspecialchars($_POST['nickname']);
         $response = $this->users->isUniqueNickname($nickname) ? 1 : 0;
         echo json_encode(['response' => $response]);
-    }
-
-    public function login()
-    {
-        $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
-        // проверка аутентификации
-        if ($_POST['CSRF'] !== $_SESSION['CSRF']) {
-            echo 'Подмена URL-адреса';
-        } elseif ($this->users->existsUser($email)) {
-            // проверка введенных данных
-            $isValidLogin = $this->users->checkUser($email, $password) == 1;
-            if ($isValidLogin) {
-                $_SESSION['auth'] = 1;
-                $_SESSION['email'] = $email;
-                setcookie('auth', 1, time() + 60 * 60 * 24, '/');
-                setcookie('email', $email, time() + 60 * 60 * 24, '/');
-                echo json_encode(['result' => 1]);
-            } else {
-                echo 'Неправильный пароль';
-            }
-        } else {
-            echo 'Пользователь не существует';
-        }
-    }
-
-    // регистрация пользователя
-    public function register()
-    {
-        if (!$this->users->existsUser($_POST['email'])) {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $isRegUser = $this->users->addUser($email, $password) === 1;
-            $data = $isRegUser ? 'user_registered' : 'add_user_error';
-        } else {
-            $data['result'] = 'user_exists';
-        }
-
-        echo json_encode($data);
     }
 
     public function update()
@@ -110,6 +112,18 @@ class UserController extends Controller
         } else {
             $data['user_photo'] = $filename;
             echo $this->users->setUserData($data) ? 1 : 0;
+        }
+    }
+
+    /** получить логин из сессии или куки */
+    public static function getLoginFromClient()
+    {
+        if (isset($_COOKIE['login'])) {
+            return $_COOKIE['login'];
+        } elseif (isset($_SESSION['login'])) {
+            return $_SESSION['login'];
+        } else {
+            return null;
         }
     }
 }

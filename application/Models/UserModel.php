@@ -3,59 +3,42 @@
 namespace Aladser\Models;
 
 /** класс БД таблицы пользователей */
-class UsersDBTableModel extends DBTableModel
+class UserModel extends DBTableModel
 {
     /** проверить существование пользователя */
-    public function existsUser($email): bool
+    public function exists($login): bool
     {
         return $this->db->queryPrepared(
-            'select count(*) as count from users where user_email = :email',
-            ['email' => $email]
+            'select count(*) as count from users where login = :login',
+            ['login' => $login]
         )['count'] == 1;
     }
 
     // проверка авторизации
-    public function checkUser($email, $password): bool
+    public function check($login, $password): bool
     {
         $passHash = $this->db->queryPrepared(
-            "select user_password from users where user_email=:email",
-            ['email' => $email]
-        )['user_password'];
+            'select password from users where login=:login',
+            ['login' => $login]
+        )['password'];
+
         return password_verify($password, $passHash);
     }
 
     // добавить нового пользователя
-    public function addUser($email, $password)
+    public function add($login, $password)
     {
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "insert into users(user_email, user_password) values('$email', '$password')";
+        $sql = "insert into users(login, password) values('$login', '$password')";
+
         return $this->db->exec($sql);
-    }
-
-    // добавить хэш пользователю
-    public function addUserHash($email, $hash)
-    {
-        $sql = "UPDATE users SET user_hash='$hash' WHERE user_email='$email'";
-        return $this->db->exec($sql);
-    }
-
-    // проверить хэш пользователя
-    public function checkUserHash($email, $hash): bool
-    {
-        $sql = "select count(*) as count from users where user_email = :email and user_hash = :hash";
-        return $this->db->queryPrepared($sql, ['email' => $email, 'hash' => $hash])['count'] === 1;
-    }
-
-    /** подтвердить почту */
-    public function confirmEmail($email)
-    {
-        return $this->db->exec("update users set user_email_confirmed = 1, user_hash = null where user_email='$email'");
     }
 
     // проверить уникальность никнейма
     public function isUniqueNickname($nickname): bool
     {
-        $sql = "select count(*) as count from users where user_nickname=:nickname";
+        $sql = 'select count(*) as count from users where user_nickname=:nickname';
+
         return $this->db->queryPrepared($sql, ['nickname' => $nickname])['count'] == 0;
     }
 
@@ -67,17 +50,19 @@ class UsersDBTableModel extends DBTableModel
             from users 
             where user_id = $userId
         ";
+
         return $this->db->query($sql)['username'];
     }
 
     // получить публичное имя пользователя из почты
     public function getPublicUsernameFromEmail(string $userEmail)
     {
-        $sql = "
+        $sql = '
             select getPublicUserName(user_email, user_nickname, user_hide_email) as username 
             from users 
             where user_email = :userEmail
-        ";
+        ';
+
         return $this->db->queryPrepared($sql, ['userEmail' => $userEmail])['username'];
     }
 
@@ -89,6 +74,7 @@ class UsersDBTableModel extends DBTableModel
             from users 
             where user_email = :publicUserName or user_nickname=:publicUserName
         ';
+
         return $this->db->queryPrepared($sql, ['publicUserName' => $publicUserName])['user_id'];
     }
 
@@ -108,6 +94,7 @@ class UsersDBTableModel extends DBTableModel
             from users 
             where user_hide_email  = 0 and user_email != :email and user_email like :phrase;
         ';
+
         return $this->db->queryPrepared($sql, ['email' => $email, 'phrase' => $phrase], false);
     }
 
@@ -127,6 +114,7 @@ class UsersDBTableModel extends DBTableModel
         $data['user_nickname'] = $dbData[0]['user_nickname'];
         $data['user_hide_email'] = $dbData[0]['user_hide_email'];
         $data['user_photo'] = $dbData[0]['user_photo'];
+
         return $data;
     }
 
@@ -164,6 +152,7 @@ class UsersDBTableModel extends DBTableModel
             "select $field from users WHERE user_email=:email",
             ['email' => $email]
         )[$field];
+
         return $data === $dbData;
     }
 }

@@ -5,8 +5,8 @@
         <input type="hidden" name="registration">
 
         <div class='position-relative w-25 mx-auto'>
-            <input type="email" class="w-100 mb-2" id="reg-form__email-input" name='email' placeholder="email">
-            <p class='input-clue' id='reg-form__emai-clue'>введите адрес электронной почты</p>
+            <input type="login" class="w-100 mb-2" id="reg-form__email-input" name='login' placeholder="логин">
+            <p class='input-clue' id='reg-form__emai-clue'>введите логин</p>
         </div>
 
         <div class='position-relative w-25 mx-auto'>

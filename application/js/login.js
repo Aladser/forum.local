@@ -32,7 +32,7 @@ document.querySelector('#login-form').addEventListener('submit', function (e) {
         console.log(data);
         try {
             JSON.parse(data);
-            window.open('/chat', '_self');
+            window.open('/article', '_self');
         } catch (SyntaxError) {
             loginErrorPrg.classList.remove('d-none');
             loginErrorPrg.innerHTML = data;

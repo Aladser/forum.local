@@ -39,11 +39,11 @@ class Route
             && (isset($_SESSION['auth']) || isset($_COOKIE['auth']))
             && !isset($_GET['logout'])
         ) {
-            $controller_name = 'Message';
+            $controller_name = 'Article';
         }
 
         // редирект /Message без авторизации -> messenger.local
-        if (($controller_name === 'Message')
+        if (($controller_name === 'Article')
             && !(isset($_SESSION['auth']) || isset($_COOKIE['auth']))
         ) {
             $controller_name = 'Main';

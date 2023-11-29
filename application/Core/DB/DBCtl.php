@@ -5,7 +5,7 @@ namespace Aladser\Core\DB;
 use Aladser\Models\ConnectionsDBTableModel;
 use Aladser\Models\ContactsDBTableModel;
 use Aladser\Models\MessageDBTableModel;
-use Aladser\Models\UsersDBTableModel;
+use Aladser\Models\UserModel;
 
 /** Класс модели таблицы БД */
 class DBCtl
@@ -17,32 +17,29 @@ class DBCtl
         $this->dbQueryCtl = new DBQueryClass($dbAddr, $dbName, $dbUser, $dbPassword);
     }
 
-    /** Возвращает таблицу пользователей
+    /** Возвращает таблицу пользователей.
      * @return UsersDBTableModel
      */
-    public function getUsers(): UsersDBTableModel
+    public function getUsers(): UserModel
     {
-        return new UsersDBTableModel($this->dbQueryCtl);
+        return new UserModel($this->dbQueryCtl);
     }
 
-    /** Возвращает таблицу контактов
-     * @return ContactsDBTableModel
+    /** Возвращает таблицу контактов.
      */
     public function getContacts(): ContactsDBTableModel
     {
         return new ContactsDBTableModel($this->dbQueryCtl);
     }
 
-    /** Возвращает таблицу соединений
-     * @return ConnectionsDBTableModel
+    /** Возвращает таблицу соединений.
      */
     public function getConnections(): ConnectionsDBTableModel
     {
         return new ConnectionsDBTableModel($this->dbQueryCtl);
     }
 
-    /** Возвращает таблицу сообщений
-     * @return MessageDBTableModel
+    /** Возвращает таблицу сообщений.
      */
     public function getMessageDBTable(): MessageDBTableModel
     {
