@@ -1,3 +1,0 @@
-www-data    6913  0.0  0.1 120948 31068 ?        S    16:12   0:00 php /var/www/buscor.local/application/chat-server.php
-www-data    9588  0.0  0.0   2888  1536 ?        S    16:18   0:00 sh -c ps aux | grep chat-server > /var/www/buscor.local/logs/pids.log
-www-data    9590  0.0  0.0   9064  2304 ?        S    16:18   0:00 grep chat-server
