@@ -8,6 +8,5 @@ function validateEmail(email)
 // валидация пароля
 function validatePassword(password)
 {
-    let passSymbols = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,1000}$/;
-    return passSymbols.test(password);
+    return password.length >= 3;
 }

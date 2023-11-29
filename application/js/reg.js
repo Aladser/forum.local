@@ -99,7 +99,7 @@ regForm.addEventListener('submit', function (e) {
                 password1Input.value = '';
                 password2Input.value = '';
             } else {
-                regErrorPrg.innerHTML = 'Пользователь создан. Подтвердите ваши регистрационные данные по ссылке, указанной в письме, направленном на вашу почту';
+                regErrorPrg.innerHTML = 'Пользователь создан. Войдите в систему c помощью введенных данных';
                 regErrorPrg.classList.remove('text-danger');
                 regErrorPrg.classList.add('text-success');
                 e.target.reset(); // сбрасывает значения всех элементов в форме
