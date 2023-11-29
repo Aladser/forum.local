@@ -22,4 +22,4 @@
     <p class='w-50 mx-auto fw-bolder text-dark-red d-none pt-2 mb-0' id='login-error'></p>
 </div>
 
-<script type='text/javascript' src="http://buscor.local/application/js/validation.js"></script>
+<script type='text/javascript' src="http://forum.local/application/js/validation.js"></script>

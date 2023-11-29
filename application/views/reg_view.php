@@ -33,4 +33,4 @@
     </form>
 </div>
 
-<script type='text/javascript' src="http://buscor.local/application/js/validation.js"></script>
+<script type='text/javascript' src="http://forum.local/application/js/validation.js"></script>

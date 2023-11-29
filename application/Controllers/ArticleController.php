@@ -10,6 +10,6 @@ class ArticleController extends Controller
     public function index()
     {
         $data['login'] = UserController::getLoginFromClient();
-        $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', '', 'Форум. Статьи', $data);
+        $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', '', 'Форум - главная', $data);
     }
 }

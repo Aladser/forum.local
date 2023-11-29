@@ -16,6 +16,6 @@ class MainController extends Controller
             session_destroy();
         }
 
-        $this->view->generate('template_view.php', 'main_view.php', 'main.css', '', 'Деловой чат');
+        $this->view->generate('template_view.php', 'main_view.php', 'main.css', '', 'Форум');
     }
 }

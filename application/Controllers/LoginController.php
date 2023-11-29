@@ -10,6 +10,6 @@ class LoginController extends Controller
     public function index()
     {
         $data = ['csrfToken' => Controller::createCSRFToken()];
-        $this->view->generate('template_view.php', 'login_view.php', '', 'login.js', 'Деловой чат: войти', $data);
+        $this->view->generate('template_view.php', 'login_view.php', '', 'login.js', 'Форум - войти', $data);
     }
 }
