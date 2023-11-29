@@ -11,7 +11,7 @@ create table users
 ALTER TABLE users AUTO_INCREMENT = 1;
 
 insert into users(login, password)
-values ('user', '$2y$10$0sYGnvEXGZx5wshGxnubUu6oC3/eKUTwXpID2r5aPXVRh8hafbwwG');
+values ('user1', '$2y$10$0sYGnvEXGZx5wshGxnubUu6oC3/eKUTwXpID2r5aPXVRh8hafbwwG');
 insert into users(login, password)
 values ('user2', '$2y$10$0sYGnvEXGZx5wshGxnubUu6oC3/eKUTwXpID2r5aPXVRh8hafbwwG');
 

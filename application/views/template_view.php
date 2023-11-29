@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<header>
+<header class='mb-4'>
     <div class='text-center text-white bg-c4c4c4 d-flex justify-content-between'>
         <?php if (!is_null($data)) {?>
             <?php if (array_key_exists('login', $data)) {?>
