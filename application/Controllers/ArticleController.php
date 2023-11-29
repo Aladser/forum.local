@@ -21,6 +21,6 @@ class ArticleController extends Controller
         // статьи
         $data['articles'] = $this->article->all();
 
-        $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', '', 'Форум - главная', $data);
+        $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', 'articles.js', 'Форум - главная', $data);
     }
 }

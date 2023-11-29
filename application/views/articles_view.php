@@ -1,5 +1,5 @@
 <div class='w-75 mx-auto'>
-    <table class='table'>
+    <table class='table-articles table' id='table-articles'>
         <thead>
             <tr> 
                 <th>Тема</th> 
@@ -10,7 +10,7 @@
         <thead>
         <tbody>
         <?php foreach ($data['articles'] as $article) { ?>
-            <tr id="<?php echo $article['id']; ?>">
+            <tr class='table-articles__tr' id="<?php echo $article['id']; ?>">
                 <td><?php echo $article['title']; ?></td>
                 <td><?php echo $article['author_id']; ?></td>
                 <td><?php echo $article['summary']; ?></td>
