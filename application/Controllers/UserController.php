@@ -2,10 +2,8 @@
 
 namespace Aladser\Controllers;
 
-use Aladser\Core\ConfigClass;
 use Aladser\Core\Controller;
 use Aladser\Core\DB\DBCtl;
-use Aladser\EMailSender;
 use Aladser\Models\UsersDBTableModel;
 
 /** контрллер проверки уникальности никнейма */
@@ -59,44 +57,11 @@ class UserController extends Controller
 
     public function register()
     {
-        $eMailSender = new EMailSender(
-            ConfigClass::SMTP_SRV,
-            ConfigClass::EMAIL_USERNAME,
-            ConfigClass::EMAIL_PASSWORD,
-            ConfigClass::SMTP_SECURE,
-            ConfigClass::SMTP_PORT,
-            ConfigClass::EMAIL_SENDER,
-            ConfigClass::EMAIL_SENDER_NAME
-        );
-
-        // проверка CSRF
-        if ($_POST['CSRF'] !== $_SESSION['CSRF']) {
-            echo 'Подмена URL-адреса';
-
-            return;
-        }
-
         if (!$this->users->existsUser($_POST['email'])) {
-            $email = htmlspecialchars($_POST['email']);
-            $password = htmlspecialchars($_POST['password']);
-            $email = $email;
-            $password = $password;
-
+            $email = $_POST['email'];
+            $password = $_POST['password'];
             $isRegUser = $this->users->addUser($email, $password) === 1;
-            if ($isRegUser) {
-                $hash = md5($email.time());
-                $this->users->addUserHash($email, $hash);
-                $text = "
-                <body>
-                <p>Для подтверждения учетной записи в Месенджере перейдите по 
-                <a href=\"http://messenger.local/verify-email?email='$email'&hash='$hash'\">ссылке</a>
-                </p>
-                </body>
-                ";
-                $data['result'] = $eMailSender->send('Месенджер: подтвердите e-mail', $text, $email);
-            } else {
-                $data['result'] = 'add_user_error';
-            }
+            $data = $isRegUser ? 'user_registered' : 'add_user_error';
         } else {
             $data['result'] = 'user_exists';
         }
