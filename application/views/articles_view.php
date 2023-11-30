@@ -12,7 +12,7 @@
         <thead>
         <tbody>
         <?php foreach ($data['articles'] as $article) { ?>
-            <tr class='table-articles__tr' id="<?php echo $article['id']; ?>">
+            <tr class='table-articles__tr cursor-pointer' id="<?php echo $article['id']; ?>">
                 <td class='w-25'><?php echo $article['title']; ?></td>
                 <td class='w-75 text-center'><?php echo $article['summary']; ?></td>
             </tr>
