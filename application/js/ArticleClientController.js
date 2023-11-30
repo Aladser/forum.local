@@ -1,24 +1,8 @@
-/** Фронт-контроллер таблицы 
-  *
-  GET|HEAD        product ...................product.index › ProductController@index
-  *
-  POST            product ..................product.store › ProductController@store
-  *
-  GET|HEAD        product/create ...........product.create › ProductController@create
-  *
-  GET|HEAD        product/{product} ........product.show › ProductController@show
-  *
-  PUT|PATCH       product/{product} ........product.update › ProductController@update
-  *
-  DELETE          product/{product} ........product.destroy › ProductController@destroy
-  *
-  GET|HEAD        product/{product}/edit ...product.edit › ProductController@edit
-*/
 class ArticleClientController {
-    constructor(URL, table, msgElement, addForm = null, editForm = null) {
+    constructor(URL, msgElement, table = null, addForm = null, editForm = null) {
         this.URL = URL;
-        this.table = table;
         this.msgElement = msgElement;
+        this.table = table;
         this.addForm = addForm;
         this.editForm = editForm;
 
@@ -27,12 +11,6 @@ class ArticleClientController {
             this.table
                 .querySelectorAll(`.${this.table.id}__tr`)
                 .forEach((row) => (row.onclick = (e) => this.clickRow(e)));
-
-            this.table
-                .querySelectorAll(".theme__btn-remove")
-                .forEach((btn) => {
-                    btn.onclick = (e) => this.remove(e.target.closest("tr"));
-                });
         }
 
         // форма добавления нового товара
@@ -68,10 +46,6 @@ class ArticleClientController {
     remove(row) {
         let id = row.id;
         id = id.slice(id.indexOf("-") + 1);
-        // заголовки
-        let headers = {
-            "X-CSRF-TOKEN": this.csrfToken.getAttribute("content"),
-        };
         // действия после успешного удаления данных в БД
         let process = (data) => {
             if (data.result == 1) {
@@ -89,8 +63,7 @@ class ArticleClientController {
             process,
             "delete",
             this.msgElement,
-            null,
-            headers
+            null
         );
     }
 
@@ -130,4 +103,29 @@ class ArticleClientController {
         );
     }
 
+    clickRow(e) {
+        // элемент какой строки нажат
+        let tr = e.target.closest('tr'); 
+        // активная статья
+        let activeArticle = articleTable.querySelector(`.${this.table.id}__tr--active`);
+        if (activeArticle !== null && activeArticle !== tr) {
+            activeArticle.classList.remove('bg-secondary');
+            activeArticle.classList.remove('text-white');
+            activeArticle.classList.remove(`${this.table.id}__tr--active`);
+        }
+        // смена активности нажатой строки
+        if (!tr.classList.contains(`${this.table.id}__tr--active`)) {
+            tr.classList.add(`${this.table.id}__tr--active`);
+            tr.classList.add('bg-secondary');
+            tr.classList.add('text-white');
+            editBtn.classList.remove('d-none');
+            removeBtn.classList.remove('d-none');
+        } else {
+            tr.classList.remove(`${this.table.id}__tr--active`);
+            tr.classList.remove('bg-secondary');
+            tr.classList.remove('text-white');
+            editBtn.classList.add('d-none');
+            removeBtn.classList.add('d-none');
+        }
+    }
 }
