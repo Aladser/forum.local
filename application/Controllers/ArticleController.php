@@ -60,12 +60,11 @@ class ArticleController extends Controller
     // обновить статью в бд
     public function update()
     {
-        $id = $this->user->getUserId($_POST['id']);
-        $author = $this->user->getUserId($_POST['author']);
+        $id = $_POST['id'];
         $title = $_POST['title'];
         $summary = $_POST['summary'];
         $content = $_POST['content'];
-        echo (int) $this->article->update($id, $author, $title, $summary, $content);
+        echo (int) $this->article->update($id, $title, $summary, $content);
     }
 
     // удалить статью из бд

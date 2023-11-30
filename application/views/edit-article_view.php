@@ -1,6 +1,6 @@
 <div class='w-50 mx-auto text-center'>
     <form method='POST' id='form-edit-article'>
-        <input type="hidden" name="id" value="<?php $data['id']; ?>">
+        <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
         <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
         <input type="text" class='d-block mx-auto ps-3 p-2 mb-2 w-75 border-C4C4C4' name="title" placeholder='Заголовок' value="<?php echo $data['title']; ?>" required>
         <textarea class="input-group-prepend form-control mb-2 w-75 mx-auto" rows='2'placeholder='Краткое содержание' name='summary' required> <?php echo $data['summary']; ?></textarea>
