@@ -30,7 +30,7 @@ class Article extends DBTableModel
     // обновить статью
     public function update($id, $title, $summary, $content)
     {
-        return $this->db->exec("update articles set title = $title, summary = $summary, content = $content where id = $id") == 1;
+        return $this->db->exec("update articles set title = '$title', summary = '$summary', content = '$content' where id = $id") == 1;
     }
 
     // удалить статью

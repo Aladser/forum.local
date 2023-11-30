@@ -111,7 +111,6 @@ class ArticleClientController {
         let process = (data) => {
             data = JSON.parse(data);
             if (data.result == 1) {
-                console.log(article);
                 article.remove();
                 this.activeArticleId = false;
                 this.msgElement.textContent = "";
