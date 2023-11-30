@@ -5,7 +5,7 @@ namespace Aladser\Models;
 use Aladser\Core\Model;
 
 /** таблица пользователей */
-class UserModel extends Model
+class User extends Model
 {
     /** проверить существование пользователя */
     public function exists($login): bool

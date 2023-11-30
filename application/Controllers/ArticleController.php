@@ -11,8 +11,9 @@ class ArticleController extends Controller
     public function __construct(DBCtl $dbCtl = null)
     {
         parent::__construct($dbCtl);
-        $this->article = $dbCtl->getArticles();
+        $this->articles = $dbCtl->getArticles();
         $this->user = $dbCtl->getUsers();
+        $this->comments = $dbCtl->getComments();
     }
 
     // список статей
@@ -21,7 +22,7 @@ class ArticleController extends Controller
         // логин пользователя
         $data['login'] = UserController::getLoginFromClient();
         // статьи
-        $data['articles'] = $this->article->all();
+        $data['articles'] = $this->articles->all();
 
         $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', 'articles.js', 'Форум - главная', $data);
     }
@@ -32,11 +33,13 @@ class ArticleController extends Controller
         // вырезание id-цифры
         $id = mb_substr($id, 3);
         // данные статьи
-        $data = $this->article->get_article($id);
+        $data['article'] = $this->articles->get_article($id);
         // логин пользователя
         $data['login'] = UserController::getLoginFromClient();
+        // комментарии
+        $data['comments'] = $this->comments->getCommentsOfArticle($id);
 
-        $this->view->generate('template_view.php', 'show-article_view.php', null, 'show-article.js', 'Форум', $data);
+        $this->view->generate('template_view.php', 'show-article_view.php', null, 'show-article.js', "Форум. Статья: {$data['article']['title']}", $data);
     }
 
     // форма создания статьи
@@ -55,7 +58,7 @@ class ArticleController extends Controller
         $title = $_POST['title'];
         $summary = $_POST['summary'];
         $content = $_POST['content'];
-        echo (int) $this->article->add($author, $title, $summary, $content);
+        echo (int) $this->articles->add($author, $title, $summary, $content);
     }
 
     // форма редактирования статьи
@@ -63,7 +66,7 @@ class ArticleController extends Controller
     {
         // данные статьи
         $id = mb_substr($_GET['id'], 3);
-        $data = $this->article->get_article($id);
+        $data = $this->articles->get_article($id);
         // логин пользователя
         $data['login'] = UserController::getLoginFromClient();
 
@@ -77,13 +80,13 @@ class ArticleController extends Controller
         $title = $_POST['title'];
         $summary = $_POST['summary'];
         $content = $_POST['content'];
-        echo (int) $this->article->update($id, $title, $summary, $content);
+        echo (int) $this->articles->update($id, $title, $summary, $content);
     }
 
     // удалить статью из бд
     public function remove()
     {
         $id = $_POST['id'];
-        echo json_encode(['result' => (int) $this->article->remove($id)]);
+        echo json_encode(['result' => (int) $this->articles->remove($id)]);
     }
 }

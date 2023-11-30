@@ -8,9 +8,9 @@ use Aladser\Core\Model;
 class Comment extends Model
 {
     // список комментариев статьи
-    public function all($id)
+    public function getCommentsOfArticle($articleId)
     {
-        return $this->db->query('select * from articles', false);
+        return $this->db->query("select login, content, time from comments join users on users.id=comments.author_id where article_id = $articleId order by time", false);
     }
 
     // добавляет комментарий

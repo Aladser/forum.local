@@ -4,12 +4,12 @@ namespace Aladser\Controllers;
 
 use Aladser\Core\Controller;
 use Aladser\Core\DB\DBCtl;
-use Aladser\Models\UserModel;
+use Aladser\Models\User;
 
 /** контрллер проверки уникальности никнейма */
 class UserController extends Controller
 {
-    private UserModel $users;
+    private User $users;
 
     public function __construct(DBCtl $dbCtl = null)
     {

@@ -10,7 +10,7 @@ class Article extends Model
     // список статей
     public function all()
     {
-        $sql = 'select * from articles';
+        $sql = 'select articles.id as id, login, title, summary, content from articles join users on articles.author_id = users.id';
 
         return $this->db->query($sql, false);
     }

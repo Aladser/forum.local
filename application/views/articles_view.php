@@ -13,7 +13,7 @@
     <table class='table-articles table' id='table-articles'>
         <thead>
             <tr> 
-                <th class='w-25'>Тема</th> 
+                <th class='w-25'>Название</th> 
                 <th class='w-75 text-center'>Описание</th>
             </tr>
         <thead>

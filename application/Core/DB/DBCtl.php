@@ -3,7 +3,8 @@
 namespace Aladser\Core\DB;
 
 use Aladser\Models\Article;
-use Aladser\Models\UserModel;
+use Aladser\Models\Comment;
+use Aladser\Models\User;
 
 /** Класс модели таблицы БД */
 class DBCtl
@@ -15,14 +16,21 @@ class DBCtl
         $this->dbQueryCtl = new DBQueryClass($dbAddr, $dbName, $dbUser, $dbPassword);
     }
 
-    /** Таблица пользователей */
-    public function getUsers(): UserModel
+    /** Пользователи */
+    public function getUsers(): User
     {
-        return new UserModel($this->dbQueryCtl);
+        return new User($this->dbQueryCtl);
     }
 
+    /** Статьи */
     public function getArticles(): Article
     {
         return new Article($this->dbQueryCtl);
+    }
+
+    /** Комментарии */
+    public function getComments(): Comment
+    {
+        return new Comment($this->dbQueryCtl);
     }
 }
