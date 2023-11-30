@@ -11,9 +11,11 @@ class ArticleController extends Controller
     public function __construct(DBCtl $dbCtl = null)
     {
         parent::__construct($dbCtl);
-        $this->article = $dbCtl->getArticle();
+        $this->article = $dbCtl->getArticles();
+        $this->user = $dbCtl->getUsers();
     }
 
+    // список статей
     public function index()
     {
         // логин пользователя
@@ -24,11 +26,22 @@ class ArticleController extends Controller
         $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', 'articles.js', 'Форум - главная', $data);
     }
 
+    // форма создания статей
     public function create()
     {
         // логин пользователя
         $data['login'] = UserController::getLoginFromClient();
 
-        $this->view->generate('template_view.php', 'create-article_view.php', null, null, 'Форум - создать тему', $data);
+        $this->view->generate('template_view.php', 'create-article_view.php', null, 'create-article.js', 'Форум - создать тему', $data);
+    }
+
+    // сохранить статью в бд
+    public function store()
+    {
+        $author = $this->user->getUserId($_POST['author']);
+        $title = $_POST['title'];
+        $summary = $_POST['summary'];
+        $content = $_POST['content'];
+        echo (int) $this->article->add($author, $title, $summary, $content);
     }
 }

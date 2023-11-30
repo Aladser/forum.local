@@ -21,7 +21,7 @@ class DBCtl
         return new UserModel($this->dbQueryCtl);
     }
 
-    public function getArticle(): Article
+    public function getArticles(): Article
     {
         return new Article($this->dbQueryCtl);
     }

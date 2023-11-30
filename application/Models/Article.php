@@ -12,4 +12,9 @@ class Article extends DBTableModel
 
         return $this->db->query($sql, false);
     }
+
+    public function add($author, $title, $summary, $content)
+    {
+        return $this->db->exec("insert into articles(author_id, title, summary, content) values($author, $title, $summary, $content)") == 1;
+    }
 }

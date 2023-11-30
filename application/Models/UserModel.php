@@ -54,28 +54,12 @@ class UserModel extends DBTableModel
         return $this->db->query($sql)['username'];
     }
 
-    // получить публичное имя пользователя из почты
-    public function getPublicUsernameFromEmail(string $userEmail)
-    {
-        $sql = '
-            select getPublicUserName(user_email, user_nickname, user_hide_email) as username 
-            from users 
-            where user_email = :userEmail
-        ';
-
-        return $this->db->queryPrepared($sql, ['userEmail' => $userEmail])['username'];
-    }
-
     // получить ID пользователя
-    public function getUserId(string $publicUserName)
+    public function getUserId(string $login)
     {
-        $sql = '
-            select user_id 
-            from users 
-            where user_email = :publicUserName or user_nickname=:publicUserName
-        ';
+        $sql = 'select id from users where login = :login';
 
-        return $this->db->queryPrepared($sql, ['publicUserName' => $publicUserName])['user_id'];
+        return $this->db->queryPrepared($sql, ['login' => $login])['id'];
     }
 
     // список пользователей по шаблону почты или никнейма

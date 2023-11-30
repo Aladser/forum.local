@@ -4,6 +4,7 @@
 .bg-c4c4c4 {background-color: #C4C4C4;}
 .btn-bg-C4C4C4 {background-color: #C4C4C4;}
 .btn-bg-C4C4C4:hover {background-color: #E4E4E4;}
+.border-C4C4C4 {border: 1px solid #E4E4E4;}
 .text-c4c4c4 {color: #C4C4C4;}
 .text-dark-red {color: rgba(158, 0, 0, 0.768);}
 .font-roboto {font-family: 'Roboto', sans-serif;}
