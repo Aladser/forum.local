@@ -44,4 +44,11 @@ class ArticleController extends Controller
         $content = $_POST['content'];
         echo (int) $this->article->add($author, $title, $summary, $content);
     }
+
+    // удалить статью из бд
+    public function remove()
+    {
+        $id = $_POST['id'];
+        echo json_encode(['result' => (int) $this->article->remove($id)]);
+    }
 }

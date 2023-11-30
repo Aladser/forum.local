@@ -11,5 +11,9 @@ const removeBtn = document.querySelector("#btn-remove");
 const articleController = new ArticleClientController(
   "/article",
   errorPrg,
-  articleTable
+  articleTable,
+  null,
+  null,
+  editBtn,
+  removeBtn
 );

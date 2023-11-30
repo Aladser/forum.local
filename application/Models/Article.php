@@ -17,4 +17,9 @@ class Article extends DBTableModel
     {
         return $this->db->exec("insert into articles(author_id, title, summary, content) values($author, $title, $summary, $content)") == 1;
     }
+
+    public function remove($id)
+    {
+        return $this->db->exec("delete from articles where id = $id") == 1;
+    }
 }

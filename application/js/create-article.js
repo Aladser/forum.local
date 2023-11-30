@@ -1,7 +1,7 @@
 /** Клиентский контроллер тем*/
 const articleController = new ArticleClientController(
     "/article",
-    null,
     document.querySelector("#table-error"),
+    null,
     document.querySelector(`#form-create-article`)
 );
