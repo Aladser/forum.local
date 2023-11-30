@@ -2,8 +2,10 @@
 
 namespace Aladser\Models;
 
-/** класс БД таблицы пользователей */
-class Article extends DBTableModel
+use Aladser\Core\Model;
+
+/** таблица статей */
+class Article extends Model
 {
     // список статей
     public function all()
