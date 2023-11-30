@@ -14,7 +14,7 @@ class ArticleClientController {
         if (this.table) {
             this.table
                 .querySelectorAll(`.${this.table.id}__tr`)
-                .forEach((row) => (row.onclick = (e) => this.clickRow(e)));
+                .forEach((row) => (row.onclick = (e) => this.click(e)));
         }
         // форма добавления нового товара
         if (this.addForm) {
@@ -26,9 +26,46 @@ class ArticleClientController {
             this.editForm.onsubmit = (event) => this.update(event);
             this.editFormId = editForm.id;
         }
+        // кнопка изменения
+        if (this.editBtn) {
+            this.editBtn.onclick = () => this.update();
+        }
         // кнопка удаления
         if (this.removeBtn) {
             this.removeBtn.onclick = () => this.remove();
+        }
+    }
+
+    // клик строки
+    click(e) {
+        // элемент какой строки нажат
+        let tr = e.target.closest('tr'); 
+
+        // активная статья
+        let activeArticle = articleTable.querySelector(`.${this.table.id}__tr--active`);
+        if (activeArticle !== null && activeArticle !== tr) {
+            activeArticle.classList.remove('bg-secondary');
+            activeArticle.classList.remove('text-white');
+            activeArticle.classList.remove(`${this.table.id}__tr--active`);
+        }
+        
+        // смена активности нажатой строки
+        if (!tr.classList.contains(`${this.table.id}__tr--active`)) {
+            tr.classList.add(`${this.table.id}__tr--active`);
+            tr.classList.add('bg-secondary');
+            tr.classList.add('text-white');
+            this.editBtn.classList.remove('d-none');
+            this.removeBtn.classList.remove('d-none');
+            this.activeArticleId = tr.id;
+            this.editBtn.href = `http://forum.local/article/edit?id=${tr.id}`; 
+        } else {
+            tr.classList.remove(`${this.table.id}__tr--active`);
+            tr.classList.remove('bg-secondary');
+            tr.classList.remove('text-white');
+            this.editBtn.classList.add('d-none');
+            this.removeBtn.classList.add('d-none');
+            this.activeArticleId = false;
+            this.editBtn.href = false; 
         }
     }
 
@@ -42,6 +79,24 @@ class ArticleClientController {
             this.URL+'/store',
             (data) => {
                 this.msgElement.innerHTML = data==1 ? 'статья добавлена' : data;
+            },
+            "post",
+            this.msgElement,
+            formData
+        );
+    }
+
+    // обновить товар в БД - article/update
+    update(event) {
+        event.preventDefault();
+        // ---данные---
+        let formData = new FormData(this.editForm);
+        // ---запрос на сервер---
+        ServerRequest.execute(
+            this.URL+'/update',
+            (data) => {
+                console.log(data);
+                this.msgElement.innerHTML = data==1 ? 'статья обновлена' : data;
             },
             "post",
             this.msgElement,
@@ -77,70 +132,5 @@ class ArticleClientController {
             params
         );
     }
-
-    // обновить товар в БД
-    update(event) {
-        event.preventDefault();
-        // ---данные---
-        let product = {};
-        // id
-        product.id = this.editForm.getAttribute("data-id");
-        // артикул
-        if (this.editForm.articul) {
-            product.articul = this.editForm.articul.value;
-        } else {
-            product.articul =
-            document.querySelector(`#${this.editFormId}__articul`).textContent;
-        }
-        // имя
-        product.name = this.editForm.name.value;
-        // статус
-        product.status = this.editForm.status.value;
-        // атрибуты
-        product.data = this.getAttributesFromForm(this.editForm);
-        // ---заголовки---
-        let headers = {
-            "X-CSRF-TOKEN": this.csrfToken.getAttribute("content"),
-            "Content-Type": "application/json",
-        };
-        // ---запрос на сервер---
-        ServerRequest.execute(
-            `${this.URL}/${product.id}`,
-            (data) => this.processData(data),
-            "patch",
-            this.msgElement,
-            JSON.stringify(product),
-            headers
-        );
-    }
-
-    clickRow(e) {
-        // элемент какой строки нажат
-        let tr = e.target.closest('tr'); 
-
-        // активная статья
-        let activeArticle = articleTable.querySelector(`.${this.table.id}__tr--active`);
-        if (activeArticle !== null && activeArticle !== tr) {
-            activeArticle.classList.remove('bg-secondary');
-            activeArticle.classList.remove('text-white');
-            activeArticle.classList.remove(`${this.table.id}__tr--active`);
-        }
-        
-        // смена активности нажатой строки
-        if (!tr.classList.contains(`${this.table.id}__tr--active`)) {
-            tr.classList.add(`${this.table.id}__tr--active`);
-            tr.classList.add('bg-secondary');
-            tr.classList.add('text-white');
-            this.editBtn.classList.remove('d-none');
-            this.removeBtn.classList.remove('d-none');
-            this.activeArticleId = tr.id;
-        } else {
-            tr.classList.remove(`${this.table.id}__tr--active`);
-            tr.classList.remove('bg-secondary');
-            tr.classList.remove('text-white');
-            this.editBtn.classList.add('d-none');
-            this.removeBtn.classList.add('d-none');
-            this.activeArticleId = false;
-        }
-    }
+    
 }

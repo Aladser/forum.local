@@ -45,6 +45,29 @@ class ArticleController extends Controller
         echo (int) $this->article->add($author, $title, $summary, $content);
     }
 
+    // форма редактирования статьи
+    public function edit()
+    {
+        // данные статьи
+        $id = mb_substr($_GET['id'], 3);
+        $data = $this->article->get_article($id);
+        // логин пользователя
+        $data['login'] = UserController::getLoginFromClient();
+
+        $this->view->generate('template_view.php', 'edit-article_view.php', null, 'edit-article.js', 'Форум - изменить тему', $data);
+    }
+
+    // обновить статью в бд
+    public function update()
+    {
+        $id = $this->user->getUserId($_POST['id']);
+        $author = $this->user->getUserId($_POST['author']);
+        $title = $_POST['title'];
+        $summary = $_POST['summary'];
+        $content = $_POST['content'];
+        echo (int) $this->article->update($id, $author, $title, $summary, $content);
+    }
+
     // удалить статью из бд
     public function remove()
     {
