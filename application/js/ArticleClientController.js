@@ -64,6 +64,36 @@ class ArticleClientController {
         );
     }
 
+    // удалить товар в БД
+    remove(row) {
+        let id = row.id;
+        id = id.slice(id.indexOf("-") + 1);
+        // заголовки
+        let headers = {
+            "X-CSRF-TOKEN": this.csrfToken.getAttribute("content"),
+        };
+        // действия после успешного удаления данных в БД
+        let process = (data) => {
+            if (data.result == 1) {
+                // удаление данных из клиента
+                row.remove();
+                this.msgElement.textContent = "";
+            } else {
+                this.msgElement.textContent = data;
+            }
+        };
+
+        // запрос на сервер
+        ServerRequest.execute(
+            `${this.URL}/${id}`,
+            process,
+            "delete",
+            this.msgElement,
+            null,
+            headers
+        );
+    }
+
     // обновить товар в БД
     update(event) {
         event.preventDefault();
@@ -100,64 +130,4 @@ class ArticleClientController {
         );
     }
 
-    // удалить товар в БД
-    remove(row) {
-        let id = row.id;
-        id = id.slice(id.indexOf("-") + 1);
-        // заголовки
-        let headers = {
-            "X-CSRF-TOKEN": this.csrfToken.getAttribute("content"),
-        };
-        // действия после успешного удаления данных в БД
-        let process = (data) => {
-            if (data.result == 1) {
-                // удаление данных из клиента
-                row.remove();
-                this.msgElement.textContent = "";
-            } else {
-                this.msgElement.textContent = data;
-            }
-        };
-
-        // запрос на сервер
-        ServerRequest.execute(
-            `${this.URL}/${id}`,
-            process,
-            "delete",
-            this.msgElement,
-            null,
-            headers
-        );
-    }
-
-    // обработка успешного запроса к серверу
-    processData(data) {
-        if (data.result == 1) {
-            this.msgElement.textContent = `Товар ${data.row.articul} (${data.row.name}) ${data.type}`;
-        } else {
-            this.msgElement.textContent = data.description;
-        }
-    }
-
-    /** получить атрибуты товара */
-    getAttributesFromForm(form) {
-        let data = new Map();
-        let attributesElements = document.querySelectorAll(
-            `.${form.id}__attribute`
-        );
-        if (attributesElements.length > 0) {
-            attributesElements.forEach((element) => {
-                let name = element.querySelector(
-                    `.${form.id}__attr-name`
-                ).value;
-                let value = element.querySelector(
-                    `.${form.id}__attr-value`
-                ).value;
-                if (name !== "" && value !== "") {
-                    data.set(name, value);
-                }
-            });
-        }
-        return JSON.stringify(Object.fromEntries(data));
-    }
 }

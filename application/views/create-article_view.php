@@ -6,7 +6,7 @@
         <textarea class="input-group-prepend form-control mb-2 w-75 mx-auto" rows='10'placeholder='Содержание' name='content' required></textarea>
         <input type="submit" value='Добавить' class='d-inline-block border border-dark text-decoration-none text-dark p-2 bg-white border-C4C4C4'>
         <a href="/article">
-            <p class='d-inline-block border border-dark text-decoration-none text-dark p-2'>На главную</p>
+            <p class='d-inline-block border border-dark text-decoration-none text-dark p-2'>Назад</p>
         </a>
     </form>
     <p id='table-error' class='pb-4 text-center text-danger fw-bolder'></p>
