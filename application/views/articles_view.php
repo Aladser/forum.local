@@ -2,6 +2,9 @@
     <a href="/article/create">
         <p class='d-inline-block border border-dark text-decoration-none text-dark p-3'>Новая тема</p>
     </a>
+    <a href="/article/" id='btn-about' class='d-none'>
+        <p class='d-inline-block border border-dark text-decoration-none text-dark p-3 bg-white'>Подробно</p>
+    </a>
     <a href="" id='btn-edit' class='d-none'>
         <p class='d-inline-block border border-dark text-decoration-none text-dark p-3 bg-white'>Редактировать</p>
     </a>

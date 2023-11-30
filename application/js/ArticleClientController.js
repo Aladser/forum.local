@@ -1,12 +1,15 @@
 class ArticleClientController {
-    constructor(URL, msgElement, table = null, addForm = null, editForm = null, editBtn=null, removeBtn=null) {
+    constructor(URL, msgElement, table = null, addForm = null, editForm = null, editBtn=null, removeBtn=null, aboutBtn=null) {
         this.URL = URL;
         this.msgElement = msgElement;
         this.table = table;
+        
         this.addForm = addForm;
         this.editForm = editForm;
+
         this.editBtn = editBtn;
         this.removeBtn = removeBtn;
+        this.aboutBtn = aboutBtn;
 
         this.activeArticleId = false;
 
@@ -56,16 +59,22 @@ class ArticleClientController {
             tr.classList.add('text-white');
             this.editBtn.classList.remove('d-none');
             this.removeBtn.classList.remove('d-none');
+            this.aboutBtn.classList.remove('d-none');
             this.activeArticleId = tr.id;
-            this.editBtn.href = `http://forum.local/article/edit?id=${tr.id}`; 
+
+            this.editBtn.href = `http://forum.local/article/edit?id=${tr.id}`;
+            this.aboutBtn.href = `http://forum.local/article/show/${tr.id}`; 
         } else {
             tr.classList.remove(`${this.table.id}__tr--active`);
             tr.classList.remove('bg-secondary');
             tr.classList.remove('text-white');
             this.editBtn.classList.add('d-none');
             this.removeBtn.classList.add('d-none');
+            this.aboutBtn.classList.add('d-none');
             this.activeArticleId = false;
-            this.editBtn.href = false; 
+
+            this.editBtn.href = false;
+            this.aboutBtn.href = false; 
         }
     }
 

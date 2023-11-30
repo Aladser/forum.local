@@ -26,7 +26,20 @@ class ArticleController extends Controller
         $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', 'articles.js', 'Форум - главная', $data);
     }
 
-    // форма создания статей
+    // показать статью
+    public function show($id)
+    {
+        // вырезание id-цифры
+        $id = mb_substr($id, 3);
+        // данные статьи
+        $data = $this->article->get_article($id);
+        // логин пользователя
+        $data['login'] = UserController::getLoginFromClient();
+
+        $this->view->generate('template_view.php', 'show-article_view.php', null, 'show-article.js', 'Форум', $data);
+    }
+
+    // форма создания статьи
     public function create()
     {
         // логин пользователя

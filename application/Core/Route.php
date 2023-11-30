@@ -11,13 +11,13 @@ class Route
     {
         session_start();
 
-        // контроллер и аргументы
+        // /контроллер/функция/аргумент
         $routes = mb_substr($_SERVER['REQUEST_URI'], 1);
         $routes = explode('?', $routes)[0];
         $routesArr = explode('/', $routes);
-        // выбор контроллера
+        // получение контроллера
         $controller_name = !empty($routes) ? ucfirst($routesArr[0]) : 'main';
-        // получение имени метода
+        // получение функции
         if (count($routesArr) > 1) {
             $action = $routesArr[1];
             $actionArr = explode('-', $action);
@@ -28,6 +28,8 @@ class Route
         } else {
             $action = 'index';
         }
+        // функция аргумента
+        $funcParam = count($routesArr) == 3 ? $routesArr[2] : false;
 
         // преобразовать url в название класса
         $controller_name = str_replace('-', ' ', $controller_name);
@@ -67,7 +69,12 @@ class Route
 
         // вызов метода
         if (method_exists($controller, $action)) {
-            $controller->$action();
+            // проверка наличия аргумента функции
+            if ($funcParam) {
+                $controller->$action($funcParam);
+            } else {
+                $controller->$action();
+            }
         } else {
             $controller = new Page404Controller();
             $controller->index();
