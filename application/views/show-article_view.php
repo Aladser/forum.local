@@ -4,6 +4,7 @@
             <p class='d-inline-block border border-dark text-decoration-none text-dark p-2'>Назад</p>
         </a>
         <h2><?php echo $data['article']['title']; ?></h2>
+        <p>Автор: <?php echo $data['article']['username']; ?></p>
         <p><?php echo $data['article']['content']; ?></p>
     </section>
     <div class='w-50 mx-auto'><hr></div>
