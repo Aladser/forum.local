@@ -17,50 +17,51 @@ class ArticleController extends Controller
     }
 
     // список статей
-    public function index()
+    public function index(): void
     {
-        // логин пользователя
         $data['login'] = UserController::getLoginFromClient();
-        // статьи
         $data['articles'] = $this->articles->all();
 
         $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', null, 'Форум - статьи', $data);
     }
 
     // показать статью
-    public function show($id)
+    public function show($id): void
     {
-        // данные статьи
         $data['article'] = $this->articles->get_article($id);
-        // логин пользователя
         $data['login'] = UserController::getLoginFromClient();
-        // комментарии
         $data['comments'] = $this->comments->getCommentsOfArticle($id);
 
         $this->view->generate('template_view.php', 'show-article_view.php', null, 'show-article.js', "Форум. Статья: {$data['article']['title']}", $data);
     }
 
     // форма создания статьи
-    public function create()
+    public function create(): void
     {
-        // логин пользователя
         $data['login'] = UserController::getLoginFromClient();
 
         $this->view->generate('template_view.php', 'create-article_view.php', null, 'create-article.js', 'Форум - создать тему', $data);
     }
 
     // сохранить статью в бд
-    public function store()
+    public function store(): void
     {
         $author = $this->user->getId($_POST['author']);
         $title = $_POST['title'];
         $summary = $_POST['summary'];
         $content = $_POST['content'];
-        echo (int) $this->articles->add($author, $title, $summary, $content);
+
+        if (!$this->articles->title_exsists($title)) {
+            $isAdded = $this->articles->add($author, $title, $summary, $content);
+            $result = ['result' => (int) $isAdded];
+        } else {
+            $result = ['result' => 0, 'description' => 'заголовок занят'];
+        }
+        echo json_encode($result);
     }
 
     // форма редактирования статьи
-    public function edit($id)
+    public function edit($id): void
     {
         // данные о статье
         $data = $this->articles->get_article($id);
@@ -71,7 +72,7 @@ class ArticleController extends Controller
     }
 
     // обновить статью в бд
-    public function update()
+    public function update(): void
     {
         $id = $_POST['id'];
         $title = $_POST['title'];
@@ -81,7 +82,7 @@ class ArticleController extends Controller
     }
 
     // удалить статью из бд
-    public function remove($id)
+    public function remove($id): void
     {
         $this->comments->removeCommentsOfArticle($id);
         $isRemoved = $this->articles->remove($id);

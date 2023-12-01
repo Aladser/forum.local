@@ -24,20 +24,34 @@ class Article extends Model
     }
 
     // добавить статью
-    public function add($author, $title, $summary, $content)
+    public function add($author, $title, $summary, $content): bool
     {
-        return $this->db->exec("insert into articles(author_id, title, summary, content) values($author, $title, $summary, $content)") == 1;
+        $sql = "insert into articles(author_id, title, summary, content) values($author, $title, $summary, $content)";
+
+        return $this->db->exec($sql) == 1;
     }
 
     // обновить статью
-    public function update($id, $title, $summary, $content)
+    public function update($id, $title, $summary, $content): bool
     {
-        return $this->db->exec("update articles set title = '$title', summary = '$summary', content = '$content' where id = $id") == 1;
+        $sql = "update articles set title = '$title', summary = '$summary', content = '$content' where id = $id";
+
+        return $this->db->exec($sql) == 1;
     }
 
     // удалить статью
-    public function remove($id)
+    public function remove($id): bool
     {
-        return $this->db->exec("delete from articles where id = $id") == 1;
+        $sql = "delete from articles where id = $id";
+
+        return $this->db->exec($sql) == 1;
+    }
+
+    /** проверка существования заголовока статьи */
+    public function title_exsists($title): bool
+    {
+        $sql = 'select count(*) as count from articles where title = :title';
+
+        return $this->db->queryPrepared($sql, ['title' => $title])['count'] == 1;
     }
 }
