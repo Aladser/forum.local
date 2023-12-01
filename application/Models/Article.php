@@ -54,4 +54,12 @@ class Article extends Model
 
         return $this->db->queryPrepared($sql, ['title' => $title])['count'] == 1;
     }
+
+    /** число записей */
+    public function count()
+    {
+        $sql = 'select count(*) as count from articles';
+
+        return $this->db->query($sql)['count'];
+    }
 }

@@ -3,6 +3,10 @@
         <p class='d-inline-block border border-secondary text-decoration-none text-dark p-3'>Новая тема</p>
     </a>
 
+    <br>
+    <?php
+    echo $data['pages'];
+    ?>
     <section>
          <article class='d-flex border-start border-end border-secondary p-1'>
             <p class='w-25 m-0 fw-bolder p-1'>Название</p>

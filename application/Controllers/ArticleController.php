@@ -8,12 +8,27 @@ use Aladser\Core\DB\DBCtl;
 /** статьи */
 class ArticleController extends Controller
 {
-    public function __construct(DBCtl $dbCtl = null)
+    public function __construct(DBCtl $dbCtl = null, int $articlesToPage = 5)
     {
         parent::__construct($dbCtl);
-        $this->articles = $dbCtl->getArticles();
+
         $this->user = $dbCtl->getUsers();
+        $this->articles = $dbCtl->getArticles();
         $this->comments = $dbCtl->getComments();
+
+        // данные для пагинации
+        $this->articlesToPage = $articlesToPage;
+        $this->articleCount = $this->articles->count();
+        // число страниц
+        if ($this->articleCount <= $this->articlesToPage) {
+            $this->pageCount = 1;
+        } else {
+            $this->pageCount = intdiv($this->articleCount, $this->articlesToPage);
+
+            if ($this->articleCount % $this->articlesToPage != 0) {
+                ++$this->pageCount;
+            }
+        }
     }
 
     // список статей
@@ -21,16 +36,16 @@ class ArticleController extends Controller
     {
         $data['login'] = UserController::getLoginFromClient();
         $data['articles'] = $this->articles->all();
-
+        $data['pages'] = $this->pageCount;
         $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', null, 'Форум - статьи', $data);
     }
 
     // показать статью
-    public function show($id): void
+    public function show($articleId): void
     {
-        $data['article'] = $this->articles->get_article($id);
+        $data['article'] = $this->articles->get_article($articleId);
         $data['login'] = UserController::getLoginFromClient();
-        $data['comments'] = $this->comments->getCommentsOfArticle($id);
+        $data['comments'] = $this->comments->getCommentsOfArticle($articleId);
 
         $this->view->generate('template_view.php', 'show-article_view.php', null, 'article/show-article.js', "Форум. Статья: {$data['article']['title']}", $data);
     }
