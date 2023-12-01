@@ -6,7 +6,7 @@ use Aladser\Core\Controller;
 use Aladser\Core\DB\DBCtl;
 use Aladser\Models\User;
 
-/** контрллер проверки уникальности никнейма */
+/** пользователи */
 class UserController extends Controller
 {
     private User $users;

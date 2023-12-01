@@ -11,9 +11,10 @@ class Route
     {
         session_start();
 
-        // /контроллер/функция/аргумент
+        // URL - /контроллер/функция/аргумент
         $routes = mb_substr($_SERVER['REQUEST_URI'], 1);
         $routes = explode('?', $routes)[0];
+        // URL как массив
         $routesArr = explode('/', $routes);
         // получение контроллера
         $controller_name = !empty($routes) ? ucfirst($routesArr[0]) : 'main';
@@ -36,7 +37,7 @@ class Route
         $controller_name = ucwords($controller_name);
         $controller_name = str_replace(' ', '', $controller_name);
 
-        // авторизация сохраняется в куки и сессии. Если авторизация есть, то messenger.local -> messenger.local/message
+        // авторизация сохраняется в куки и сессии. Если авторизация есть, то forum.local -> forum.local/article
         if ($controller_name === 'Main'
             && (isset($_SESSION['auth']) || isset($_COOKIE['auth']))
             && !isset($_GET['logout'])
@@ -44,7 +45,7 @@ class Route
             $controller_name = 'Article';
         }
 
-        // редирект /Message без авторизации -> messenger.local
+        // редирект /Message без авторизации -> forum.local
         if (($controller_name === 'Article')
             && !(isset($_SESSION['auth']) || isset($_COOKIE['auth']))
         ) {

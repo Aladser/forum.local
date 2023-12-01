@@ -5,7 +5,7 @@ namespace Aladser\Controllers;
 use Aladser\Core\Controller;
 use Aladser\Core\DB\DBCtl;
 
-/** диалоги */
+/** статьи */
 class ArticleController extends Controller
 {
     public function __construct(DBCtl $dbCtl = null)
