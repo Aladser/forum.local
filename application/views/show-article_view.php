@@ -1,12 +1,25 @@
 <container>
+    <!-- кнопки -->
+    <section class='w-50 mx-auto p-2 text-center'>
+        <?php if ($data['login'] === $data['article']['username']) { ?>
+            <a href="<?php echo '/article/edit/'.$data['article']['id']; ?>" 
+               id='btn-edit' 
+               class='d-inline-block border border-dark text-decoration-none text-dark p-3 bg-white'>Редактировать</a>
+            <a href="<?php echo '/article/remove/'.$data['article']['id']; ?>" 
+               id='btn-edit' 
+               class='d-inline-block border border-dark text-decoration-none text-dark p-3 bg-white'>Удалить</a>
+        <?php } ?>
+        <a href="/article" class='d-inline-block border border-dark text-decoration-none text-dark p-3 bg-white'>Назад</a>
+    </section>
+
+    <!-- статья --> 
     <section class='w-50 mx-auto p-2 text-center border-start border-end'>
-        <a href="/article">
-            <p class='d-inline-block border border-dark text-decoration-none text-dark p-2'>Назад</p>
-        </a>
         <h2><?php echo $data['article']['title']; ?></h2>
         <p>Автор: <?php echo $data['article']['username']; ?></p>
         <p><?php echo $data['article']['content']; ?></p>
     </section>
+
+    <!-- комментарии -->
     <div class='w-50 mx-auto'><hr></div>
     <section class='w-50 mx-auto p-2 text-center border-start border-end'>
         <h4 class='text-start ps-2'> Комментарии </h4>
@@ -28,6 +41,8 @@
             </form>
         </div>
     </section>
+
+    <!-- ошибки -->
     <p id='table-error' class='pb-4 text-center text-danger fw-bolder'></p>
 </container>
 

@@ -13,12 +13,6 @@ class ArticleClientController {
 
         this.activeArticleId = false;
 
-        // таблица
-        if (this.table) {
-            this.table
-                .querySelectorAll(`.${this.table.id}__tr`)
-                .forEach((row) => (row.onclick = (e) => this.click(e)));
-        }
         // форма добавления нового товара
         if (this.addForm) {
             this.addForm.onsubmit = (event) => this.add(event);
@@ -36,45 +30,6 @@ class ArticleClientController {
         // кнопка удаления
         if (this.removeBtn) {
             this.removeBtn.onclick = () => this.remove();
-        }
-    }
-
-    // клик строки
-    click(e) {
-        // элемент какой строки нажат
-        let tr = e.target.closest('tr'); 
-
-        // активная статья
-        let activeArticle = articleTable.querySelector(`.${this.table.id}__tr--active`);
-        if (activeArticle !== null && activeArticle !== tr) {
-            activeArticle.classList.remove('bg-secondary');
-            activeArticle.classList.remove('text-white');
-            activeArticle.classList.remove(`${this.table.id}__tr--active`);
-        }
-        
-        // смена активности нажатой строки
-        if (!tr.classList.contains(`${this.table.id}__tr--active`)) {
-            tr.classList.add(`${this.table.id}__tr--active`);
-            tr.classList.add('bg-secondary');
-            tr.classList.add('text-white');
-            this.editBtn.classList.remove('d-none');
-            this.removeBtn.classList.remove('d-none');
-            this.aboutBtn.classList.remove('d-none');
-            this.activeArticleId = tr.id;
-
-            this.editBtn.href = `http://forum.local/article/edit?id=${tr.id}`;
-            this.aboutBtn.href = `http://forum.local/article/show/${tr.id}`; 
-        } else {
-            tr.classList.remove(`${this.table.id}__tr--active`);
-            tr.classList.remove('bg-secondary');
-            tr.classList.remove('text-white');
-            this.editBtn.classList.add('d-none');
-            this.removeBtn.classList.add('d-none');
-            this.aboutBtn.classList.add('d-none');
-            this.activeArticleId = false;
-
-            this.editBtn.href = false;
-            this.aboutBtn.href = false; 
         }
     }
 

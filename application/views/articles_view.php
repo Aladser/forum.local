@@ -1,33 +1,23 @@
 <section class='w-50 mx-auto'>
     <a href="/article/create">
-        <p class='d-inline-block border border-dark text-decoration-none text-dark p-3'>Новая тема</p>
+        <p class='d-inline-block border border-secondary text-decoration-none text-dark p-3'>Новая тема</p>
     </a>
-    <a href="/article/" id='btn-about' class='d-none'>
-        <p class='d-inline-block border border-dark text-decoration-none text-dark p-3 bg-white'>Подробно</p>
-    </a>
-    <a href="" id='btn-edit' class='d-none'>
-        <p class='d-inline-block border border-dark text-decoration-none text-dark p-3 bg-white'>Редактировать</p>
-    </a>
-    <button class='d-inline-block border border-dark text-decoration-none text-dark p-3 bg-white d-none' id='btn-remove'>Удалить</button>
 
-    <table class='table-articles table' id='table-articles'>
-        <thead>
-            <tr> 
-                <th class='w-25'>Название</th> 
-                <th class='w-75 text-center'>Описание</th>
-            </tr>
-        <thead>
-        <tbody>
+    <section>
+         <article class='d-flex border-start border-end border-secondary p-1'>
+            <p class='w-25 m-0 fw-bolder p-1'>Название</p>
+            <p class='w-75 text-center m-0 fw-bolder p-1'>Описание</p>
+            <p class='w-25 text-center m-0 fw-bolder p-1'>Автор</p>
+        </article>
         <?php foreach ($data['articles'] as $article) { ?>
-            <tr class='table-articles__tr cursor-pointer' id="<?php echo 'id-'.$article['id']; ?>">
-                <td class='w-25'><?php echo $article['title']; ?></td>
-                <td class='w-75 text-center'><?php echo $article['summary']; ?></td>
-            </tr>
+            <a href="<?php echo '/article/show/'.$article['id']; ?>" class='text-decoration-none text-dark'>
+            <!-- для удобства показываю автора статьи -->
+            <article class='table-articles__tr cursor-pointer d-flex py-1 border-top border-start border-end border-secondary'>
+                <p class='w-25 m-0 p-2'><?php echo $article['title']; ?></p>
+                <p class='w-50 text-center m-0 p-2'><?php echo $article['summary']; ?></p>
+                <p class='w-25 text-center m-0 p-2'><?php echo $article['login']; ?></p>
+            </article>
+            </a>
         <?php }?>
-        </tbody>
-    </table>
-    <p id='table-error' class='pb-4 text-center text-danger fw-bolder'></p>
+    </section>
 </section>
-
-<script type='text/javascript' src="http://forum.local/application/js/ServerRequest.js"></script>
-<script type='text/javascript' src="http://forum.local/application/js/ArticleClientController.js"></script>

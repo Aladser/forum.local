@@ -24,14 +24,12 @@ class ArticleController extends Controller
         // статьи
         $data['articles'] = $this->articles->all();
 
-        $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', 'articles.js', 'Форум - главная', $data);
+        $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', null, 'Форум - статьи', $data);
     }
 
     // показать статью
     public function show($id)
     {
-        // вырезание id-цифры
-        $id = mb_substr($id, 3);
         // данные статьи
         $data['article'] = $this->articles->get_article($id);
         // логин пользователя
@@ -54,7 +52,7 @@ class ArticleController extends Controller
     // сохранить статью в бд
     public function store()
     {
-        $author = $this->user->getUserId($_POST['author']);
+        $author = $this->user->getId($_POST['author']);
         $title = $_POST['title'];
         $summary = $_POST['summary'];
         $content = $_POST['content'];
@@ -62,10 +60,9 @@ class ArticleController extends Controller
     }
 
     // форма редактирования статьи
-    public function edit()
+    public function edit($id)
     {
-        // данные статьи
-        $id = mb_substr($_GET['id'], 3);
+        // данные о статье
         $data = $this->articles->get_article($id);
         // логин пользователя
         $data['login'] = UserController::getLoginFromClient();
@@ -84,9 +81,11 @@ class ArticleController extends Controller
     }
 
     // удалить статью из бд
-    public function remove()
+    public function remove($id)
     {
-        $id = $_POST['id'];
-        echo json_encode(['result' => (int) $this->articles->remove($id)]);
+        $this->comments->removeCommentsOfArticle($id);
+        $isRemoved = $this->articles->remove($id);
+        $url = $isRemoved ? 'Location: \\' : 'Location: \404';
+        header($url);
     }
 }
