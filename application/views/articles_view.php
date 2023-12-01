@@ -6,7 +6,7 @@
     <section>
          <article class='d-flex border-start border-end border-secondary p-1'>
             <p class='w-25 m-0 fw-bolder p-1'>Название</p>
-            <p class='w-75 text-center m-0 fw-bolder p-1'>Описание</p>
+            <p class='w-50 text-center m-0 fw-bolder p-1'>Описание</p>
             <p class='w-25 text-center m-0 fw-bolder p-1'>Автор</p>
         </article>
         <?php foreach ($data['articles'] as $article) { ?>
