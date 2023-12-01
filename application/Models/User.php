@@ -44,20 +44,8 @@ class User extends Model
         return $this->db->queryPrepared($sql, ['nickname' => $nickname])['count'] == 0;
     }
 
-    /** получить публичное имя пользователя из ID */
-    public function getPublicUsername(int $userId)
-    {
-        $sql = "
-            select getPublicUserName(user_email, user_nickname, user_hide_email) as username 
-            from users 
-            where user_id = $userId
-        ";
-
-        return $this->db->query($sql)['username'];
-    }
-
     // получить ID пользователя
-    public function getUserId(string $login)
+    public function getId(string $login)
     {
         $sql = 'select id from users where login = :login';
 

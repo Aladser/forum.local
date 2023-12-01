@@ -9,7 +9,7 @@
     <div class='w-50 mx-auto'><hr></div>
     <section class='w-50 mx-auto p-2 text-center border-start border-end'>
         <h4 class='text-start ps-2'> Комментарии </h4>
-        <p>
+        <p id='comment-list'>
             <?php foreach ($data['comments'] as $comment) { ?>
                 <article class='border-C4C4C4 mb-2'>
                     <p class='text-start m-0 ps-2 fw-bolder'><?php echo $comment['login']; ?></p>
@@ -20,6 +20,7 @@
         </p>
         <div class='input-group pb-2'>
             <form method='post' class='d-flex justify-content-between w-100' id='form-send-message'>
+                <input type="hidden" name="article" value="<?php echo $data['article']['id']; ?>" >
                 <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
                 <textarea class="input-group-prepend form-control" rows='3' placeholder='Сообщение' name='message'></textarea>
                 <button type="submit" class='btn border border-black' title='Отправить'>Отправить</button>

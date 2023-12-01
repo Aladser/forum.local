@@ -1,23 +1,35 @@
 class CommentClientController {
-    constructor(URL, msgElement, sendCommentForm) {
+    constructor(URL, msgElement, sendCommentForm, commentList) {
         this.URL = URL;
         this.msgElement = msgElement;
         this.sendCommentForm = sendCommentForm;
         this.sendCommentForm.onsubmit = (event) => this.add(event);
+        this.commentList = commentList;
     }
 
     // добавить коммент в БД - comment/store
     add(event) {
         event.preventDefault();
-        console.log(event.target);
         // ---данные---
         let formData = new FormData(this.sendCommentForm);
+        let timeNow = this.getTimeNow();
         // ---запрос на сервер---
         ServerRequest.execute(
             this.URL+'/store',
             (data) => {
-                console.log(data);
-                this.msgElement.innerHTML = data==1 ? 'статья добавлена' : data;
+                data = JSON.parse(data);
+                if (data.result != 1) {
+                    this.msgElement.innerHTML = data;
+                } else {
+                    event.target.reset();
+                    this.commentList.innerHTML += `
+                        <article class='border-C4C4C4 mb-2'>
+                            <p class='text-start m-0 ps-2 fw-bolder'>${data.comment.author}</p>
+                            <p class='text-start m-0 py-2 ps-3 fs-5'>${data.comment.content}</p>
+                            <p class='text-end m-0 pe-2'>${timeNow}</p>
+                        </article>
+                    `;
+                }
             },
             "post",
             this.msgElement,
@@ -53,5 +65,19 @@ class CommentClientController {
             params
         );
     }
-    
+
+    // текущее время
+    getTimeNow() {
+        let formatNumber = (number) => number < 10 ? '0'+number : number;
+
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = formatNumber(date.getMonth());
+        let day = formatNumber(date.getDay());
+        let hours = formatNumber(date.getHours());
+        let minutes = formatNumber(date.getMinutes());
+        let seconds = formatNumber(date.getSeconds());
+
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
 }

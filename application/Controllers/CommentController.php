@@ -12,13 +12,21 @@ class CommentController extends Controller
     {
         parent::__construct($dbCtl);
         $this->articles = $dbCtl->getArticles();
-        $this->user = $dbCtl->getUsers();
+        $this->users = $dbCtl->getUsers();
         $this->comments = $dbCtl->getComments();
     }
 
     public function store()
     {
-        var_dump($_POST);
+        $author = $_POST['author'];
+        $authorId = $this->users->getId($author);
+        $articleId = $_POST['article'];
+        $content = $_POST['message'];
+
+        echo json_encode([
+            'result' => (int) $this->comments->add($authorId, $articleId, $content),
+            'comment' => ['author' => $author, 'content' => $content],
+        ]);
     }
 
     public function remove()

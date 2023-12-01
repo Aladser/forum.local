@@ -14,9 +14,9 @@ class Comment extends Model
     }
 
     // добавляет комментарий
-    public function add($author, $content)
+    public function add($authorId, $articleId, $content)
     {
-        return $this->db->exec("insert into articles(author_id, title, summary, content) values($author, $title, $summary, $content)") == 1;
+        return $this->db->exec("insert into comments(author_id, article_id, content) values($authorId, $articleId, '$content')") == 1;
     }
 
     // удаляет комментарий
