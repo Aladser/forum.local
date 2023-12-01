@@ -14,4 +14,4 @@
 </div>
 
 <script type='text/javascript' src="http://forum.local/application/js/ServerRequest.js"></script>
-<script type='text/javascript' src="http://forum.local/application/js/ArticleClientController.js"></script>
+<script type='text/javascript' src="http://forum.local/application/js/article/ArticleClientController.js"></script>

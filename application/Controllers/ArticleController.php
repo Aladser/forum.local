@@ -32,7 +32,7 @@ class ArticleController extends Controller
         $data['login'] = UserController::getLoginFromClient();
         $data['comments'] = $this->comments->getCommentsOfArticle($id);
 
-        $this->view->generate('template_view.php', 'show-article_view.php', null, 'show-article.js', "Форум. Статья: {$data['article']['title']}", $data);
+        $this->view->generate('template_view.php', 'show-article_view.php', null, 'article/show-article.js', "Форум. Статья: {$data['article']['title']}", $data);
     }
 
     // форма создания статьи
@@ -40,7 +40,7 @@ class ArticleController extends Controller
     {
         $data['login'] = UserController::getLoginFromClient();
 
-        $this->view->generate('template_view.php', 'create-article_view.php', null, 'create-article.js', 'Форум - создать тему', $data);
+        $this->view->generate('template_view.php', 'create-article_view.php', null, 'article/create-article.js', 'Форум - создать тему', $data);
     }
 
     // сохранить статью в бд
@@ -68,7 +68,7 @@ class ArticleController extends Controller
         // логин пользователя
         $data['login'] = UserController::getLoginFromClient();
 
-        $this->view->generate('template_view.php', 'edit-article_view.php', null, 'edit-article.js', 'Форум - изменить тему', $data);
+        $this->view->generate('template_view.php', 'edit-article_view.php', null, 'article/edit-article.js', 'Форум - изменить тему', $data);
     }
 
     // обновить статью в бд
