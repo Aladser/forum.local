@@ -1,6 +1,6 @@
 <container>
     <!-- кнопки -->
-    <section class='w-50 mx-auto p-2 text-center'>
+    <section class='w-50 mx-auto p-2'>
         <?php if ($data['login'] === $data['article']['username']) { ?>
             <a href="<?php echo '/article/edit/'.$data['article']['id']; ?>" 
                id='btn-edit' 
