@@ -15,6 +15,14 @@ class Article extends Model
         return $this->db->query($sql, false);
     }
 
+    // список статей
+    public function get_chunk_of_articles(int $limit, int $offset)
+    {
+        $sql = "select articles.id as id, login, title, summary, content from articles join users on articles.author_id = users.id limit $limit offset $offset";
+
+        return $this->db->query($sql, false);
+    }
+
     // информация о статье
     public function get_article($id)
     {

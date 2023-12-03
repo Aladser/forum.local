@@ -17,7 +17,9 @@ class ArticleController extends Controller
         $this->comments = $dbCtl->getComments();
 
         // данные для пагинации
+        // число статей на странице
         $this->articlesToPage = $articlesToPage;
+        // число статей
         $this->articleCount = $this->articles->count();
         // число страниц
         if ($this->articleCount <= $this->articlesToPage) {
@@ -35,8 +37,14 @@ class ArticleController extends Controller
     public function index(): void
     {
         $data['login'] = UserController::getLoginFromClient();
-        $data['articles'] = $this->articles->all();
-        $data['pages'] = $this->pageCount;
+        // индекс текущей страницы
+        $data['page-index'] = isset($_GET['page-index']) ? $_GET['page-index'] - 1 : 0;
+        // число страниц
+        $data['page-count'] = $this->pageCount;
+        // порция статей из БД
+        $offset = $data['page-index'] * $this->articlesToPage;
+        $data['articles'] = $this->articles->get_chunk_of_articles($this->articlesToPage, $offset);
+
         $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', null, 'Форум - статьи', $data);
     }
 

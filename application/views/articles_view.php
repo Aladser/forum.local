@@ -4,9 +4,6 @@
     </a>
 
     <br>
-    <?php
-    echo $data['pages'];
-    ?>
     <section>
          <article class='d-flex border-start border-end border-secondary p-1'>
             <p class='w-25 m-0 fw-bolder p-1'>Название</p>
@@ -23,5 +20,11 @@
             </article>
             </a>
         <?php }?>
+    </section>
+    <section class='p-2 fs-5'>
+        <?php for ($i = 0; $i < $data['page-count']; ++$i) {?>
+            <?php $page_number = $i + 1; ?>
+            <a class='text-dark' href='<?php echo "/article?page-index=$page_number"; ?>'><?php echo $page_number; ?></a>
+        <?php } ?>
     </section>
 </section>
