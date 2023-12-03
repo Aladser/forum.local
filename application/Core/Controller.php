@@ -2,8 +2,6 @@
 
 namespace Aladser\Core;
 
-use Aladser\Core\DB\DBCtl;
-
 abstract class Controller
 {
     public View $view;

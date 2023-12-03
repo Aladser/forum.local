@@ -3,7 +3,7 @@
 namespace Aladser\Controllers;
 
 use Aladser\Core\Controller;
-use Aladser\Core\DB\DBCtl;
+use Aladser\Core\DBCtl;
 
 /** статьи */
 class ArticleController extends Controller

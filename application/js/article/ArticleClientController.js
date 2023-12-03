@@ -42,6 +42,7 @@ class ArticleClientController {
         ServerRequest.execute(
             this.URL+'/store',
             (data) => {
+                event.target.reset();
                 data = JSON.parse(data);
                 this.msgElement.innerHTML = data.result==1 ? 'статья добавлена' : data.description;
             },

@@ -2,8 +2,6 @@
 
 namespace Aladser\Core;
 
-use Aladser\Core\DB\DBQueryClass;
-
 /** Класс модели таблицы БД */
 class Model
 {

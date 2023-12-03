@@ -17,7 +17,7 @@ class User extends Model
     }
 
     // проверка авторизации
-    public function check($login, $password): bool
+    public function is_correct_password($login, $password): bool
     {
         $passHash = $this->db->queryPrepared(
             'select password from users where login=:login',
@@ -34,14 +34,6 @@ class User extends Model
         $sql = "insert into users(login, password) values('$login', '$password')";
 
         return $this->db->exec($sql);
-    }
-
-    // проверить уникальность никнейма
-    public function isUniqueNickname($nickname): bool
-    {
-        $sql = 'select count(*) as count from users where user_nickname=:nickname';
-
-        return $this->db->queryPrepared($sql, ['nickname' => $nickname])['count'] == 0;
     }
 
     // получить ID пользователя

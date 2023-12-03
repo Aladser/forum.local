@@ -1,6 +1,6 @@
 <?php
 
-namespace Aladser\Core\DB;
+namespace Aladser\Core;
 
 use Aladser\Models\Article;
 use Aladser\Models\Comment;

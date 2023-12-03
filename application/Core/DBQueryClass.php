@@ -1,9 +1,8 @@
 <?php
 
-namespace Aladser\Core\DB;
+namespace Aladser\Core;
 
 use PDO;
-use PDOException;
 
 /** Класс запросов в БД на основе PDO */
 class DBQueryClass
@@ -25,13 +24,13 @@ class DBQueryClass
     private function connect()
     {
         try {
-            $this->dbConnection = new PDO(
+            $this->dbConnection = new \PDO(
                 "mysql:dbname=$this->nameDB; host=$this->host",
                 $this->userDB,
                 $this->passwordDB
             );
-        } catch (PDOException $e) {
-            die($e->getMessage());
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
         }
     }
 
@@ -41,9 +40,10 @@ class DBQueryClass
     }
 
     /** выполняет подготовленный запрос
-     * @param string $sql sql-запрос
-     * @param array $args массив переменных запроса
-     * @param bool $isOneValue одно или множество запрашиваемых полей
+     * @param string $sql        sql-запрос
+     * @param array  $args       массив переменных запроса
+     * @param bool   $isOneValue одно или множество запрашиваемых полей
+     *
      * @return mixed массив строк или одно значение
      */
     public function queryPrepared(string $sql, array $args, bool $isOneValue = true)
@@ -52,12 +52,14 @@ class DBQueryClass
         $stmt = $this->dbConnection->prepare($sql);
         $stmt->execute($args);
         $this->disconnect();
-        return $isOneValue ? $stmt->fetch(PDO::FETCH_ASSOC) : $stmt->fetchAll();
+
+        return $isOneValue ? $stmt->fetch(\PDO::FETCH_ASSOC) : $stmt->fetchAll();
     }
 
     /** выполняет запрос
-     * @param string $sql запрос
-     * @param bool $isOneValue одно или множество запрашиваемых полей
+     * @param string $sql        запрос
+     * @param bool   $isOneValue одно или множество запрашиваемых полей
+     *
      * @return mixed массив строк или одно значение
      */
     public function query(string $sql, bool $isOneValue = true)
@@ -65,11 +67,13 @@ class DBQueryClass
         $this->connect();
         $query = $this->dbConnection->query($sql);
         $this->disconnect();
-        return $isOneValue ? $query->fetch(PDO::FETCH_ASSOC) : $query->fetchAll();
+
+        return $isOneValue ? $query->fetch(\PDO::FETCH_ASSOC) : $query->fetchAll();
     }
 
-    /** выполняет изменения данных
+    /** выполняет изменения данных.
      * @param string $sql запрос
+     *
      * @return false|int число измененных строк
      */
     public function exec(string $sql)
@@ -77,6 +81,7 @@ class DBQueryClass
         $this->connect();
         $numRows = $this->dbConnection->exec($sql);
         $this->disconnect();
+
         return $numRows;
     }
 
@@ -92,6 +97,7 @@ class DBQueryClass
         $stmt->closeCursor();
         $procRst = $this->dbConnection->query("select $out as info");
         $this->disconnect();
-        return $procRst->fetch(PDO::FETCH_ASSOC)['info'];
+
+        return $procRst->fetch(\PDO::FETCH_ASSOC)['info'];
     }
 }

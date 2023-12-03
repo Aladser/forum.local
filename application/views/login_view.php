@@ -19,7 +19,7 @@
         <input type="hidden" id="input-csrf" value=<?php echo $data['csrfToken']; ?>>
     </form>
 
-    <p class='w-50 mx-auto fw-bolder text-dark-red d-none pt-2 mb-0' id='login-error'></p>
+    <p class='w-50 mx-auto fw-bolder text-danger d-none pt-2 mb-0' id='login-error'></p>
 </div>
 
 <script type='text/javascript' src="http://forum.local/application/js/validation.js"></script>

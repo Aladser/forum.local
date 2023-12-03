@@ -29,7 +29,6 @@ document.querySelector('#login-form').addEventListener('submit', function (e) {
     form.append('CSRF', inputCsrf.value);
 
     fetch('user/login', {method: 'POST', body: form}).then(response => response.text()).then(data => {
-        console.log(data);
         try {
             JSON.parse(data);
             window.open('/article', '_self');

@@ -3,7 +3,6 @@
 namespace Aladser\Core;
 
 use Aladser\Controllers\Page404Controller;
-use Aladser\Core\DB\DBCtl;
 
 class Route
 {
@@ -12,15 +11,15 @@ class Route
         session_start();
 
         // URL - /контроллер/функция/аргумент
-        $routes = mb_substr($_SERVER['REQUEST_URI'], 1);
-        $routes = explode('?', $routes)[0];
+        $url = mb_substr($_SERVER['REQUEST_URI'], 1);
+        $url = explode('?', $url)[0];
         // URL как массив
-        $routesArr = explode('/', $routes);
+        $urlAsArray = explode('/', $url);
         // получение контроллера
-        $controller_name = !empty($routes) ? ucfirst($routesArr[0]) : 'main';
+        $controller_name = !empty($url) ? ucfirst($urlAsArray[0]) : 'main';
         // получение функции
-        if (count($routesArr) > 1) {
-            $action = $routesArr[1];
+        if (count($urlAsArray) > 1) {
+            $action = $urlAsArray[1];
             $actionArr = explode('-', $action);
             for ($i = 1; $i < count($actionArr); ++$i) {
                 $actionArr[$i] = ucfirst($actionArr[$i]);
@@ -30,14 +29,14 @@ class Route
             $action = 'index';
         }
         // функция аргумента
-        $funcParam = count($routesArr) == 3 ? $routesArr[2] : false;
+        $funcParam = count($urlAsArray) == 3 ? $urlAsArray[2] : false;
 
         // преобразовать url в название класса
         $controller_name = str_replace('-', ' ', $controller_name);
         $controller_name = ucwords($controller_name);
         $controller_name = str_replace(' ', '', $controller_name);
 
-        // авторизация сохраняется в куки и сессии. Если авторизация есть, то forum.local -> forum.local/article
+        // авторизация сохраняется в куки и сессии. Если авторизация есть, то / -> /article
         if ($controller_name === 'Main'
             && (isset($_SESSION['auth']) || isset($_COOKIE['auth']))
             && !isset($_GET['logout'])
@@ -45,7 +44,7 @@ class Route
             $controller_name = 'Article';
         }
 
-        // редирект /Message без авторизации -> forum.local
+        // редирект /article без авторизации -> /
         if (($controller_name === 'Article')
             && !(isset($_SESSION['auth']) || isset($_COOKIE['auth']))
         ) {
@@ -71,11 +70,9 @@ class Route
         // вызов метода
         if (method_exists($controller, $action)) {
             // проверка наличия аргумента функции
-            if ($funcParam) {
-                $controller->$action($funcParam);
-            } else {
-                $controller->$action();
-            }
+            $funcParam = $funcParam ? $funcParam : null;
+
+            $controller->$action($funcParam);
         } else {
             $controller = new Page404Controller();
             $controller->index();
