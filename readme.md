@@ -7,7 +7,7 @@
 - bootstrap
 
 ## Разворачивание
-- Для запуска на сервер apache конфиг сервера */storage/forum.local.conf*
+- Для запуска на сервере apache конфиг сервера */storage/forum.local.conf*
 - дамп базы MySQL */storage/forum.sql*
 
 ## Предисловие
