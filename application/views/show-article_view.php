@@ -36,7 +36,7 @@
             <form method='post' class='d-flex justify-content-between w-100' id='form-send-message'>
                 <input type="hidden" name="article" value="<?php echo $data['article']['id']; ?>" >
                 <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
-                <textarea class="input-group-prepend form-control" rows='3' placeholder='Сообщение' name='message' required></textarea>
+                <textarea class="input-group-prepend form-control" rows='3' placeholder='Сообщение' name='message' id='form-send-message__msg' required></textarea>
                 <button type="submit" class='btn border border-black' title='Отправить'>Отправить</button>
             </form>
         </div>
