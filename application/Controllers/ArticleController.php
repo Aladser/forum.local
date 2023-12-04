@@ -63,7 +63,7 @@ class ArticleController extends Controller
     {
         $data['login'] = UserController::getLoginFromClient();
 
-        $this->view->generate('template_view.php', 'create-article_view.php', null, 'article/create-article.js', 'Форум - создать тему', $data);
+        $this->view->generate('template_view.php', 'create-article_view.php', null, 'article/create-article.js', 'Форум - создать статью', $data);
     }
 
     // сохранить статью в бд
@@ -91,7 +91,7 @@ class ArticleController extends Controller
         // логин пользователя
         $data['login'] = UserController::getLoginFromClient();
 
-        $this->view->generate('template_view.php', 'edit-article_view.php', null, 'article/edit-article.js', 'Форум - изменить тему', $data);
+        $this->view->generate('template_view.php', 'edit-article_view.php', null, 'article/edit-article.js', 'Форум - изменить статью', $data);
     }
 
     // обновить статью в бд
