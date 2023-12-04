@@ -61,8 +61,11 @@ class ArticleClientController {
         ServerRequest.execute(
             this.URL+'/update',
             (data) => {
-                console.log(data);
-                this.msgElement.innerHTML = data==1 ? 'статья обновлена' : data;
+                if (data == 1) {
+                    this.msgElement.innerHTML = 'статья обновлена';
+                } else if(data != 0) {
+                    this.msgElement.innerHTML = data;
+                }            
             },
             "post",
             this.msgElement,

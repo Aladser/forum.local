@@ -6,10 +6,11 @@ class CommentClientController {
         // форма добавления комментария
         this.sendCommentForm = sendCommentForm;
         this.sendCommentForm.onsubmit = (event) => this.add(event);
-        // кнопки удаления комментария
+        // кнопки удаления комментариев
         this.appendRemovingListeners();
     }
 
+    /** назначить события удаления комментариев */
     appendRemovingListeners() {
         this.removeBtns = this.commentList.querySelectorAll(`.${this.commentList.id}__btn-remove`);
         this.removeBtns.forEach((btn) => btn.onclick = (event) => this.remove(event));
