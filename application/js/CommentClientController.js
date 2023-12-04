@@ -7,6 +7,10 @@ class CommentClientController {
         this.sendCommentForm = sendCommentForm;
         this.sendCommentForm.onsubmit = (event) => this.add(event);
         // кнопки удаления комментария
+        this.appendRemovingListeners();
+    }
+
+    appendRemovingListeners() {
         this.removeBtns = this.commentList.querySelectorAll(`.${this.commentList.id}__btn-remove`);
         this.removeBtns.forEach((btn) => btn.onclick = (event) => this.remove(event));
     }
@@ -19,19 +23,22 @@ class CommentClientController {
         let timeNow = DBLocalTime.get();
         // ---обработка ответа от сервера---
         let process = (data) => {
-            console.log(data);
             data = JSON.parse(data);
-            if (data.result != 1) {
+            if (data.result < 1) {
                 this.msgElement.innerHTML = data;
             } else {
                 event.target.reset();
                 this.commentList.innerHTML += `
-                    <article class='border-C4C4C4 mb-2'>
+                    <article class='comment-list__item border-C4C4C4 mb-2' id='id-${data.comment.id}'>
                         <p class='text-start m-0 ps-2 fw-bolder'>${data.comment.author}</p>
                         <p class='text-start m-0 py-2 ps-3 fs-5'>${data.comment.content}</p>
-                        <p class='text-end m-0 pe-2'>${timeNow}</p>
+                        <p class='text-end m-0 pe-2'>
+                            <button class='comment-list__btn-remove border-0 me-1' title='Удалить'>🗑</button>
+                            ${timeNow}
+                        </p>
                     </article>
                 `;
+                this.appendRemovingListeners();
             }
         };
         // ---запрос на сервер---

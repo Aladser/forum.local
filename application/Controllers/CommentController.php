@@ -23,9 +23,10 @@ class CommentController extends Controller
         $articleId = $_POST['article'];
         $content = $_POST['message'];
 
+        $id = $this->comments->add($authorId, $articleId, $content);
         echo json_encode([
-            'result' => (int) $this->comments->add($authorId, $articleId, $content),
-            'comment' => ['author' => $author, 'content' => $content],
+            'result' => $id,
+            'comment' => ['author' => $author, 'content' => $content, 'id' => $id],
         ]);
     }
 

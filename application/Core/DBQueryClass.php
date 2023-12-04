@@ -100,4 +100,16 @@ class DBQueryClass
 
         return $procRst->fetch(\PDO::FETCH_ASSOC)['info'];
     }
+
+    public function insert(string $sql): int
+    {
+        $this->connect();
+        $this->dbConnection->beginTransaction();
+        $this->dbConnection->exec($sql);
+        $id = $this->dbConnection->lastInsertId();
+        $this->dbConnection->commit();
+        $this->disconnect();
+
+        return $id;
+    }
 }
