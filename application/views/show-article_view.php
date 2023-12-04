@@ -43,7 +43,7 @@
     </section>
 
     <!-- ошибки -->
-    <p id='table-error' class='pb-4 text-center text-danger fw-bolder'></p>
+    <p id='prg-error' class='pb-4 text-center text-danger fw-bolder'></p>
 </container>
 
 <script type='text/javascript' src="http://forum.local/application/js/ServerRequest.js"></script>

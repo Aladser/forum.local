@@ -21,6 +21,7 @@
             </a>
         <?php }?>
     </section>
+    <!-- страницы показа статей (по 5) -->
     <section class='p-2 fs-5'>
         <?php for ($i = 0; $i < $data['page-count']; ++$i) {?>
             <?php $page_number = $i + 1; ?>

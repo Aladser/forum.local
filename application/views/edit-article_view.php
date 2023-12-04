@@ -10,7 +10,7 @@
             <p class='d-inline-block border border-dark text-decoration-none text-dark p-2'>Назад</p>
         </a>
     </form>
-    <p id='table-error' class='pb-4 text-center text-danger fw-bolder'></p>
+    <p id='prg-error' class='pb-4 text-center text-danger fw-bolder'></p>
 </div>
 
 <script type='text/javascript' src="http://forum.local/application/js/ServerRequest.js"></script>
