@@ -6,7 +6,7 @@
         <textarea class="input-group-prepend form-control mb-2 w-75 mx-auto" rows='2'placeholder='Краткое содержание' name='summary' required> <?php echo $data['summary']; ?></textarea>
         <textarea class="input-group-prepend form-control mb-2 w-75 mx-auto" rows='10'placeholder='Содержание' name='content' required><?php echo $data['content']; ?></textarea>
         <input type="submit" value='Сохранить' class='d-inline-block border border-dark text-decoration-none text-dark p-2 bg-white border-C4C4C4'>
-        <a href="/article">
+        <a href="<?php echo '/article/show/'.$data['id']; ?>">
             <p class='d-inline-block border border-dark text-decoration-none text-dark p-2'>Назад</p>
         </a>
     </form>
