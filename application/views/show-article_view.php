@@ -16,7 +16,7 @@
     <section class='w-50 mx-auto p-2 text-center border-start border-end'>
         <h2><?php echo $data['article']['title']; ?></h2>
         <p>Автор: <?php echo $data['article']['username']; ?></p>
-        <p><?php echo $data['article']['content']; ?></p>
+        <p><?php echo nl2br($data['article']['content']); ?></p>
     </section>
 
     <!-- комментарии -->
