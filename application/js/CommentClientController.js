@@ -2,9 +2,13 @@ class CommentClientController {
     constructor(URL, msgElement, sendCommentForm, commentList) {
         this.URL = URL;
         this.msgElement = msgElement;
+        this.commentList = commentList;
+        // форма добавления комментария
         this.sendCommentForm = sendCommentForm;
         this.sendCommentForm.onsubmit = (event) => this.add(event);
-        this.commentList = commentList;
+        // кнопки удаления комментария
+        this.removeBtns = this.commentList.querySelectorAll(`.${this.commentList.id}__btn-remove`);
+        this.removeBtns.forEach((btn) => btn.onclick = (event) => this.remove(event));
     }
 
     // добавить коммент в БД - comment/store
@@ -15,6 +19,7 @@ class CommentClientController {
         let timeNow = DBLocalTime.get();
         // ---обработка ответа от сервера---
         let process = (data) => {
+            console.log(data);
             data = JSON.parse(data);
             if (data.result != 1) {
                 this.msgElement.innerHTML = data;
@@ -40,15 +45,14 @@ class CommentClientController {
     }
 
     // удалить коммент из БД - comment/remove
-    remove() {
+    remove(event) {
         // ---данные---
-        let article = document.querySelector(`#${this.activeArticleId}`);
-        // действия после успешного удаления данных в БД
+        let comment = event.target.closest('.comment-list__item');
+        // ---действия после успешного удаления данных в БД---
         let process = (data) => {
             data = JSON.parse(data);
             if (data.result == 1) {
-                article.remove();
-                this.activeArticleId = false;
+                comment.remove();
                 this.msgElement.textContent = "";
             } else {
                 this.msgElement.textContent = data;
@@ -56,7 +60,7 @@ class CommentClientController {
         };
 
         let params = new URLSearchParams();
-        params.set('id', this.activeArticleId.substring(3));
+        params.set('id', comment.id.substring(3));
 
         // запрос на сервер
         ServerRequest.execute(

@@ -1,0 +1,8 @@
+.comment-list__btn-remove {
+    font-size: 0.75rem;
+    background-color: white;
+}
+
+.comment-list__btn-remove:hover {
+    background-color: #ddd;
+}

@@ -19,16 +19,21 @@
         <p><?php echo nl2br($data['article']['content']); ?></p>
     </section>
 
-    <!-- комментарии -->
     <div class='w-50 mx-auto'><hr></div>
+
+    <!-- комментарии -->
     <section class='w-50 mx-auto p-2 text-center border-start border-end'>
         <h4 class='text-start ps-2'> Комментарии </h4>
         <section id='comment-list'>
             <?php foreach ($data['comments'] as $comment) { ?>
-                <article class='border-C4C4C4 mb-2'>
+                <article class='comment-list__item border-C4C4C4 mb-2' id='<?php echo "id-{$comment['id']}"; ?>'>
                     <p class='text-start m-0 ps-2 fw-bolder'><?php echo $comment['login']; ?></p>
                     <p class='text-start m-0 py-2 ps-3 fs-5'><?php echo nl2br($comment['content']); ?></p>
-                    <p class='text-end m-0 pe-2'><?php echo $comment['time']; ?></p>
+                    <p class='text-end m-0 pe-2'>
+                        <?php if ($data['login'] === $comment['login']) { ?>
+                            <button class='comment-list__btn-remove border-0 me-1' title='Удалить'>🗑</button>
+                        <?php }?>
+                        <?php echo $comment['time']; ?></p>
                 </article>
             <?php } ?>
         </section>

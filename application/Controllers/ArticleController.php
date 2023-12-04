@@ -55,7 +55,7 @@ class ArticleController extends Controller
         $data['login'] = UserController::getLoginFromClient();
         $data['comments'] = $this->comments->getCommentsOfArticle($articleId);
 
-        $this->view->generate('template_view.php', 'show-article_view.php', null, 'article/show-article.js', "Форум. Статья: {$data['article']['title']}", $data);
+        $this->view->generate('template_view.php', 'show-article_view.php', 'show-article.css', 'article/show-article.js', "Форум. Статья: {$data['article']['title']}", $data);
     }
 
     // форма создания статьи

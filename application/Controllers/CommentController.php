@@ -31,6 +31,8 @@ class CommentController extends Controller
 
     public function remove()
     {
-        var_dump($_POST);
+        $id = $_POST['id'];
+        $isRemoved = $this->comments->remove($id);
+        echo json_encode(['result' => (int) $isRemoved]);
     }
 }

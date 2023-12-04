@@ -22,7 +22,7 @@ class Comment extends Model
     // список комментариев статьи
     public function getCommentsOfArticle($articleId)
     {
-        return $this->db->query("select login, content, time from comments join users on users.id=comments.author_id where article_id = $articleId order by time", false);
+        return $this->db->query("select comments.id as id, login, content, time from comments join users on users.id=comments.author_id where article_id = $articleId order by time", false);
     }
 
     // удалить комментарии статьи
