@@ -23,7 +23,7 @@
     <div class='w-50 mx-auto'><hr></div>
     <section class='w-50 mx-auto p-2 text-center border-start border-end'>
         <h4 class='text-start ps-2'> Комментарии </h4>
-        <p id='comment-list'>
+        <section id='comment-list'>
             <?php foreach ($data['comments'] as $comment) { ?>
                 <article class='border-C4C4C4 mb-2'>
                     <p class='text-start m-0 ps-2 fw-bolder'><?php echo $comment['login']; ?></p>
@@ -31,7 +31,7 @@
                     <p class='text-end m-0 pe-2'><?php echo $comment['time']; ?></p>
                 </article>
             <?php } ?>
-        </p>
+        </section>
         <div class='input-group pb-2'>
             <form method='post' class='d-flex justify-content-between w-100' id='form-send-message'>
                 <input type="hidden" name="article" value="<?php echo $data['article']['id']; ?>" >
@@ -47,5 +47,6 @@
 </container>
 
 <script type='text/javascript' src="http://forum.local/application/js/ServerRequest.js"></script>
+<script type='text/javascript' src="http://forum.local/application/js/DBLocalTime.js"></script>
 <script type='text/javascript' src="http://forum.local/application/js/article/ArticleClientController.js"></script>
 <script type='text/javascript' src="http://forum.local/application/js/CommentClientController.js"></script>
