@@ -16,7 +16,7 @@
     <section class='w-50 mx-auto p-2 text-center border-start border-end'>
         <h2><?php echo $data['article']['title']; ?></h2>
         <p>Автор: <?php echo $data['article']['username']; ?></p>
-        <p><?php echo $data['article']['content']; ?></p>
+        <p><?php echo nl2br($data['article']['content']); ?></p>
     </section>
 
     <!-- комментарии -->
@@ -27,9 +27,9 @@
             <?php foreach ($data['comments'] as $comment) { ?>
                 <article class='border-C4C4C4 mb-2'>
                     <p class='text-start m-0 ps-2 fw-bolder'><?php echo $comment['login']; ?></p>
-                    <p class='text-start m-0 py-2 ps-3 fs-5'><?php echo $comment['content']; ?></p>
+                    <p class='text-start m-0 py-2 ps-3 fs-5'><?php echo nl2br($comment['content']); ?></p>
                     <p class='text-end m-0 pe-2'><?php echo $comment['time']; ?></p>
-                </article>
+                </article>s
             <?php } ?>
         </section>
         <div class='input-group pb-2'>
