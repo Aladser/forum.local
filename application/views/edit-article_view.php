@@ -4,10 +4,10 @@
         <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
         <input type="text" class='d-block mx-auto ps-3 p-2 mb-2 w-75 border-C4C4C4' name="title" placeholder='Заголовок' value="<?php echo $data['title']; ?>" required>
         <textarea class="input-group-prepend form-control mb-2 w-75 mx-auto" rows='2'placeholder='Краткое содержание' name='summary' required> 
-            <?php echo nl2br($data['summary']); ?>
+            <?php echo $data['summary']; ?>
         </textarea>
         <textarea class="input-group-prepend form-control mb-2 w-75 mx-auto" rows='10'placeholder='Содержание' name='content' required>
-            <?php echo nl2br($data['content']); ?>
+            <?php echo $data['content']; ?>
         </textarea>
         <input type="submit" value='Сохранить' class='d-inline-block border border-dark text-decoration-none text-dark p-2 bg-white border-C4C4C4'>
         <a href="/article">

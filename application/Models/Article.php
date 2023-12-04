@@ -34,7 +34,7 @@ class Article extends Model
     // добавить статью
     public function add($author, $title, $summary, $content): bool
     {
-        $sql = "insert into articles(author_id, title, summary, content) values($author, $title, $summary, $content)";
+        $sql = "insert into articles(author_id, title, summary, content) values('$author', '$title', '$summary', '$content')";
 
         return $this->db->exec($sql) == 1;
     }
