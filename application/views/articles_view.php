@@ -1,6 +1,6 @@
 <section class='w-50 mx-auto'>
     <a href="/article/create">
-        <p class='d-inline-block text-decoration-none p-3 bg-lime text-white'>Новая тема</p>
+        <p class='d-inline-block text-decoration-none p-3 rounded bg-lime text-white'>Новая тема</p>
     </a>
 
     <section class='mt-1'>
@@ -25,7 +25,7 @@
         <section class='p-2 fs-5 mt-1'>
             <?php for ($i = 0; $i < $data['page-count']; ++$i) {?>
                 <?php $page_number = $i + 1; ?>
-                <a class='bg-lime text-decoration-none p-2 text-white' href='<?php echo '/article?list='.$page_number; ?>'><?php echo $page_number; ?></a>
+                <a class='bg-lime text-decoration-none py-2 px-4 text-white rounded' href='<?php echo '/article?list='.$page_number; ?>'><?php echo $page_number; ?></a>
             <?php } ?>
         </section>
     <?php } ?>

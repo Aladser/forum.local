@@ -4,12 +4,12 @@
         <?php if ($data['login'] === $data['article']['username']) { ?>
             <a href="<?php echo '/article/edit/'.$data['article']['id']; ?>" 
                id='btn-edit' 
-               class='d-inline-block text-decoration-none p-3 border-lime bg-lime text-white'>Редактировать</a>
+               class='d-inline-block text-decoration-none p-3 border-lime bg-lime text-white rounded'>Редактировать</a>
             <a href="<?php echo '/article/remove/'.$data['article']['id']; ?>" 
                id='btn-edit' 
-               class='d-inline-block text-decoration-none text-dark p-3 border-lime bg-lime text-white'>Удалить</a>
+               class='d-inline-block text-decoration-none text-dark p-3 border-lime bg-lime text-white rounded'>Удалить</a>
         <?php } ?>
-        <a href="/article" class='d-inline-block text-decoration-none text-dark p-3 border-lime bg-lime text-white'>Назад</a>
+        <a href="/article" class='d-inline-block text-decoration-none text-dark p-3 border-lime bg-lime text-white rounded'>Назад</a>
     </section>
 
     <!-- статья --> 

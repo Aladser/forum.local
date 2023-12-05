@@ -38,13 +38,12 @@ class ArticleController extends Controller
     {
         $data['login'] = UserController::getLoginFromClient();
         // индекс текущей страницы
-        $data['page-index'] = isset($_GET['page-index']) ? $_GET['page-index'] - 1 : 0;
+        $data['page-index'] = isset($_GET['list']) ? $_GET['list'] - 1 : 0;
         // число страниц
         $data['page-count'] = $this->pageCount;
         // порция статей из БД
         $offset = $data['page-index'] * $this->articlesToPage;
         $data['articles'] = $this->articles->get_chunk_of_articles($this->articlesToPage, $offset);
-
         $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', null, 'Форум - статьи', $data);
     }
 
