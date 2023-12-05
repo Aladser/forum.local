@@ -2,7 +2,7 @@
 
 namespace Aladser\Core;
 
-use Aladser\Controllers\Page404Controller;
+use Aladser\Controllers\MainController;
 
 class Route
 {
@@ -69,13 +69,13 @@ class Route
         $controller_path = dirname(__DIR__, 1).DIRECTORY_SEPARATOR.'Controllers'.DIRECTORY_SEPARATOR.$controller_name.'.php';
         if (file_exists($controller_path)) {
             require_once $controller_path;
-            $controller_name = "\\Aladser\\Controllers\\$controller_name";
+            $controller_name = '\\Aladser\\Controllers\\'.$controller_name;
             $controller = new $controller_name(
                 new DBCtl(ConfigClass::HOST_DB, ConfigClass::NAME_DB, ConfigClass::USER_DB, ConfigClass::PASS_DB)
             );
         } else {
-            $controller = new Page404Controller();
-            $controller->index();
+            $controller = new MainController();
+            $controller->page404();
 
             return;
         }
@@ -87,8 +87,8 @@ class Route
 
             $controller->$action($funcParam);
         } else {
-            $controller = new Page404Controller();
-            $controller->index();
+            $controller = new MainController();
+            $controller->page404();
         }
     }
 }
