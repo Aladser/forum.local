@@ -1,4 +1,4 @@
-//----- ПРОВЕРКА ПОЛЕЙ ВВОДА ПРИ РЕГИСТРАЦИИ -----
+// ---ПРОВЕРКА ПОЛЕЙ ВВОДА ПРИ РЕГИСТРАЦИИ ---
 // для уменьшения числа запросов к серверу валидация происходит на клиенте
 const regBtn = document.querySelector('#reg-form__reg-btn');
 const regErrorPrg = document.querySelector('#reg-error');
@@ -81,7 +81,7 @@ regForm.addEventListener('submit', function (e) {
     e.preventDefault();
     let form = new FormData(this);
     // Список пар ключ/значение
-    fetch('user/register', {method: 'POST', body: form}).then(response => response.text()).then(data => {
+    fetch('user/store', {method: 'POST', body: form}).then(response => response.text()).then(data => {
         regErrorPrg.classList.remove('d-none');
         try {
             data = JSON.parse(data);

@@ -6,7 +6,7 @@ use Aladser\Core\Controller;
 use Aladser\Core\DBCtl;
 use Aladser\Models\User;
 
-/** пользователи */
+// пользователи
 class UserController extends Controller
 {
     private User $users;
@@ -18,7 +18,7 @@ class UserController extends Controller
     }
 
     // регистрация пользователя
-    public function register()
+    public function store()
     {
         if (!$this->users->exists($_POST['login'])) {
             $email = $_POST['login'];
@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
     // авторизация
-    public function login()
+    public function auth()
     {
         $login = $_POST['login'];
         $password = $_POST['password'];
@@ -56,6 +56,20 @@ class UserController extends Controller
         } else {
             echo 'Пользователь не существует';
         }
+    }
+
+    // форма регистрации
+    public function register()
+    {
+        $data = ['csrfToken' => Controller::createCSRFToken()];
+        $this->view->generate('template_view.php', 'reg_view.php', 'reg.css', 'reg.js', 'Форум - регистрация', $data);
+    }
+
+    // форма входа
+    public function login()
+    {
+        $data = ['csrfToken' => Controller::createCSRFToken()];
+        $this->view->generate('template_view.php', 'login_view.php', '', 'login.js', 'Форум - войти', $data);
     }
 
     /** получить логин из сессии или куки */

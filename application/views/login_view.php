@@ -1,7 +1,7 @@
 <div class='container text-center'>
     <h3 class='mt-4 mb-4 text-secondary'>Войти</h3>
 
-    <form class='login-form' method="POST" action='' id='login-form'>
+    <form class='login-form' method="POST" id='login-form'>
         <div class='position-relative w-25 mx-auto'>
             <input type="text" class="form__input w-100 mb-2 p-1 border-lime" id="login-form__email-input" name='login' placeholder="логин">
         </div>

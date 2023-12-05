@@ -13,23 +13,36 @@ class Route
         // URL - /контроллер/функция/аргумент
         $url = mb_substr($_SERVER['REQUEST_URI'], 1);
         $url = explode('?', $url)[0];
-        // URL как массив
-        $urlAsArray = explode('/', $url);
-        // получение контроллера
-        $controller_name = !empty($url) ? ucfirst($urlAsArray[0]) : 'main';
-        // получение функции
-        if (count($urlAsArray) > 1) {
-            $action = $urlAsArray[1];
-            $actionArr = explode('-', $action);
-            for ($i = 1; $i < count($actionArr); ++$i) {
-                $actionArr[$i] = ucfirst($actionArr[$i]);
-            }
-            $action = implode('', $actionArr);
+
+        if ($url === 'login') {
+            // форма входа
+            $controller_name = 'User';
+            $action = 'login';
+            $funcParam = false;
+        } elseif ($url === 'register') {
+            // форма регистрации
+            $controller_name = 'User';
+            $action = 'register';
+            $funcParam = false;
         } else {
-            $action = 'index';
+            // URL как массив
+            $urlAsArray = explode('/', $url);
+            // получение контроллера
+            $controller_name = !empty($url) ? ucfirst($urlAsArray[0]) : 'main';
+            // получение функции
+            if (count($urlAsArray) > 1) {
+                $action = $urlAsArray[1];
+                $actionArr = explode('-', $action);
+                for ($i = 1; $i < count($actionArr); ++$i) {
+                    $actionArr[$i] = ucfirst($actionArr[$i]);
+                }
+                $action = implode('', $actionArr);
+            } else {
+                $action = 'index';
+            }
+            // функция аргумента
+            $funcParam = count($urlAsArray) == 3 ? $urlAsArray[2] : false;
         }
-        // функция аргумента
-        $funcParam = count($urlAsArray) == 3 ? $urlAsArray[2] : false;
 
         // преобразовать url в название класса
         $controller_name = str_replace('-', ' ', $controller_name);
