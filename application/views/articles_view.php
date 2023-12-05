@@ -24,8 +24,12 @@
     <?php if ($data['page-count'] > 1) {?>
         <section class='p-2 fs-5 mt-1'>
             <?php for ($i = 0; $i < $data['page-count']; ++$i) {?>
-                <?php $page_number = $i + 1; ?>
-                <a class='bg-lime text-decoration-none py-2 px-4 text-white rounded' href='<?php echo '/article?list='.$page_number; ?>'><?php echo $page_number; ?></a>
+                <?php
+                $page_number = $i + 1;
+                $class = 'bg-lime text-decoration-none py-2 px-4 rounded text-white';
+                $class .= $data['page-index'] + 1 === $page_number ? ' fw-bold' : '';
+                ?>
+                <a class="<?php echo $class; ?>" href='<?php echo '/article?list='.$page_number; ?>'><?php echo $page_number; ?></a>  
             <?php } ?>
         </section>
     <?php } ?>
