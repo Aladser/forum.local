@@ -3,7 +3,6 @@
         <p class='d-inline-block border border-secondary text-decoration-none text-dark p-3'>Новая тема</p>
     </a>
 
-    <br>
     <section>
          <article class='d-flex border-start border-end border-secondary p-1'>
             <p class='w-25 m-0 fw-bolder p-1'>Название</p>
@@ -26,7 +25,7 @@
         <section class='p-2 fs-5'>
             <?php for ($i = 0; $i < $data['page-count']; ++$i) {?>
                 <?php $page_number = $i + 1; ?>
-                <a class='text-dark' href='<?php echo "/article?page-index=$page_number"; ?>'><?php echo $page_number; ?></a>
+                <a class='text-dark' href='<?php echo '/article?list='.$page_number; ?>'><?php echo $page_number; ?></a>
             <?php } ?>
         </section>
     <?php } ?>
