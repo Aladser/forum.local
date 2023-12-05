@@ -1,13 +1,15 @@
-.bg-c4c4c4 {background-color: #C4C4C4;}
-.btn-bg-C4C4C4 {background-color: #C4C4C4;}
-.btn-bg-C4C4C4:hover {background-color: #E4E4E4;}
-.text-c4c4c4 {color: #C4C4C4;}
+textarea {resize: none;}
+hr {border: 1px solid #00DD00;}
+
 .m-0 {margin: 0;}
 .h-page404{height: 40rem;}
 .cursor-pointer {cursor:pointer;}
+.form__input::placeholder {color: #999;}
 
-.border-C4C4C4 {border: 1px solid #E4E4E4;}
-
-textarea {
-   resize: none;
-}
+.bg-lime {background-color: #00CC00;}
+.text-lime {color: #00CC00;}
+.border-lime {border: 1px solid #00CC00;}
+.border-start-lime {border-left: 1px solid #00CC00;} 
+.border-end-lime {border-right: 1px solid #00CC00;}
+.border-top-lime {border-top: 1px solid #00CC00;}
+.border-bottom-lime {border-bottom: 1px solid #00CC00;}

@@ -1,19 +1,19 @@
 <div class='container text-center'>
-    <h3 class='mt-4 mb-4'>Войти</h3>
+    <h3 class='mt-4 mb-4 text-secondary'>Войти</h3>
 
     <form class='login-form' method="POST" action='' id='login-form'>
         <div class='position-relative w-25 mx-auto'>
-            <input type="text" class="w-100 mb-2" id="login-form__email-input" name='login' placeholder="логин">
+            <input type="text" class="form__input w-100 mb-2 p-1 border-lime" id="login-form__email-input" name='login' placeholder="логин">
         </div>
         <div class='position-relative w-25 mx-auto'>
-            <input type="password" class="w-100 mb-2" id="login-form__password-input" name='password'
+            <input type="password" class="form__input w-100 mb-2 p-1 border-lime" id="login-form__password-input" name='password'
                    placeholder="пароль">
         </div>
         <div>
-            <input type="submit" class='btn w-25 mb-2 btn-bg-C4C4C4 text-white' value="Войти" disabled
+            <input type="submit" class='btn w-25 mb-2 text-white bg-lime' value="Войти" disabled
                    id='login-form__login-btn'>
             <a href="/main" class='text-decoration-none'>
-                <div class='mx-auto w-25 btn-bg-C4C4C4 text-white p-2'>Назад</div>
+                <div class='mx-auto w-25 text-white p-2 bg-lime'>Назад</div>
             </a>
         </div>
         <input type="hidden" id="input-csrf" value=<?php echo $data['csrfToken']; ?>>

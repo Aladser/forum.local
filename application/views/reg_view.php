@@ -1,30 +1,30 @@
 <div class='container text-center'>
-    <h3 class='mt-4 mb-4'>Регистрация нового пользователя</h3>
+    <h3 class='mt-4 mb-4 text-secondary'>Регистрация нового пользователя</h3>
 
     <form class='reg-form' method="POST" id='reg-form'>
         <input type="hidden" name="registration">
 
         <div class='position-relative w-25 mx-auto'>
-            <input type="login" class="w-100 mb-2" id="reg-form__email-input" name='login' placeholder="логин">
+            <input type="login" class="form__input w-100 mb-2 border-lime p-1" id="reg-form__email-input" name='login' placeholder="логин">
             <p class='input-clue' id='reg-form__emai-clue'>введите логин</p>
         </div>
 
         <div class='position-relative w-25 mx-auto'>
-            <input type="password" class="w-100 mb-2" id="reg-form__password1-input" name='password'
+            <input type="password" class="form__input w-100 mb-2 border-lime p-1" id="reg-form__password1-input" name='password'
                    placeholder="пароль (минимум 3 символа)">
             <p class='input-clue' id='reg-form__password1-clue'>длина пароля минимум 3 символа</p>
         </div>
 
         <div class='position-relative w-25 mb-2 mx-auto'>
-            <input type="password" class="w-100 mb-2" id="reg-form__password2-input" placeholder="подтвердите пароль">
+            <input type="password" class="form__input w-100 mb-2 border-lime p-1" id="reg-form__password2-input" placeholder="подтвердите пароль">
             <p class='input-clue' id='reg-form__password2-clue'>пароли не совпадают</p>
         </div>
 
         <div>
-            <input type="submit" class='btn w-25 mb-2 btn-bg-C4C4C4 text-white' value="Регистрация" disabled
+            <input type="submit" class='btn w-25 mb-2 text-white bg-lime' value="Регистрация" disabled
                    id='reg-form__reg-btn'>
             <a href="/main" class='text-decoration-none'>
-                <div class='mx-auto w-25 btn-bg-C4C4C4 text-white p-2'>Назад</div>
+                <div class='mx-auto w-25 text-white p-2 bg-lime'>Назад</div>
             </a>
         </div>
 
