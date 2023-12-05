@@ -22,10 +22,12 @@
         <?php }?>
     </section>
     <!-- страницы показа статей (по 5) -->
-    <section class='p-2 fs-5'>
-        <?php for ($i = 0; $i < $data['page-count']; ++$i) {?>
-            <?php $page_number = $i + 1; ?>
-            <a class='text-dark' href='<?php echo "/article?page-index=$page_number"; ?>'><?php echo $page_number; ?></a>
-        <?php } ?>
-    </section>
+    <?php if ($data['page-count'] > 1) {?>
+        <section class='p-2 fs-5'>
+            <?php for ($i = 0; $i < $data['page-count']; ++$i) {?>
+                <?php $page_number = $i + 1; ?>
+                <a class='text-dark' href='<?php echo "/article?page-index=$page_number"; ?>'><?php echo $page_number; ?></a>
+            <?php } ?>
+        </section>
+    <?php } ?>
 </section>
