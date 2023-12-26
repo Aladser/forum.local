@@ -5,12 +5,10 @@ namespace App\Core;
 abstract class Controller
 {
     public View $view;
-    protected ?DBCtl $dbCtl;
 
-    public function __construct(DBCtl $dbCtl = null)
+    public function __construct()
     {
         $this->view = new View();
-        $this->dbCtl = $dbCtl;
     }
 
     /** создать CSRF-токен.

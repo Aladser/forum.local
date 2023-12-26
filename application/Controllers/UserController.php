@@ -14,7 +14,7 @@ class UserController extends Controller
     public function __construct(DBCtl $dbCtl = null)
     {
         parent::__construct($dbCtl);
-        $this->users = $dbCtl->getUsers();
+        $this->users = new User();
     }
 
     // форма регистрации

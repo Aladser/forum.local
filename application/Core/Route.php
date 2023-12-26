@@ -96,9 +96,7 @@ class Route
         if (file_exists($controller_path)) {
             require_once $controller_path;
             $controller_name = '\\App\\Controllers\\'.$controller_name;
-            $controller = new $controller_name(
-                new DBCtl(ConfigClass::HOST_DB, ConfigClass::NAME_DB, ConfigClass::USER_DB, ConfigClass::PASS_DB)
-            );
+            $controller = new $controller_name();
         } else {
             $controller = new MainController();
             $controller->error("not found $controller_path");

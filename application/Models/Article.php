@@ -12,7 +12,7 @@ class Article extends Model
     {
         $sql = 'select articles.id as id, login, title, summary, content from articles join users on articles.author_id = users.id';
 
-        return $this->db->query($sql, false);
+        return $this->dbQuery->query($sql, false);
     }
 
     // список части статей
@@ -20,7 +20,7 @@ class Article extends Model
     {
         $sql = "select articles.id as id, login as author, title, summary, content from articles join users on articles.author_id = users.id limit $limit offset $offset";
 
-        return $this->db->query($sql, false);
+        return $this->dbQuery->query($sql, false);
     }
 
     // информация о статье
@@ -28,7 +28,7 @@ class Article extends Model
     {
         $sql = "select articles.id as id,title,summary,content,login as username, time from articles join users on users.id=articles.author_id where articles.id = $id";
 
-        return $this->db->query($sql);
+        return $this->dbQuery->query($sql);
     }
 
     // добавить статью
@@ -36,7 +36,7 @@ class Article extends Model
     {
         $sql = "insert into articles(author_id, title, summary, content) values('$author', '$title', '$summary', '$content')";
 
-        return $this->db->exec($sql) == 1;
+        return $this->dbQuery->exec($sql) == 1;
     }
 
     // обновить статью
@@ -44,7 +44,7 @@ class Article extends Model
     {
         $sql = "update articles set title = '$title', summary = '$summary', content = '$content' where id = $id";
 
-        return $this->db->exec($sql) == 1;
+        return $this->dbQuery->exec($sql) == 1;
     }
 
     // удалить статью
@@ -52,7 +52,7 @@ class Article extends Model
     {
         $sql = "delete from articles where id = $id";
 
-        return $this->db->exec($sql) == 1;
+        return $this->dbQuery->exec($sql) == 1;
     }
 
     /** проверка существования заголовока статьи */
@@ -60,7 +60,7 @@ class Article extends Model
     {
         $sql = 'select count(*) as count from articles where title = :title';
 
-        return $this->db->queryPrepared($sql, ['title' => $title])['count'] == 1;
+        return $this->dbQuery->queryPrepared($sql, ['title' => $title])['count'] == 1;
     }
 
     /** число записей */
@@ -68,6 +68,6 @@ class Article extends Model
     {
         $sql = 'select count(*) as count from articles';
 
-        return $this->db->query($sql)['count'];
+        return $this->dbQuery->query($sql)['count'];
     }
 }

@@ -2,13 +2,14 @@
 
 namespace App\Core;
 
-/** Класс модели таблицы БД */
+use function App\config;
+
 class Model
 {
-    protected DBQueryClass $db;
+    protected DBQuery $dbQuery;
 
-    public function __construct(DBQueryClass $db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->dbQuery = new DBQuery(config('HOST_DB'), config('NAME_DB'), config('USER_DB'), config('PASS_DB'));
     }
 }

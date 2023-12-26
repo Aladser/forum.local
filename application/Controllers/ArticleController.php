@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Core\DBCtl;
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\User;
 
 /** статьи */
 class ArticleController extends Controller
@@ -12,9 +15,9 @@ class ArticleController extends Controller
     {
         parent::__construct($dbCtl);
 
-        $this->user = $dbCtl->getUsers();
-        $this->articles = $dbCtl->getArticles();
-        $this->comments = $dbCtl->getComments();
+        $this->user = new User();
+        $this->articles = new Article();
+        $this->comments = new Comment();
 
         // данные для пагинации
         // число статей на странице
