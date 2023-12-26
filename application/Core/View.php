@@ -12,11 +12,15 @@ class View
      * @param [type] $data данные
      * @param [type] $content_js js-скрипты
      * @param [type] $content_css css-скрипты
-     *
-     * @return void
      */
-    public function generate($pageName, $template_view, $content_view, $data = null, $content_js = null, $content_css = null)
-    {
+    public function generate(
+        $pageName,
+        $template_view,
+        $content_view,
+        $data = null,
+        $content_js = null,
+        $content_css = null
+    ): void {
         require_once dirname(__DIR__, 1).DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.$template_view;
     }
 }

@@ -77,6 +77,7 @@ class ArticleController extends Controller
     // форма создания статьи
     public function create(): void
     {
+        $data['csrf'] = Controller::createCSRFToken();
         $data['login'] = UserController::getLoginFromClient();
 
         $this->view->generate(

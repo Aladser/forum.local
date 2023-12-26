@@ -10,14 +10,15 @@ class Route
     {
         session_start();
 
-        // проверка ошибки 500
-        if ($_SERVER['REQUEST_URI'] === '/500') {
+        // проверка ошибки access_denied
+        if ($_SERVER['REQUEST_URI'] === '/access_denied') {
             $controller = new MainController();
-            $controller->error('No csrf');
+            $controller->error('Access denied');
 
             return;
         }
 
+        // проверка CSRF
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['CSRF'])) {
                 if ($_POST['CSRF'] !== $_SESSION['CSRF']) {
@@ -112,7 +113,7 @@ class Route
             $controller->$action($funcParam);
         } else {
             $controller = new MainController();
-            $controller->page404();
+            $controller->error('Controller not exists');
         }
     }
 

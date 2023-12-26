@@ -32,7 +32,7 @@ class ServerRequest {
                 window.open("/419", "_self");
                 break;
             case 500:
-                window.open("/500", "_self");
+                window.open("/access_denied", "_self");
                 break;
             default:
                 if (errorPrg) {
