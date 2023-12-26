@@ -20,15 +20,15 @@ class UserController extends Controller
     // регистрация пользователя
     public function store()
     {
+        $email = $_POST['login'];
+        $password = $_POST['password'];
         // проверить существование пользователя
         if (!$this->users->exists($_POST['login'])) {
-            $email = $_POST['login'];
-            $password = $_POST['password'];
             $isRegUser = $this->users->add($email, $password) === 1;
             $data = $isRegUser ? 'user_registered' : 'add_user_error';
             echo json_encode($data);
         } else {
-            header('Location: /register?error=usrexsts&user='.$_POST['login']);
+            header("Location: /register?error=usrexsts&user=$email");
         }
     }
 
