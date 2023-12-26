@@ -20,16 +20,16 @@ class UserController extends Controller
     // регистрация пользователя
     public function store()
     {
+        // проверить существование пользователя
         if (!$this->users->exists($_POST['login'])) {
             $email = $_POST['login'];
             $password = $_POST['password'];
             $isRegUser = $this->users->add($email, $password) === 1;
             $data = $isRegUser ? 'user_registered' : 'add_user_error';
+            echo json_encode($data);
         } else {
-            $data['result'] = 'user_exists';
+            header('Location: /register?error=usrexsts&user='.$_POST['login']);
         }
-
-        echo json_encode($data);
     }
 
     // форма входа
@@ -37,6 +37,7 @@ class UserController extends Controller
     {
         $data = ['csrfToken' => Controller::createCSRFToken()];
         // ошибки авторизации
+        $data['user'] = '';
         if (isset($_GET['error'])) {
             $data['user'] = $_GET['user'];
             if ($_GET['error'] == 'wp') {
@@ -46,8 +47,6 @@ class UserController extends Controller
             } else {
                 $data['error'] = $_GET['error'];
             }
-        } else {
-            $data['user'] = '';
         }
 
         $this->view->generate(
@@ -87,13 +86,25 @@ class UserController extends Controller
     // форма регистрации
     public function register()
     {
-        $data = ['csrfToken' => Controller::createCSRFToken()];
+        $data = ['csrf' => Controller::createCSRFToken()];
+
+        // ошибки авторизации
+        $data['error'] = '';
+        if (isset($_GET['error'])) {
+            $data['user'] = $_GET['user'];
+            if ($_GET['error'] == 'usrexsts') {
+                $data['error'] = 'Пользователь существует';
+            } else {
+                $data['error'] = $_GET['error'];
+            }
+        }
+
         $this->view->generate(
             'Форум - регистрация',
             'template_view.php',
-            'reg_view.php',
+            'register_view.php',
             $data,
-            'reg.js',
+            null,
             'reg.css'
         );
     }

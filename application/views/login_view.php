@@ -22,5 +22,3 @@
     <p class='w-50 mx-auto fw-bolder text-danger pt-2 mb-0'><?php echo $data['error']; ?></p>
     <?php }?>
 </div>
-
-<script type='text/javascript' src="http://forum.local/application/js/validation.js"></script>
