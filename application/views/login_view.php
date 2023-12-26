@@ -4,7 +4,8 @@
     <form class='login-form' method="POST" action='/user/auth'>
         <input type="hidden" name='CSRF' value=<?php echo $data['csrfToken']; ?>>
         <div class='position-relative w-25 mx-auto'>
-            <input type="text" name='login' class="form__input w-100 mb-2 p-1 border-lime" placeholder="логин" required>
+            <input type="text" name='login' class="form__input w-100 mb-2 p-1 border-lime" 
+            placeholder="логин" value="<?php echo $data['user']; ?>" required>
         </div>
         <div class='position-relative w-25 mx-auto'>
             <input type="password" name='password' class="form__input w-100 mb-2 p-1 border-lime" placeholder="пароль"  required>

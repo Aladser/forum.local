@@ -38,13 +38,16 @@ class UserController extends Controller
         $data = ['csrfToken' => Controller::createCSRFToken()];
         // ошибки авторизации
         if (isset($_GET['error'])) {
+            $data['user'] = $_GET['user'];
             if ($_GET['error'] == 'wp') {
                 $data['error'] = 'Неверный пароль';
             } elseif ($_GET['error'] == 'wu') {
-                $data['error'] = 'Пользовтаель не существует';
+                $data['error'] = 'Пользователь не существует';
             } else {
                 $data['error'] = $_GET['error'];
             }
+        } else {
+            $data['user'] = '';
         }
 
         $this->view->generate('template_view.php', 'login_view.php', null, null, 'Форум - войти', $data);
@@ -69,10 +72,10 @@ class UserController extends Controller
 
                 header('Location: /');
             } else {
-                header('Location: /login?error=wp');
+                header("Location: /login?user=$login&error=wp");
             }
         } else {
-            header('Location: /login?error=wu');
+            header("Location: /login?user=$login&error=wu");
         }
     }
 
