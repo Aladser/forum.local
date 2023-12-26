@@ -8,18 +8,20 @@ use App\Models\User;
 // пользователи
 class UserController extends Controller
 {
-    private User $users;
+    private User $userModel;
+    private string $csrf;
 
     public function __construct()
     {
         parent::__construct();
-        $this->users = new User();
+        $this->userModel = new User();
+        $this->csrf = Controller::createCSRFToken();
     }
 
     // форма регистрации
     public function register(): void
     {
-        $data = ['csrf' => Controller::createCSRFToken()];
+        $data['csrf'] = $this->csrf;
         // ошибки регистрации
         $data['error'] = '';
         if (isset($_GET['error'])) {
@@ -46,11 +48,11 @@ class UserController extends Controller
     // регистрация пользователя
     public function store(): void
     {
-        $email = $_POST['login'];
-        $password = $_POST['password'];
+        $email = htmlspecialchars($_POST['login']);
+        $password = htmlspecialchars($_POST['password']);
         // проверить существование пользователя
-        if (!$this->users->exists($_POST['login'])) {
-            $isUserRegistered = $this->users->add($email, $password) === 1;
+        if (!$this->userModel->exists($email)) {
+            $isUserRegistered = $this->userModel->add($email, $password) === 1;
             if ($isUserRegistered) {
                 $this->saveAuth($email);
                 header('Location: /');
@@ -65,11 +67,11 @@ class UserController extends Controller
     // форма входа
     public function login(): void
     {
-        $data = ['csrfToken' => Controller::createCSRFToken()];
+        $data['csrfToken'] = $this->csrf;
         // ошибки авторизации
         $data['user'] = '';
         if (isset($_GET['error'])) {
-            $data['user'] = $_GET['user'];
+            $data['user'] = htmlspecialchars($_GET['user']);
             if ($_GET['error'] == 'wp') {
                 $data['error'] = 'Неверный пароль';
             } elseif ($_GET['error'] == 'wu') {
@@ -90,12 +92,12 @@ class UserController extends Controller
     // авторизация
     public function auth(): void
     {
-        $login = $_POST['login'];
-        $password = $_POST['password'];
+        $login = htmlspecialchars($_POST['login']);
+        $password = htmlspecialchars($_POST['password']);
         // проверка аутентификации
-        if ($this->users->exists($login)) {
+        if ($this->userModel->exists($login)) {
             // проверка введенных данных
-            $isAuth = $this->users->is_correct_password($login, $password);
+            $isAuth = $this->userModel->is_correct_password($login, $password);
             if ($isAuth) {
                 $this->saveAuth($login);
                 header('Location: /');
