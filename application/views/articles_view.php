@@ -20,7 +20,7 @@
             </a>
         <?php }?>
     </section>
-    <!-- страницы показа статей (по 5) -->
+    <!-- страницы показа статей (по 10) -->
     <?php if ($data['page-count'] > 1) {?>
         <section class='p-2 fs-5 mt-1'>
             <?php for ($i = 0; $i < $data['page-count']; ++$i) {?>

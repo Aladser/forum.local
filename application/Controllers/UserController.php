@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Core\DBCtl;
 use App\Models\User;
 
 // пользователи
@@ -11,9 +10,9 @@ class UserController extends Controller
 {
     private User $users;
 
-    public function __construct(DBCtl $dbCtl = null)
+    public function __construct()
     {
-        parent::__construct($dbCtl);
+        parent::__construct();
         $this->users = new User();
     }
 

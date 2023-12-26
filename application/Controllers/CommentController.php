@@ -3,17 +3,19 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Core\DBCtl;
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\User;
 
 /** комментарии */
 class CommentController extends Controller
 {
-    public function __construct(DBCtl $dbCtl = null)
+    public function __construct()
     {
-        parent::__construct($dbCtl);
-        $this->articles = $dbCtl->getArticles();
-        $this->users = $dbCtl->getUsers();
-        $this->comments = $dbCtl->getComments();
+        parent::__construct();
+        $this->articles = new Article();
+        $this->users = new User();
+        $this->comments = new Comment();
     }
 
     public function store()
