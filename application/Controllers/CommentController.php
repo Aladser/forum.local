@@ -1,9 +1,9 @@
 <?php
 
-namespace Aladser\Controllers;
+namespace App\Controllers;
 
-use Aladser\Core\Controller;
-use Aladser\Core\DBCtl;
+use App\Core\Controller;
+use App\Core\DBCtl;
 
 /** комментарии */
 class CommentController extends Controller

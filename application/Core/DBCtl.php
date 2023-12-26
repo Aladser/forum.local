@@ -1,10 +1,10 @@
 <?php
 
-namespace Aladser\Core;
+namespace App\Core;
 
-use Aladser\Models\Article;
-use Aladser\Models\Comment;
-use Aladser\Models\User;
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\User;
 
 /** Класс модели таблицы БД */
 class DBCtl

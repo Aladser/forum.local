@@ -1,10 +1,10 @@
 <?php
 
-namespace Aladser\Controllers;
+namespace App\Controllers;
 
-use Aladser\Core\Controller;
-use Aladser\Core\DBCtl;
-use Aladser\Models\User;
+use App\Core\Controller;
+use App\Core\DBCtl;
+use App\Models\User;
 
 // пользователи
 class UserController extends Controller

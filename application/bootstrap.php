@@ -1,8 +1,8 @@
 <?php
 
-namespace Aladser;
+namespace App;
 
-use Aladser\Core\Route;
+use App\Core\Route;
 
 require __DIR__.'/vendor/autoload.php';
 // date_default_timezone_set('Europe/Moscow');
