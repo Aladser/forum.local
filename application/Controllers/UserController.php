@@ -40,8 +40,8 @@ class UserController extends Controller
         // проверка аутентификации
         if ($this->users->exists($login)) {
             // проверка введенных данных
-            $isValidLogin = $this->users->is_correct_password($login, $password);
-            if ($isValidLogin) {
+            $isAuth = $this->users->is_correct_password($login, $password);
+            if ($isAuth) {
                 // сессия
                 $_SESSION['auth'] = 1;
                 $_SESSION['login'] = $login;
@@ -49,12 +49,12 @@ class UserController extends Controller
                 setcookie('auth', 1, time() + 60 * 60 * 24, '/');
                 setcookie('login', $login, time() + 60 * 60 * 24, '/');
 
-                echo json_encode(['result' => 1]);
+                header('Location: /');
             } else {
-                echo 'Неправильный пароль';
+                header('Location: /login?error=wp');
             }
         } else {
-            echo 'Пользователь не существует';
+            header('Location: /login?error=wu');
         }
     }
 
@@ -69,7 +69,10 @@ class UserController extends Controller
     public function login()
     {
         $data = ['csrfToken' => Controller::createCSRFToken()];
-        $this->view->generate('template_view.php', 'login_view.php', '', 'login.js', 'Форум - войти', $data);
+        if (isset($_GET['error'])) {
+            $data['error'] = $_GET['error'];
+        }
+        $this->view->generate('template_view.php', 'login_view.php', null, null, 'Форум - войти', $data);
     }
 
     /** получить логин из сессии или куки */

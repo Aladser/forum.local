@@ -10,6 +10,24 @@ class Route
     {
         session_start();
 
+        // проверка CSRF
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['CSRF'])) {
+                if ($_POST['CSRF'] !== $_SESSION['CSRF']) {
+                    http_response_code(419);
+                    $controller = new MainController();
+                    $controller->error('Access is denied');
+
+                    return;
+                }
+            } else {
+                $controller = new MainController();
+                $controller->error('No csrf');
+
+                return;
+            }
+        }
+
         // URL - /контроллер/функция/аргумент
         $url = mb_substr($_SERVER['REQUEST_URI'], 1);
         $url = explode('?', $url)[0];
@@ -90,5 +108,14 @@ class Route
             $controller = new MainController();
             $controller->page404();
         }
+    }
+
+    private static function convertName($name)
+    {
+        $name = str_replace('-', ' ', $name);
+        $name = ucwords($name);
+        $name = str_replace(' ', '', $name);
+
+        return $name;
     }
 }
