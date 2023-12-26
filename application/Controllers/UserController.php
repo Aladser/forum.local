@@ -32,6 +32,24 @@ class UserController extends Controller
         echo json_encode($data);
     }
 
+    // форма входа
+    public function login()
+    {
+        $data = ['csrfToken' => Controller::createCSRFToken()];
+        // ошибки авторизации
+        if (isset($_GET['error'])) {
+            if ($_GET['error'] == 'wp') {
+                $data['error'] = 'Неверный пароль';
+            } elseif ($_GET['error'] == 'wu') {
+                $data['error'] = 'Пользовтаель не существует';
+            } else {
+                $data['error'] = $_GET['error'];
+            }
+        }
+
+        $this->view->generate('template_view.php', 'login_view.php', null, null, 'Форум - войти', $data);
+    }
+
     // авторизация
     public function auth()
     {
@@ -63,16 +81,6 @@ class UserController extends Controller
     {
         $data = ['csrfToken' => Controller::createCSRFToken()];
         $this->view->generate('template_view.php', 'reg_view.php', 'reg.css', 'reg.js', 'Форум - регистрация', $data);
-    }
-
-    // форма входа
-    public function login()
-    {
-        $data = ['csrfToken' => Controller::createCSRFToken()];
-        if (isset($_GET['error'])) {
-            $data['error'] = $_GET['error'];
-        }
-        $this->view->generate('template_view.php', 'login_view.php', null, null, 'Форум - войти', $data);
     }
 
     /** получить логин из сессии или куки */
