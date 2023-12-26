@@ -14,7 +14,7 @@ class ArticleController extends Controller
     {
         parent::__construct();
 
-        $this->user = new User();
+        $this->users = new User();
         $this->articles = new Article();
         $this->comments = new Comment();
 
@@ -91,7 +91,7 @@ class ArticleController extends Controller
     // сохранить статью в бд
     public function store(): void
     {
-        $author = $this->user->getId($_POST['author']);
+        $author = $this->users->getId($_POST['author']);
         $title = $_POST['title'];
         $summary = $_POST['summary'];
         $content = $_POST['content'];
