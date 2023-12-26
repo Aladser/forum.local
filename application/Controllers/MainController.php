@@ -16,11 +16,20 @@ class MainController extends Controller
             session_destroy();
         }
 
-        $this->view->generate('template_view.php', 'main_view.php', 'main.css', '', 'Форум');
+        $this->view->generate(
+            'Форум',
+            'template_view.php',
+            'main_view.php',
+            null, null,
+            'main.css');
     }
 
-    public function page404()
+    public function error($errorName)
     {
-        $this->view->generate('template_view.php', 'page404_view.php', '', '', 'Ошибка 404');
+        $this->view->generate(
+            'Ошибка',
+            'template_view.php',
+            'page_error_view.php',
+            ['error' => $errorName]);
     }
 }

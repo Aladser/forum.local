@@ -44,7 +44,14 @@ class ArticleController extends Controller
         // порция статей из БД
         $offset = $data['page-index'] * $this->articlesToPage;
         $data['articles'] = $this->articles->get_chunk_of_articles($this->articlesToPage, $offset);
-        $this->view->generate('template_view.php', 'articles_view.php', 'articles.css', null, 'Форум - статьи', $data);
+        $this->view->generate(
+            'Форум - статьи',
+            'template_view.php',
+            'articles_view.php',
+            $data,
+            null,
+            'articles.css'
+        );
     }
 
     // показать статью
@@ -54,7 +61,14 @@ class ArticleController extends Controller
         $data['login'] = UserController::getLoginFromClient();
         $data['comments'] = $this->comments->getCommentsOfArticle($articleId);
 
-        $this->view->generate('template_view.php', 'show-article_view.php', 'show-article.css', 'article/show-article.js', "Форум. Статья: {$data['article']['title']}", $data);
+        $this->view->generate(
+            "Форум. Статья: {$data['article']['title']}",
+            'template_view.php',
+            'show-article_view.php',
+            $data,
+            'article/show-article.js',
+            'show-article.css'
+        );
     }
 
     // форма создания статьи
@@ -62,7 +76,13 @@ class ArticleController extends Controller
     {
         $data['login'] = UserController::getLoginFromClient();
 
-        $this->view->generate('template_view.php', 'create-article_view.php', null, 'article/create-article.js', 'Форум - создать статью', $data);
+        $this->view->generate(
+            'Форум - создать статью',
+            'template_view.php',
+            'create-article_view.php',
+            $data,
+            'article/create-article.js'
+        );
     }
 
     // сохранить статью в бд
@@ -90,7 +110,13 @@ class ArticleController extends Controller
         // логин пользователя
         $data['login'] = UserController::getLoginFromClient();
 
-        $this->view->generate('template_view.php', 'edit-article_view.php', null, 'article/edit-article.js', 'Форум - изменить статью', $data);
+        $this->view->generate(
+            'Форум - изменить статью',
+            'template_view.php',
+            'edit-article_view.php',
+            $data,
+            'article/edit-article.js'
+        );
     }
 
     // обновить статью в бд

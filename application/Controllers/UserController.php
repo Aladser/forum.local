@@ -50,7 +50,12 @@ class UserController extends Controller
             $data['user'] = '';
         }
 
-        $this->view->generate('template_view.php', 'login_view.php', null, null, 'Форум - войти', $data);
+        $this->view->generate(
+            'Форум - войти',
+            'template_view.php',
+            'login_view.php',
+            $data
+        );
     }
 
     // авторизация
@@ -83,7 +88,14 @@ class UserController extends Controller
     public function register()
     {
         $data = ['csrfToken' => Controller::createCSRFToken()];
-        $this->view->generate('template_view.php', 'reg_view.php', 'reg.css', 'reg.js', 'Форум - регистрация', $data);
+        $this->view->generate(
+            'Форум - регистрация',
+            'template_view.php',
+            'reg_view.php',
+            $data,
+            'reg.js',
+            'reg.css'
+        );
     }
 
     /** получить логин из сессии или куки */

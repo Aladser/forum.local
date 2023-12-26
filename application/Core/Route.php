@@ -10,7 +10,14 @@ class Route
     {
         session_start();
 
-        // проверка CSRF
+        // проверка ошибки 500
+        if ($_SERVER['REQUEST_URI'] === '/500') {
+            $controller = new MainController();
+            $controller->error('No csrf');
+
+            return;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['CSRF'])) {
                 if ($_POST['CSRF'] !== $_SESSION['CSRF']) {
@@ -21,6 +28,7 @@ class Route
                     return;
                 }
             } else {
+                http_response_code(419);
                 $controller = new MainController();
                 $controller->error('No csrf');
 
@@ -93,7 +101,7 @@ class Route
             );
         } else {
             $controller = new MainController();
-            $controller->page404();
+            $controller->error("not found $controller_path");
 
             return;
         }

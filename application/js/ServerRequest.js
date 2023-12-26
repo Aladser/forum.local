@@ -29,7 +29,10 @@ class ServerRequest {
                 processFunc(data);
                 break;
             case 419:
-                window.open("/wrong-uri", "_self");
+                window.open("/419", "_self");
+                break;
+            case 500:
+                window.open("/500", "_self");
                 break;
             default:
                 if (errorPrg) {
