@@ -110,8 +110,9 @@ class ArticleController extends Controller
     {
         // данные о статье
         $data = $this->articles->get_article($id);
-        // логин пользователя
+
         $data['login'] = UserController::getLoginFromClient();
+        $data['csrf'] = Controller::createCSRFToken();
 
         $this->view->generate(
             'Форум - изменить статью',
