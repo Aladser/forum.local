@@ -10,6 +10,9 @@ use App\Models\User;
 /** статьи */
 class ArticleController extends Controller
 {
+    // аутентифицированный пользователь
+    private string $authUser;
+
     public function __construct(int $articlesToPage = 10)
     {
         parent::__construct();
@@ -17,6 +20,7 @@ class ArticleController extends Controller
         $this->users = new User();
         $this->articles = new Article();
         $this->comments = new Comment();
+        $this->authUser = UserController::getAuthUser();
 
         // данные для пагинации
         // число статей на странице
@@ -38,7 +42,7 @@ class ArticleController extends Controller
     // список статей
     public function index(): void
     {
-        $data['login'] = UserController::getLoginFromClient();
+        $data['login'] = $this->authUser;
         // индекс текущей страницы
         $data['page-index'] = isset($_GET['list']) ? $_GET['list'] - 1 : 0;
         // число страниц
@@ -60,7 +64,7 @@ class ArticleController extends Controller
     public function show($articleId): void
     {
         $data['article'] = $this->articles->get_article($articleId);
-        $data['login'] = UserController::getLoginFromClient();
+        $data['login'] = $this->authUser;
         $data['comments'] = $this->comments->getCommentsOfArticle($articleId);
 
         $this->view->generate(
@@ -77,7 +81,7 @@ class ArticleController extends Controller
     public function create(): void
     {
         $data['csrf'] = Controller::createCSRFToken();
-        $data['login'] = UserController::getLoginFromClient();
+        $data['login'] = $this->authUser;
 
         $this->view->generate(
             'Форум - создать статью',
@@ -111,7 +115,7 @@ class ArticleController extends Controller
         // данные о статье
         $data = $this->articles->get_article($id);
 
-        $data['login'] = UserController::getLoginFromClient();
+        $data['login'] = $this->authUser;
         $data['csrf'] = Controller::createCSRFToken();
 
         $this->view->generate(
