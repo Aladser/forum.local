@@ -64,6 +64,8 @@ class ArticleController extends Controller
     public function show($articleId): void
     {
         $data['login'] = $this->authUser;
+        $data['csrf'] = Controller::createCSRFToken();
+
         $data['article'] = $this->articles->get_article($articleId);
         $data['comments'] = $this->comments->getCommentsOfArticle($articleId);
 

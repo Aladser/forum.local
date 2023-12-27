@@ -26,19 +26,24 @@
         <h4 class='text-start ps-2'> Комментарии </h4>
         <section id='comment-list'>
             <?php foreach ($data['comments'] as $comment) { ?>
-                <article class='comment-list__item mb-2 border-C4C4C4' id='<?php echo "id-{$comment['id']}"; ?>'>
+                <article class='comment-list__item mb-2' id='<?php echo "id-{$comment['id']}"; ?>'>
                     <p class='text-start m-0 ps-2 fw-bolder'><?php echo $comment['login']; ?></p>
                     <p class='text-start m-0 py-2 ps-3 fs-5'><?php echo nl2br($comment['content']); ?></p>
-                    <p class='text-end m-0 pe-2'>
+                    <div class='text-end m-0 pe-2'>
                         <?php if ($data['login'] === $comment['login']) { ?>
-                            <button class='comment-list__btn-remove border-0 me-1' title='Удалить'>🗑</button>
+                            <form method='post' class='form-btn-remove d-inline-block'>
+                                <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
+                                <input type='submit' class='comment-list__btn-remove border-0' title='Удалить' value='🗑'>
+                            </form>
                         <?php }?>
-                        <?php echo $comment['time']; ?></p>
+                        <span><?php echo $comment['time']; ?></span>
+                        </div>
                 </article>
             <?php } ?>
         </section>
         <div class='input-group pb-2'>
             <form method='post' class='d-flex justify-content-between w-100' id='form-send-message'>
+                <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
                 <input type="hidden" name="article" value="<?php echo $data['article']['id']; ?>" >
                 <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
                 <textarea class="input-group-prepend form-control border-lime" rows='3' placeholder='Сообщение' name='message' id='form-send-message__msg' required></textarea>
