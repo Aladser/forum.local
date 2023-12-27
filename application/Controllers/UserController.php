@@ -48,8 +48,8 @@ class UserController extends Controller
     // регистрация пользователя
     public function store(): void
     {
-        $email = htmlspecialchars($_POST['login']);
-        $password = htmlspecialchars($_POST['password']);
+        $email = $_POST['login'];
+        $password = $_POST['password'];
         // проверить существование пользователя
         if (!$this->userModel->exists($email)) {
             $isUserRegistered = $this->userModel->add($email, $password) === 1;
@@ -71,7 +71,7 @@ class UserController extends Controller
         // ошибки авторизации
         $data['user'] = '';
         if (isset($_GET['error'])) {
-            $data['user'] = htmlspecialchars($_GET['user']);
+            $data['user'] = $_GET['user'];
             if ($_GET['error'] == 'wp') {
                 $data['error'] = 'Неверный пароль';
             } elseif ($_GET['error'] == 'wu') {
@@ -92,8 +92,8 @@ class UserController extends Controller
     // авторизация
     public function auth(): void
     {
-        $login = htmlspecialchars($_POST['login']);
-        $password = htmlspecialchars($_POST['password']);
+        $login = $_POST['login'];
+        $password = $_POST['password'];
         // проверка аутентификации
         if ($this->userModel->exists($login)) {
             // проверка введенных данных

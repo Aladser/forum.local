@@ -10,7 +10,7 @@ class Route
     {
         session_start();
 
-        // проверка ошибки access_denied
+        // проверка ошибки access_denied из Javascript
         if ($_SERVER['REQUEST_URI'] === '/access_denied') {
             $controller = new MainController();
             $controller->error('Access denied');
