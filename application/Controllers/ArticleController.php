@@ -95,13 +95,13 @@ class ArticleController extends Controller
     // сохранить статью в бд
     public function store(): void
     {
-        $author = $this->users->getId($this->authUser);
         $title = $_POST['title'];
         $summary = $_POST['summary'];
         $content = $_POST['content'];
+        $authorId = $this->users->getId($this->authUser);
 
         if (!$this->articles->title_exsists($title)) {
-            $isAdded = $this->articles->add($author, $title, $summary, $content);
+            $isAdded = $this->articles->add($authorId, $title, $summary, $content);
             $result = ['result' => (int) $isAdded];
         } else {
             $result = ['result' => 0, 'description' => 'заголовок занят'];
