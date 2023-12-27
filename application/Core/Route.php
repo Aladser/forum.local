@@ -96,7 +96,7 @@ class Route
             $controller = new $controller_name();
         } else {
             $controller = new MainController();
-            $controller->error("not found $controller_path");
+            $controller->error('Страница не существует');
 
             return;
         }
@@ -119,7 +119,7 @@ class Route
             $controller->$action($funcArgs);
         } else {
             $controller = new MainController();
-            $controller->error("$controller - контроллер не существует");
+            $controller->error('Страница не существует');
         }
     }
 
