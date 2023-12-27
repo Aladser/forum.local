@@ -14,6 +14,3 @@
     </form>
     <p id='prg-error' class='pb-4 text-center text-danger fw-bolder'><?php echo $data['error']; ?> </p>
 </section>
-
-<script type='text/javascript' src="http://forum.local/application/js/ServerRequest.js"></script>
-<script type='text/javascript' src="http://forum.local/application/js/article/ArticleClientController.js"></script>

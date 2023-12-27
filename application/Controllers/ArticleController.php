@@ -151,8 +151,7 @@ class ArticleController extends Controller
             'Форум - изменить статью',
             'template_view.php',
             'edit-article_view.php',
-            $data,
-            'article/edit-article.js'
+            $data
         );
     }
 
