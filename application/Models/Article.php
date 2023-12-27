@@ -15,11 +15,14 @@ class Article extends Model
         return $this->dbQuery->query($sql, false);
     }
 
-    public function add($author, $title, $summary, $content): bool
+    public function add($author, $title, $summary, $content)
     {
-        $sql = "insert into articles(author_id, title, summary, content) values('$author', '$title', '$summary', '$content')";
+        $sql = 'insert into articles(author_id, title, summary, content) values(:author, :title, :summary, :content)';
 
-        return $this->dbQuery->exec($sql) == 1;
+        $data = $this->dbQuery->queryPrepared($sql, [':author' => $author, ':title' => $title, ':summary' => $summary, ':content' => $content]);
+
+        return $data;
+        // return $this->dbQuery->exec($sql) == 1;
     }
 
     public function update($id, $title, $summary, $content): bool

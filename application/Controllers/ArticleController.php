@@ -116,7 +116,7 @@ class ArticleController extends Controller
 
         if (!$this->articles->exists('title', $title)) {
             $isAdded = $this->articles->add($authorId, $title, $summary, $content);
-            echo $isAdded;
+            var_dump($isAdded);
             // header('Location: /');
         } else {
             header('Location: /article/create?error=ttlexst');
