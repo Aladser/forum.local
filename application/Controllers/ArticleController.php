@@ -85,17 +85,24 @@ class ArticleController extends Controller
     }
 
     // форма создания статьи
-    public function create(): void
+    public function create($args): void
     {
         $data['login'] = $this->authUser;
         $data['csrf'] = $this->csrf;
+
+        if (isset($args['error'])) {
+            if ($args['error'] == 'ttlexst') {
+                $data['error'] = 'Заголок занят';
+            }
+        } else {
+            $data['error'] = '';
+        }
 
         $this->view->generate(
             'Форум - создать статью',
             'template_view.php',
             'create-article_view.php',
-            $data,
-            'article/create-article.js'
+            $data
         );
     }
 
@@ -109,11 +116,11 @@ class ArticleController extends Controller
 
         if (!$this->articles->exists('title', $title)) {
             $isAdded = $this->articles->add($authorId, $title, $summary, $content);
-            $result = ['result' => (int) $isAdded];
+            echo $isAdded;
+            // header('Location: /');
         } else {
-            $result = ['result' => 0, 'description' => 'заголовок занят'];
+            header('Location: /article/create?error=ttlexst');
         }
-        echo json_encode($result);
     }
 
     // форма редактирования статьи

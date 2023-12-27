@@ -9,7 +9,8 @@ class Article extends Model
 {
     public function all()
     {
-        $sql = 'select articles.id as id, login, title, summary, content from articles join users on articles.author_id = users.id';
+        $sql = 'select articles.id as id, login, title, summary, content ';
+        $sql .= 'from articles join users on articles.author_id = users.id';
 
         return $this->dbQuery->query($sql, false);
     }

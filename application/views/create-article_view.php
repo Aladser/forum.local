@@ -1,5 +1,5 @@
 <section class='w-50 mx-auto text-center'>
-    <form method='POST' id='form-create-article'>
+    <form method='POST' id='form-create-article' action='/article/store'>
         <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
         <input type="text" class='d-block mx-auto ps-3 p-2 mb-2 w-75 text-secondary border-lime' 
         name="title" placeholder='Заголовок' required>
@@ -12,7 +12,7 @@
             <p class='d-inline-block p-2 text-decoration-none border-lime bg-lime text-white'>Назад</p>
         </a>
     </form>
-    <p id='prg-error' class='pb-4 text-center text-danger fw-bolder'></p>
+    <p id='prg-error' class='pb-4 text-center text-danger fw-bolder'><?php echo $data['error']; ?> </p>
 </section>
 
 <script type='text/javascript' src="http://forum.local/application/js/ServerRequest.js"></script>
