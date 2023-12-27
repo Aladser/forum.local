@@ -20,7 +20,8 @@ class MainController extends Controller
             'Форум',
             'template_view.php',
             'main_view.php',
-            null, null,
+            null,
+            null,
             'main.css');
     }
 

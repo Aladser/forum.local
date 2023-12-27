@@ -18,12 +18,12 @@ class CommentController extends Controller
         $this->comments = new Comment();
     }
 
-    public function store()
+    public function store(mixed $args)
     {
-        $author = $_POST['author'];
+        $author = $args['author'];
         $authorId = $this->users->getId($author);
-        $articleId = $_POST['article'];
-        $content = $_POST['message'];
+        $articleId = $args['article'];
+        $content = $args['message'];
 
         $id = $this->comments->add($authorId, $articleId, $content);
         echo json_encode([
@@ -32,9 +32,9 @@ class CommentController extends Controller
         ]);
     }
 
-    public function remove()
+    public function remove(mixed $args)
     {
-        $id = $_POST['id'];
+        $id = $args['id'];
         $isRemoved = $this->comments->remove($id);
         echo json_encode(['result' => (int) $isRemoved]);
     }

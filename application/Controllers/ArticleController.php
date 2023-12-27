@@ -43,11 +43,11 @@ class ArticleController extends Controller
     }
 
     // список статей
-    public function index(): void
+    public function index(mixed $args): void
     {
         $data['login'] = $this->authUser;
         // индекс текущей страницы
-        $data['page-index'] = isset($_GET['list']) ? $_GET['list'] - 1 : 0;
+        $data['page-index'] = isset($args['list']) ? $args['list'] - 1 : 0;
         // число страниц
         $data['page-count'] = $this->pageCount;
         // порция статей из БД
@@ -100,11 +100,11 @@ class ArticleController extends Controller
     }
 
     // сохранить статью в бд
-    public function store(): void
+    public function store(mixed $args): void
     {
-        $title = $_POST['title'];
-        $summary = $_POST['summary'];
-        $content = $_POST['content'];
+        $title = $args['title'];
+        $summary = $args['summary'];
+        $content = $args['content'];
         $authorId = $this->users->getId($this->authUser);
 
         if (!$this->articles->title_exsists($title)) {
@@ -135,12 +135,12 @@ class ArticleController extends Controller
     }
 
     // обновить статью в бд
-    public function update(): void
+    public function update(mixed $args): void
     {
-        $id = $_POST['id'];
-        $title = $_POST['title'];
-        $summary = $_POST['summary'];
-        $content = $_POST['content'];
+        $id = $args['id'];
+        $title = $args['title'];
+        $summary = $args['summary'];
+        $content = $args['content'];
         echo (int) $this->articles->update($id, $title, $summary, $content);
     }
 
