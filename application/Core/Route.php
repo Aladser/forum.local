@@ -101,6 +101,7 @@ class Route
             return;
         }
 
+        // декодирование аргументов
         // поиск POST-параметров
         if (count($_POST) > 0) {
             foreach ($_POST as $key => $value) {
