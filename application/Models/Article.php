@@ -19,10 +19,12 @@ class Article extends Model
     {
         $sql = 'insert into articles(author_id, title, summary, content) values(:author, :title, :summary, :content)';
 
-        $data = $this->dbQuery->queryPrepared($sql, [':author' => $author, ':title' => $title, ':summary' => $summary, ':content' => $content]);
+        $id = $this->dbQuery->insert(
+            $sql,
+            [':author' => $author, ':title' => $title, ':summary' => $summary, ':content' => $content]
+        );
 
-        return $data;
-        // return $this->dbQuery->exec($sql) == 1;
+        return $id;
     }
 
     public function update($id, $title, $summary, $content): bool

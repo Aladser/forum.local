@@ -93,9 +93,11 @@ class ArticleController extends Controller
         if (isset($args['error'])) {
             if ($args['error'] == 'ttlexst') {
                 $data['error'] = 'Заголок занят';
+                $data['title'] = $args['title'];
             }
         } else {
             $data['error'] = '';
+            $data['title'] = '';
         }
 
         $this->view->generate(
@@ -115,11 +117,10 @@ class ArticleController extends Controller
         $authorId = $this->users->getId($this->authUser);
 
         if (!$this->articles->exists('title', $title)) {
-            $isAdded = $this->articles->add($authorId, $title, $summary, $content);
-            var_dump($isAdded);
-            // header('Location: /');
+            $id = $this->articles->add($authorId, $title, $summary, $content);
+            header('Location: /article/show/'.$id);
         } else {
-            header('Location: /article/create?error=ttlexst');
+            header('Location: /article/create?error=ttlexst&title='.$title);
         }
     }
 

@@ -39,6 +39,17 @@ class DBQuery
         $this->dbConnection = null;
     }
 
+    public function insert(string $sql, array $args): int
+    {
+        $this->connect();
+        $stmt = $this->dbConnection->prepare($sql);
+        $stmt->execute($args);
+        $id = $this->dbConnection->lastInsertId();
+        $this->disconnect();
+
+        return $id;
+    }
+
     /** выполняет подготовленный запрос
      * @param string $sql        sql-запрос
      * @param array  $args       массив переменных запроса
@@ -99,17 +110,5 @@ class DBQuery
         $this->disconnect();
 
         return $procRst->fetch(\PDO::FETCH_ASSOC)['info'];
-    }
-
-    public function insert(string $sql): int
-    {
-        $this->connect();
-        $this->dbConnection->beginTransaction();
-        $this->dbConnection->exec($sql);
-        $id = $this->dbConnection->lastInsertId();
-        $this->dbConnection->commit();
-        $this->disconnect();
-
-        return $id;
     }
 }
