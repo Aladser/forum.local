@@ -132,6 +132,18 @@ class ArticleController extends Controller
         // данные о статье
         $data = $this->articles->get_article($id);
 
+        // проверка ошибок
+        if (isset($args['error'])) {
+            if ($args['error'] === 'title_exists') {
+                $data['error'] = 'Заголовок занят';
+                $data['title'] = $args['title'];
+            } elseif ($args['error'] === 'system_error') {
+                $data['error'] = 'Системная ошибка. Попробуйте позже';
+            }
+        } else {
+            $data['error'] = '';
+        }
+
         $data['login'] = $this->authUser;
         $data['csrf'] = $this->csrf;
 
@@ -152,10 +164,16 @@ class ArticleController extends Controller
         $summary = $args['summary'];
         $content = $args['content'];
 
-        if (!$this->articles->exists('title', $title)) {
-            echo (int) $this->articles->update($id, $title, $summary, $content);
+        $idTitle = $this->articles->get_article($id)['title'];
+        if (!$this->articles->exists('title', $title) || $title === $idTitle) {
+            $isUpdated = $this->articles->update($id, $title, $summary, $content);
+            if ($isUpdated) {
+                header('Location: /article/show/'.$id);
+            } else {
+                header('Location: /article/edit/'.$id.'?error=system_error');
+            }
         } else {
-            echo 'Заголовок уже занят';
+            header('Location: /article/edit/'.$id.'?error=title_exists&title='.rawurlencode($title));
         }
     }
 

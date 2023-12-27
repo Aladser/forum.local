@@ -1,5 +1,5 @@
 <div class='w-50 mx-auto text-center'>
-    <form method='POST' id='form-edit-article'>
+    <form method='POST' action='/article/update'>
         <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
         <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
         <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
@@ -11,8 +11,5 @@
             <p class='d-inline-block text-decoration-none p-2 border-lime bg-lime text-white'>Назад</p>
         </a>
     </form>
-    <p id='prg-error' class='pb-4 text-center text-danger fw-bolder'></p>
+    <p id='prg-error' class='pb-4 text-center text-danger fw-bolder'><?php echo $data['error']; ?></p>
 </div>
-
-<script type='text/javascript' src="http://forum.local/application/js/ServerRequest.js"></script>
-<script type='text/javascript' src="http://forum.local/application/js/article/ArticleClientController.js"></script>
