@@ -63,8 +63,8 @@ class ArticleController extends Controller
     // показать статью
     public function show($articleId): void
     {
-        $data['article'] = $this->articles->get_article($articleId);
         $data['login'] = $this->authUser;
+        $data['article'] = $this->articles->get_article($articleId);
         $data['comments'] = $this->comments->getCommentsOfArticle($articleId);
 
         $this->view->generate(
@@ -80,8 +80,8 @@ class ArticleController extends Controller
     // форма создания статьи
     public function create(): void
     {
-        $data['csrf'] = Controller::createCSRFToken();
         $data['login'] = $this->authUser;
+        $data['csrf'] = Controller::createCSRFToken();
 
         $this->view->generate(
             'Форум - создать статью',
@@ -95,7 +95,7 @@ class ArticleController extends Controller
     // сохранить статью в бд
     public function store(): void
     {
-        $author = $this->users->getId($_POST['author']);
+        $author = $this->users->getId($this->authUser);
         $title = $_POST['title'];
         $summary = $_POST['summary'];
         $content = $_POST['content'];

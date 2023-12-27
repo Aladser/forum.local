@@ -126,12 +126,12 @@ class UserController extends Controller
     /** получить логин из сессии или куки */
     public static function getAuthUser(): string
     {
-        if (isset($_COOKIE['login'])) {
-            return $_COOKIE['login'];
-        } elseif (isset($_SESSION['login'])) {
+        if (isset($_SESSION['login'])) {
             return $_SESSION['login'];
+        } elseif (isset($_COOKIE['login'])) {
+            return $_COOKIE['login'];
         } else {
-            return null;
+            return false;
         }
     }
 }
