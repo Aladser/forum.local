@@ -2,7 +2,7 @@
     <h3 class='mt-4 mb-4 text-secondary'>Войти</h3>
 
     <form class='login-form' method="POST" action='/user/auth'>
-        <input type="hidden" name='CSRF' value=<?php echo $data['csrfToken']; ?>>
+        <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
         <div class='position-relative w-25 mx-auto'>
             <input type="text" name='login' class="form__input w-100 mb-2 p-1 border-lime" 
             placeholder="логин" value="<?php echo $data['user']; ?>" required>

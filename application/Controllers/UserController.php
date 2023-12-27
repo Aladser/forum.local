@@ -19,7 +19,7 @@ class UserController extends Controller
     }
 
     // форма регистрации
-    public function register($args): void
+    public function register(mixed $args): void
     {
         $args['csrf'] = $this->csrf;
         // ошибки регистрации
@@ -59,17 +59,11 @@ class UserController extends Controller
         if ($args['password'] !== $args['password_confirm']) {
             // проверка совпадения паролей
             header("Location: /register?error=dp&user=$email");
-
-            return;
         } elseif (strlen($password) < 3) {
             // длина пароля
             header("Location: /register?error=sp&user=$email");
-
-            return;
-        }
-
-        // проверить существование пользователя
-        if (!$this->userModel->exists($email)) {
+        } elseif (!$this->userModel->exists($email)) {
+            // проверить существование пользователя
             $isUserRegistered = $this->userModel->add($email, $password);
             if ($isUserRegistered) {
                 $this->saveAuth($email);
@@ -83,35 +77,33 @@ class UserController extends Controller
     }
 
     // форма входа
-    public function login(): void
+    public function login(mixed $args): void
     {
-        $data['csrfToken'] = $this->csrf;
+        $args['csrf'] = $this->csrf;
         // ошибки авторизации
-        $data['user'] = '';
-        if (isset($_GET['error'])) {
-            $data['user'] = $_GET['user'];
-            if ($_GET['error'] == 'wp') {
-                $data['error'] = 'Неверный пароль';
-            } elseif ($_GET['error'] == 'wu') {
-                $data['error'] = 'Пользователь не существует';
-            } else {
-                $data['error'] = $_GET['error'];
+        if (isset($args['error'])) {
+            if ($args['error'] == 'wp') {
+                $args['error'] = 'Неверный пароль';
+            } elseif ($args['error'] == 'wu') {
+                $args['error'] = 'Пользователь не существует';
             }
+        } else {
+            $args['user'] = '';
         }
 
         $this->view->generate(
             'Форум - войти',
             'template_view.php',
             'login_view.php',
-            $data
+            $args
         );
     }
 
     // авторизация
-    public function auth(): void
+    public function auth(mixed $args): void
     {
-        $login = $_POST['login'];
-        $password = $_POST['password'];
+        $login = $args['login'];
+        $password = $args['password'];
         // проверка аутентификации
         if ($this->userModel->exists($login)) {
             // проверка введенных данных
@@ -129,7 +121,7 @@ class UserController extends Controller
 
     /** Сохранить авторизацию в куки и сессии.
      *
-     * @param [string] $user имя пользователя
+     * @param string $user имя пользователя
      */
     private function saveAuth(string $user): void
     {
