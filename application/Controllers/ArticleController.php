@@ -64,11 +64,13 @@ class ArticleController extends Controller
     public function show($articleId): void
     {
         $data['login'] = $this->authUser;
-        $data['csrf'] = Controller::createCSRFToken();
+        $csrf = Controller::createCSRFToken();
+        $data['csrf'] = $csrf;
 
         $data['article'] = $this->articles->get_article($articleId);
         $data['comments'] = $this->comments->getCommentsOfArticle($articleId);
 
+        $header = '<meta name="csrf" content="'.$csrf.'">';
         $this->view->generate(
             "Форум. Статья: {$data['article']['title']}",
             'template_view.php',
