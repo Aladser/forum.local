@@ -1,9 +1,9 @@
 class CommentClientController {
-    constructor(URL, msgElement, sendCommentForm, commentList) {
+    constructor(URL, msgElement, sendCommentForm, commentList, csrf) {
         this.URL = URL;
         this.msgElement = msgElement;
         this.commentList = commentList;
-        this.csrf = document.querySelector('meta[name="csrf"]');
+        this.csrf = csrf;
         this.appendRemovingListeners();
         // форма добавления комментария
         this.sendCommentForm = sendCommentForm;
@@ -70,7 +70,7 @@ class CommentClientController {
 
         let params = new URLSearchParams();
         params.set('id', comment.id.substring(3));
-        params.set('CSRF', this.csrf.value);
+        params.set('CSRF', this.csrf.content);
 
         // запрос на сервер
         ServerRequest.execute(
