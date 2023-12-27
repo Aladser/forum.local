@@ -149,7 +149,12 @@ class ArticleController extends Controller
         $title = $args['title'];
         $summary = $args['summary'];
         $content = $args['content'];
-        echo (int) $this->articles->update($id, $title, $summary, $content);
+
+        if (!$this->articles->exists('title', $title)) {
+            echo (int) $this->articles->update($id, $title, $summary, $content);
+        } else {
+            echo 'Заголовок уже занят';
+        }
     }
 
     // удалить статью из бд
