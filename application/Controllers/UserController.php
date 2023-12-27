@@ -19,40 +19,58 @@ class UserController extends Controller
     }
 
     // форма регистрации
-    public function register(): void
+    public function register($args): void
     {
-        $data['csrf'] = $this->csrf;
+        $args['csrf'] = $this->csrf;
         // ошибки регистрации
-        $data['error'] = '';
-        if (isset($_GET['error'])) {
-            if ($_GET['error'] == 'usrexsts') {
-                $data['user'] = $_GET['user'];
-                $data['error'] = 'Пользователь существует';
-            } elseif ($_GET['error'] == 'system_error') {
-                $data['error'] = 'Системная ошибка. Попробуйте позже';
-            } else {
-                $data['error'] = $_GET['error'];
+        if (isset($args['error'])) {
+            if ($args['error'] == 'usrexsts') {
+                $args['error'] = 'Пользователь существует';
+            } elseif ($args['error'] == 'system_error') {
+                $args['error'] = 'Системная ошибка. Попробуйте позже';
+            } elseif ($args['error'] == 'sp') {
+                $args['error'] = 'Пароль не менее трех символов';
+            } elseif ($args['error'] == 'dp') {
+                $args['error'] = 'Пароли не совпадают';
             }
+        } else {
+            $args['error'] = '';
+            $args['user'] = '';
         }
 
         $this->view->generate(
             'Форум - регистрация',
             'template_view.php',
             'register_view.php',
-            $data,
+            $args,
             null,
             'reg.css'
         );
     }
 
     // регистрация пользователя
-    public function store(): void
+    public function store(mixed $args): void
     {
-        $email = $_POST['login'];
-        $password = $_POST['password'];
+        $email = $args['login'];
+        $password = $args['password'];
+        $passwordConfirm = $args['password_confirm'];
+
+        // проверка паролей
+        if ($args['password'] !== $args['password_confirm']) {
+            // проверка совпадения паролей
+            header("Location: /register?error=dp&user=$email");
+
+            return;
+        } elseif (strlen($password) < 3) {
+            // длина пароля
+            header("Location: /register?error=sp&user=$email");
+
+            return;
+        }
+
         // проверить существование пользователя
         if (!$this->userModel->exists($email)) {
-            $isUserRegistered = $this->userModel->add($email, $password) === 1;
+            $isUserRegistered = $this->userModel->add($email, $password);
             if ($isUserRegistered) {
                 $this->saveAuth($email);
                 header('Location: /');

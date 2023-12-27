@@ -43,7 +43,8 @@
                 <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
                 <input type="hidden" name="article" value="<?php echo $data['article']['id']; ?>" >
                 <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
-                <textarea class="input-group-prepend form-control border-lime" rows='3' placeholder='Сообщение' name='message' id='form-send-message__msg' required></textarea>
+                <textarea class="input-group-prepend form-control border-lime" 
+                rows='3' placeholder='Сообщение' name='message' id='form-send-message__msg' required></textarea>
                 <button type="submit" class='btn border-lime bg-lime text-white' title='Отправить'>Отправить</button>
             </form>
         </div>

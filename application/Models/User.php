@@ -33,7 +33,7 @@ class User extends Model
         $password = password_hash($password, PASSWORD_DEFAULT);
         $sql = "insert into users(login, password) values('$login', '$password')";
 
-        return $this->dbQuery->exec($sql);
+        return $this->dbQuery->exec($sql) === 1;
     }
 
     // получить ID пользователя

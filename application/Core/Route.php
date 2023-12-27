@@ -34,6 +34,8 @@ class Route
                     $controller->error('Access is denied');
 
                     return;
+                } else {
+                    unset($_POST['CSRF']);
                 }
             } else {
                 http_response_code(419);
@@ -46,11 +48,12 @@ class Route
 
         $url = mb_substr($_SERVER['REQUEST_URI'], 1);
         $url = explode('?', $url)[0];
+        // аргументы функции контроллера
+        $funcArgs = null;
 
         if (array_key_exists($url, self::$specificRoutes)) {
             $controller_name = self::$specificRoutes[$url];
             $action = self::convertName($url);
-            $funcParam = false;
         } else {
             // URL - [контроллер, функция, аргумент]
             $urlAsArray = explode('/', $url);
@@ -62,11 +65,14 @@ class Route
             } else {
                 $action = 'index';
             }
-            // функция аргумента
-            $funcParam = count($urlAsArray) == 3 ? $urlAsArray[2] : false;
+            // проверка наличия аргумента
+            if (count($urlAsArray) == 3) {
+                $funcArgs = $urlAsArray[2];
+            }
         }
-        // преобразовать url в название класса
+
         $controller_name = self::convertName($controller_name);
+
         // авторизация сохраняется в куки и сессии. Если авторизация есть, то / -> /article
         if ($controller_name === 'Main'
             && (isset($_SESSION['auth']) || isset($_COOKIE['auth']))
@@ -80,6 +86,7 @@ class Route
         ) {
             $controller_name = 'Main';
         }
+
         // создаем контроллер
         $controller_name .= 'Controller';
         $controller_path = dirname(__DIR__, 1).DIRECTORY_SEPARATOR.'Controllers'.DIRECTORY_SEPARATOR.$controller_name.'.php';
@@ -93,15 +100,26 @@ class Route
 
             return;
         }
+
+        // поиск POST-параметров
+        if (count($_POST) > 0) {
+            foreach ($_POST as $key => $value) {
+                $funcArgs[$key] = htmlspecialchars($value);
+            }
+        }
+        // поиск GET-параметров
+        if (count($_GET) > 0) {
+            foreach ($_GET as $key => $value) {
+                $funcArgs[$key] = htmlspecialchars($value);
+            }
+        }
+
         // вызов метода
         if (method_exists($controller, $action)) {
-            // проверка наличия аргумента функции
-            $funcParam = $funcParam ? $funcParam : null;
-
-            $controller->$action($funcParam);
+            $controller->$action($funcArgs);
         } else {
             $controller = new MainController();
-            $controller->error('Controller not exists');
+            $controller->error("$controller - контроллер не существует");
         }
     }
 

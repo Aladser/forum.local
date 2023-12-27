@@ -21,7 +21,7 @@
 
 <header class='mb-4'>
     <div class='text-center text-white bg-lime d-flex justify-content-between'>
-        <?php if (!is_null($data)) {?>
+        <?php if (!empty($data)) {?>
             <?php if (array_key_exists('login', $data)) {?>
                 <h3 class='p-4 w-90'><?php echo $pageName; ?></h3>
                 <div class='d-flex justify-content-end'>
@@ -30,6 +30,8 @@
                         <div class='h-100 d-flex align-items-center px-4'>Выйти</div>
                     </a>
                 </div>
+            <?php } else {?>
+                <h3 class='p-4 w-100'><?php echo $pageName; ?></h3>
             <?php } ?>
         <?php } else { ?>
             <h3 class='p-4 w-100'><?php echo $pageName; ?></h3>
