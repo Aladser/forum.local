@@ -10,7 +10,7 @@ class Route
     {
         session_start();
 
-        // проверка ошибки access_denied из Javascript
+        // проверка ошибки access_denied из Javascript-класса ServerRequest
         if ($_SERVER['REQUEST_URI'] === '/access_denied') {
             $controller = new MainController();
             $controller->error('Access denied');
@@ -31,13 +31,13 @@ class Route
             } else {
                 http_response_code(419);
                 $controller = new MainController();
-                $controller->error('No csrf');
+                $controller->error('Не отправлен csrf-токен');
 
                 return;
             }
         }
 
-        // URL - /контроллер/функция/аргумент
+        // URL - [контроллер, функция, аргумент]
         $url = mb_substr($_SERVER['REQUEST_URI'], 1);
         $url = explode('?', $url)[0];
 

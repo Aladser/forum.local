@@ -1,4 +1,15 @@
 class ArticleClientController {
+    /** Клиентский контроллер статей
+     * 
+     * @param {*} URL url-сервера
+     * @param {*} msgElement поле сообщений
+     * @param {*} table таблица
+     * @param {*} addForm форма добавления
+     * @param {*} editForm форма редактирования
+     * @param {*} editBtn кнопка отправки формы редактирования
+     * @param {*} removeBtn кнопка удаления
+     * @param {*} aboutBtn кнопка открытия страницы статьи
+     */
     constructor(URL, msgElement, table = null, addForm = null, editForm = null, editBtn=null, removeBtn=null, aboutBtn=null) {
         this.URL = URL;
         this.msgElement = msgElement;
