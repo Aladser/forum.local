@@ -3,6 +3,7 @@ class CommentClientController {
         this.URL = URL;
         this.msgElement = msgElement;
         this.commentList = commentList;
+        this.csrf = document.querySelector('meta[name="csrf"]').content;
         // форма добавления комментария
         this.sendCommentForm = sendCommentForm;
         this.sendCommentForm.onsubmit = (event) => this.add(event);
@@ -70,6 +71,7 @@ class CommentClientController {
 
         let params = new URLSearchParams();
         params.set('id', comment.id.substring(3));
+        params.set('CSRF', this.csrf);
 
         // запрос на сервер
         ServerRequest.execute(

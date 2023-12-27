@@ -77,7 +77,8 @@ class ArticleController extends Controller
             'show-article_view.php',
             $data,
             'article/show-article.js',
-            'show-article.css'
+            'show-article.css',
+            $header
         );
     }
 

@@ -12,6 +12,7 @@ class View
      * @param [type] $data данные
      * @param [type] $content_js js-скрипты
      * @param [type] $content_css css-скрипты
+     * @param [type] $header доп.заголовок
      */
     public function generate(
         $pageName,
@@ -19,7 +20,8 @@ class View
         $content_view,
         $data = null,
         $content_js = null,
-        $content_css = null
+        $content_css = null,
+        $header = null
     ): void {
         require_once dirname(__DIR__, 1).DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.$template_view;
     }
