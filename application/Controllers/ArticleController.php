@@ -10,6 +10,8 @@ use App\Models\User;
 /** статьи */
 class ArticleController extends Controller
 {
+    // csrf
+    private string $csrf;
     // аутентифицированный пользователь
     private string $authUser;
 
@@ -21,6 +23,7 @@ class ArticleController extends Controller
         $this->articles = new Article();
         $this->comments = new Comment();
         $this->authUser = UserController::getAuthUser();
+        $this->csrf = Controller::createCSRFToken();
 
         // данные для пагинации
         // число статей на странице
@@ -64,13 +67,12 @@ class ArticleController extends Controller
     public function show($articleId): void
     {
         $data['login'] = $this->authUser;
-        $csrf = Controller::createCSRFToken();
-        $data['csrf'] = $csrf;
+        $data['csrf'] = $this->csrf;
 
         $data['article'] = $this->articles->get_article($articleId);
         $data['comments'] = $this->comments->getCommentsOfArticle($articleId);
 
-        $header = '<meta name="csrf" content="'.$csrf.'">';
+        $header = '<meta name="csrf" content="'.$this->csrf.'">';
         $this->view->generate(
             "Форум. Статья: {$data['article']['title']}",
             'template_view.php',
@@ -86,7 +88,7 @@ class ArticleController extends Controller
     public function create(): void
     {
         $data['login'] = $this->authUser;
-        $data['csrf'] = Controller::createCSRFToken();
+        $data['csrf'] = $this->csrf;
 
         $this->view->generate(
             'Форум - создать статью',
@@ -121,7 +123,7 @@ class ArticleController extends Controller
         $data = $this->articles->get_article($id);
 
         $data['login'] = $this->authUser;
-        $data['csrf'] = Controller::createCSRFToken();
+        $data['csrf'] = $this->csrf;
 
         $this->view->generate(
             'Форум - изменить статью',
