@@ -107,7 +107,7 @@ class ArticleController extends Controller
         $content = $args['content'];
         $authorId = $this->users->getId($this->authUser);
 
-        if (!$this->articles->title_exsists($title)) {
+        if (!$this->articles->exists('title', $title)) {
             $isAdded = $this->articles->add($authorId, $title, $summary, $content);
             $result = ['result' => (int) $isAdded];
         } else {

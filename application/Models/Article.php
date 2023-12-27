@@ -56,11 +56,11 @@ class Article extends Model
     }
 
     /** проверка существования заголовока статьи */
-    public function title_exsists($title): bool
+    public function exists($fieldName, $value): bool
     {
-        $sql = 'select count(*) as count from articles where title = :title';
+        $sql = "select count(*) as count from articles where $fieldName = :field";
 
-        return $this->dbQuery->queryPrepared($sql, ['title' => $title])['count'] == 1;
+        return $this->dbQuery->queryPrepared($sql, ['field' => $value])['count'] === 1;
     }
 
     /** число записей */
