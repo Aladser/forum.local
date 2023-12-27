@@ -31,10 +31,7 @@
                     <p class='text-start m-0 py-2 ps-3 fs-5'><?php echo nl2br($comment['content']); ?></p>
                     <div class='text-end m-0 pe-2'>
                         <?php if ($data['login'] === $comment['login']) { ?>
-                            <form method='post' class='form-btn-remove d-inline-block'>
-                                <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
-                                <input type='submit' class='comment-list__btn-remove border-0' title='Удалить' value='🗑'>
-                            </form>
+                            <input type='submit' class='comment-list__btn-remove border-0' title='Удалить' value='🗑'>
                         <?php }?>
                         <span><?php echo $comment['time']; ?></span>
                         </div>

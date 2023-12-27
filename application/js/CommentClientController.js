@@ -12,8 +12,8 @@ class CommentClientController {
 
     /** назначить события удаления комментариев */
     appendRemovingListeners() {
-        this.removeBtnForms = this.commentList.querySelectorAll(`.form-btn-remove`);
-        this.removeBtnForms.forEach((btn) => btn.onsubmit = (event) => this.remove(event));
+        this.removeBtnForms = this.commentList.querySelectorAll(`.comment-list__btn-remove`);
+        this.removeBtnForms.forEach((btn) => btn.onclick = (event) => this.remove(event));
     }
 
     // добавить коммент в БД - comment/store
@@ -70,7 +70,6 @@ class CommentClientController {
 
         let params = new URLSearchParams();
         params.set('id', comment.id.substring(3));
-        params.set('CSRF', event.target.CSRF.value);
 
         // запрос на сервер
         ServerRequest.execute(
