@@ -3,12 +3,11 @@ class CommentClientController {
         this.URL = URL;
         this.msgElement = msgElement;
         this.commentList = commentList;
-        this.csrf = document.querySelector('meta[name="csrf"]').content;
+        this.csrf = document.querySelector('meta[name="csrf"]');
+        this.appendRemovingListeners();
         // форма добавления комментария
         this.sendCommentForm = sendCommentForm;
         this.sendCommentForm.onsubmit = (event) => this.add(event);
-        // кнопки удаления комментариев
-        this.appendRemovingListeners();
     }
 
     /** назначить события удаления комментариев */
@@ -25,7 +24,7 @@ class CommentClientController {
         let timeNow = DBLocalTime.get();
         // ---обработка ответа от сервера---
         let process = (data) => {
-            data = JSON.parse(data);
+            data = JSON.parse(data);    
             if (data.result < 1) {
                 this.msgElement.innerHTML = data;
             } else {
@@ -71,7 +70,7 @@ class CommentClientController {
 
         let params = new URLSearchParams();
         params.set('id', comment.id.substring(3));
-        params.set('CSRF', this.csrf);
+        params.set('CSRF', this.csrf.value);
 
         // запрос на сервер
         ServerRequest.execute(
