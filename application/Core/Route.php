@@ -67,7 +67,7 @@ class Route
             }
             // проверка наличия аргумента
             if (count($urlAsArray) == 3) {
-                $funcArgs = $urlAsArray[2];
+                $funcArgs['id'] = $urlAsArray[2];
             }
         }
 

@@ -64,8 +64,9 @@ class ArticleController extends Controller
     }
 
     // показать статью
-    public function show($articleId): void
+    public function show(mixed $args): void
     {
+        $articleId = $args['id'];
         $data['login'] = $this->authUser;
         $data['csrf'] = $this->csrf;
 
@@ -85,7 +86,7 @@ class ArticleController extends Controller
     }
 
     // форма создания статьи
-    public function create($args): void
+    public function create(mixed $args): void
     {
         $data['login'] = $this->authUser;
         $data['csrf'] = $this->csrf;
@@ -125,8 +126,9 @@ class ArticleController extends Controller
     }
 
     // форма редактирования статьи
-    public function edit($id): void
+    public function edit(mixed $args): void
     {
+        $id = $args['id'];
         // данные о статье
         $data = $this->articles->get_article($id);
 
@@ -158,8 +160,9 @@ class ArticleController extends Controller
     }
 
     // удалить статью из бд
-    public function remove($id): void
+    public function remove(mixed $args): void
     {
+        $id = $args['id'];
         $this->comments->removeCommentsOfArticle($id);
         $isRemoved = $this->articles->remove($id);
         $url = $isRemoved ? 'Location: \\' : 'Location: \404';
