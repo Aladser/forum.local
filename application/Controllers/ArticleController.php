@@ -22,6 +22,7 @@ class ArticleController extends Controller
         $this->users = new User();
         $this->articles = new Article();
         $this->comments = new Comment();
+
         $this->authUser = UserController::getAuthUser();
         $this->csrf = Controller::createCSRFToken();
 
@@ -52,7 +53,9 @@ class ArticleController extends Controller
         $data['page-count'] = $this->pageCount;
         // порция статей из БД
         $offset = $data['page-index'] * $this->articlesToPage;
+
         $data['articles'] = $this->articles->get_chunk_of_articles($this->articlesToPage, $offset);
+
         $this->view->generate(
             'Форум - статьи',
             'template_view.php',
@@ -67,9 +70,10 @@ class ArticleController extends Controller
     public function show(mixed $args): void
     {
         $articleId = $args['id'];
+        // проверка существования id
         $articleExisted = $this->articles->exists('id', $articleId);
         if (!$articleExisted) {
-            header('Location: /404');
+            header('Location: /not_found');
 
             return;
         }
@@ -98,6 +102,7 @@ class ArticleController extends Controller
         $data['login'] = $this->authUser;
         $data['csrf'] = $this->csrf;
 
+        // проверка ошибок
         if (isset($args['error'])) {
             if ($args['error'] == 'ttlexst') {
                 $data['error'] = 'Заголок занят';
@@ -126,10 +131,11 @@ class ArticleController extends Controller
 
         if (!$this->articles->exists('title', $title)) {
             $id = $this->articles->add($authorId, $title, $summary, $content);
-            header('Location: /article/show/'.$id);
+            header("show/$id");
         } else {
-            header('Location: /article/create?error=ttlexst&title='.$title);
+            header("create?error=ttlexst&title=$title");
         }
+        header('Location: /article/'.$url);
     }
 
     // форма редактирования статьи
@@ -138,7 +144,7 @@ class ArticleController extends Controller
         $id = $args['id'];
         $articleExisted = $this->articles->exists('id', $id);
         if (!$articleExisted) {
-            header('Location: /404');
+            header('Location: /not_found');
 
             return;
         }
@@ -177,17 +183,19 @@ class ArticleController extends Controller
         $summary = $args['summary'];
         $content = $args['content'];
 
+        // заголовок изменяемой статьи
         $idTitle = $this->articles->get_article($id)['title'];
         if (!$this->articles->exists('title', $title) || $title === $idTitle) {
             $isUpdated = $this->articles->update($id, $title, $summary, $content);
             if ($isUpdated) {
-                header('Location: /article/show/'.$id);
+                $url = 'show/'.$id;
             } else {
-                header('Location: /article/edit/'.$id.'?error=system_error');
+                $url = 'edit/'.$id.'?error=system_error';
             }
         } else {
-            header('Location: /article/edit/'.$id.'?error=title_exists&title='.rawurlencode($title));
+            $url = 'edit/'.$id.'?error=title_exists&title='.rawurlencode($title);
         }
+        header('Location: /article/'.$url);
     }
 
     // удалить статью из бд
@@ -196,7 +204,7 @@ class ArticleController extends Controller
         $id = $args['id'];
         $this->comments->removeCommentsOfArticle($id);
         $isRemoved = $this->articles->remove($id);
-        $url = $isRemoved ? 'Location: \\' : 'Location: \404';
-        header($url);
+        $url = $isRemoved ? '\\' : '\not_found';
+        header('Location: '.$url);
     }
 }
