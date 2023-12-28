@@ -11,16 +11,18 @@ class Article extends Model
     {
         $sql = "select count(*) as count from articles where $fieldName = :field";
         $args = ['field' => $value];
+        $isExisted = $this->dbQuery->queryPrepared($sql, $args)['count'] === 1;
 
-        return $this->dbQuery->queryPrepared($sql, $args)['count'] === 1;
+        return $isExisted;
     }
 
     public function all()
     {
         $sql = 'select articles.id as id, login, title, summary, content ';
         $sql .= 'from articles join users on articles.author_id = users.id';
+        $articles = $this->dbQuery->queryPrepared(sql: $sqlExpession, isOneValue: false);
 
-        return $this->dbQuery->queryPrepared(sql: $sqlExpession, isOneValue: false);
+        return $articles;
     }
 
     // информация о статье
@@ -29,8 +31,9 @@ class Article extends Model
         $sql = 'select articles.id as id, title, summary, content, login as username, time from articles ';
         $sql .= 'join users on users.id=articles.author_id where articles.id = :id';
         $args = [':id' => $id];
+        $article = $this->dbQuery->queryPrepared($sql, $args);
 
-        return $this->dbQuery->queryPrepared($sql, $args);
+        return $article;
     }
 
     // список(chunk) части статей
