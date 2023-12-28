@@ -149,6 +149,12 @@ class ArticleController extends Controller
             return;
         }
 
+        // проверка автора статьи
+        $authorName = $this->articles->get_article($id)['username'];
+        if ($authorName !== $this->authUser) {
+            header('Location: /article/show/'.$id);
+        }
+
         // данные о статье
         $data = $this->articles->get_article($id);
 
