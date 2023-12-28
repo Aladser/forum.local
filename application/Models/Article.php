@@ -23,6 +23,16 @@ class Article extends Model
         return $this->dbQuery->query($sql, false);
     }
 
+    // информация о статье
+    public function get_article($id)
+    {
+        $sql = 'select articles.id as id, title, summary, content, login as username, time from articles ';
+        $sql .= 'join users on users.id=articles.author_id where articles.id = :id';
+        $args = [':id' => $id];
+
+        return $this->dbQuery->queryPrepared($sql, $args);
+    }
+
     public function add($author, $title, $summary, $content)
     {
         $sql = 'insert into articles(author_id, title, summary, content) values(:author, :title, :summary, :content)';
@@ -55,14 +65,6 @@ class Article extends Model
         $sql = "select articles.id as id, login as author, title, summary, content from articles join users on articles.author_id = users.id limit $limit offset $offset";
 
         return $this->dbQuery->query($sql, false);
-    }
-
-    // информация о статье
-    public function get_article($id)
-    {
-        $sql = "select articles.id as id,title,summary,content,login as username, time from articles join users on users.id=articles.author_id where articles.id = $id";
-
-        return $this->dbQuery->query($sql);
     }
 
     /** число записей */
