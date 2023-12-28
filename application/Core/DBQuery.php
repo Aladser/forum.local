@@ -21,6 +21,7 @@ class DBQuery
         $this->passwordDB = $passwordDB;
     }
 
+    /** соединение с БД */
     private function connect()
     {
         try {
@@ -34,11 +35,13 @@ class DBQuery
         }
     }
 
+    /** отсоединение от БД */
     private function disconnect()
     {
         $this->dbConnection = null;
     }
 
+    /** insert операции */
     public function insert(string $sql, array $args): int
     {
         $this->connect();
@@ -48,6 +51,18 @@ class DBQuery
         $this->disconnect();
 
         return $id;
+    }
+
+    /** update операции */
+    public function update(string $sql, array $args): bool
+    {
+        $this->connect();
+        $stmt = $this->dbConnection->prepare($sql);
+        $stmt->execute($args);
+        $rowCount = $stmt->rowCount();
+        $this->disconnect();
+
+        return $rowCount > 0;
     }
 
     /** выполняет подготовленный запрос
