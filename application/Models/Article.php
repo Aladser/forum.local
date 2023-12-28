@@ -20,7 +20,7 @@ class Article extends Model
         $sql = 'select articles.id as id, login, title, summary, content ';
         $sql .= 'from articles join users on articles.author_id = users.id';
 
-        return $this->dbQuery->queryPrepared($sql, null, false);
+        return $this->dbQuery->queryPrepared(sql: $sqlExpession, isOneValue: false);
     }
 
     // информация о статье
@@ -31,6 +31,14 @@ class Article extends Model
         $args = [':id' => $id];
 
         return $this->dbQuery->queryPrepared($sql, $args);
+    }
+
+    // список(chunk) части статей
+    public function get_chunk_of_articles(int $limit, int $offset)
+    {
+        $sql = "select articles.id as id, login as author, title, summary, content from articles join users on articles.author_id = users.id limit $limit offset $offset";
+
+        return $this->dbQuery->query($sql, false);
     }
 
     // добавить статью
@@ -57,14 +65,6 @@ class Article extends Model
         $args = [':id' => $id];
 
         return $this->dbQuery->delete($sql, $args);
-    }
-
-    // список(chunk) части статей
-    public function get_chunk_of_articles(int $limit, int $offset)
-    {
-        $sql = "select articles.id as id, login as author, title, summary, content from articles join users on articles.author_id = users.id limit $limit offset $offset";
-
-        return $this->dbQuery->query($sql, false);
     }
 
     /** число записей */

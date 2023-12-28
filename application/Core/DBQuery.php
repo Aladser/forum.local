@@ -72,19 +72,17 @@ class DBQuery
     }
 
     /** выполняет подготовленный запрос
-     * @param string $sql        sql-запрос
-     * @param array  $args       массив переменных запроса
-     * @param bool   $isOneValue одно или множество запрашиваемых полей
+     * @param bool $isOneValue одно или множество запрашиваемых полей
      *
      * @return mixed массив строк или одно значение
      */
-    public function queryPrepared(string $sql, array $args = null, bool $isOneValue = true)
+    public function queryPrepared(string $sqlExpession, array $arguments = null, bool $isOneValue = true)
     {
         $this->connect();
 
-        $stmt = $this->dbConnection->prepare($sql);
-        if (!empty($args)) {
-            $stmt->execute($args);
+        $stmt = $this->dbConnection->prepare($sqlExpession);
+        if (!empty($arguments)) {
+            $stmt->execute($arguments);
         } else {
             $stmt->execute();
         }
