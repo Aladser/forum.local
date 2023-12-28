@@ -19,18 +19,19 @@ class Comment extends Model
     // удаляет комментарий
     public function remove($id)
     {
-        return $this->dbQuery->exec("delete from comments where id = $id") == 1;
+        $sql = 'delete from comments where id = :id';
+        $args = [':id' => $id];
+
+        return $this->dbQuery->delete($sql, $args);
     }
 
     // список комментариев статьи
     public function getCommentsOfArticle($articleId)
     {
-        return $this->dbQuery->query("select comments.id as id, login, content, time from comments join users on users.id=comments.author_id where article_id = $articleId order by time", false);
-    }
+        $sql = 'select comments.id as id, login, content, time from comments ';
+        $sql .= 'join users on users.id = comments.author_id where article_id = :articleId order by time';
+        $args = [':articleId' => $articleId];
 
-    // удалить комментарии статьи
-    public function removeCommentsOfArticle($articleId)
-    {
-        return $this->dbQuery->exec("delete from comments where article_id = $articleId") > 0;
+        return $this->dbQuery->queryPrepared($sql, $args, false);
     }
 }
