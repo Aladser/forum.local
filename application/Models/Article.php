@@ -24,7 +24,7 @@ class Article extends Model
     }
 
     // информация о статье
-    public function get_article($id)
+    public function get($id)
     {
         $sql = 'select articles.id as id, title, summary, content, login as username, time from articles ';
         $sql .= 'join users on users.id=articles.author_id where articles.id = :id';

@@ -81,7 +81,7 @@ class ArticleController extends Controller
         $data['login'] = $this->authUser;
         $data['csrf'] = $this->csrf;
 
-        $data['article'] = $this->articles->get_article($articleId);
+        $data['article'] = $this->articles->get($articleId);
         $data['comments'] = $this->comments->getCommentsOfArticle($articleId);
 
         $header = '<meta name="csrf" content="'.$this->csrf.'">';
@@ -131,9 +131,9 @@ class ArticleController extends Controller
 
         if (!$this->articles->exists('title', $title)) {
             $id = $this->articles->add($authorId, $title, $summary, $content);
-            header("show/$id");
+            $url = "show/$id";
         } else {
-            header("create?error=ttlexst&title=$title");
+            $url = "create?error=ttlexst&title=$title";
         }
         header('Location: /article/'.$url);
     }
@@ -150,13 +150,13 @@ class ArticleController extends Controller
         }
 
         // проверка автора статьи
-        $authorName = $this->articles->get_article($id)['username'];
+        $authorName = $this->articles->get($id)['username'];
         if ($authorName !== $this->authUser) {
             header('Location: /article/show/'.$id);
         }
 
         // данные о статье
-        $data = $this->articles->get_article($id);
+        $data = $this->articles->get($id);
 
         // проверка ошибок
         if (isset($args['error'])) {
@@ -190,7 +190,7 @@ class ArticleController extends Controller
         $content = $args['content'];
 
         // заголовок изменяемой статьи
-        $idTitle = $this->articles->get_article($id)['title'];
+        $idTitle = $this->articles->get($id)['title'];
         if (!$this->articles->exists('title', $title) || $title === $idTitle) {
             $isUpdated = $this->articles->update($id, $title, $summary, $content);
             if ($isUpdated) {
