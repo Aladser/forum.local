@@ -13,9 +13,16 @@
     <link rel="icon" href="http://forum.local/application/images/icon.png">
     <link rel="stylesheet" href="http://forum.local/application/css/reset_styles.css">
     <link rel="stylesheet" href="http://forum.local/application/css/template.css">
+    <!-- css -->
     <?php if (!empty($content_css)) { ?>
         <link rel="stylesheet" href="http://forum.local/application/css/<?php echo $content_css; ?>">
     <?php } ?>
+    <!-- js -->
+    <?php if (!empty($content_js)) { ?>
+    <?php foreach ($content_js as $script) {?>
+        <script type='text/javascript' src="http://forum.local/application/js/<?php echo $script; ?>" defer></script>
+    <?php }?>
+<?php } ?>
 </head>
 <body>
 
@@ -40,11 +47,5 @@
 </header>
 
 <?php include $content_view; ?>
-
-<?php if (!empty($content_js)) { ?>
-    <?php foreach ($content_js as $script) {?>
-        <script type='text/javascript' src="http://forum.local/application/js/<?php echo $script; ?>"></script>
-    <?php }?>
-<?php } ?>
 </body>
 </html>
