@@ -10,7 +10,10 @@ class Comment extends Model
     // добавляет комментарий
     public function add($authorId, $articleId, $content)
     {
-        return $this->dbQuery->insert("insert into comments(author_id, article_id, content) values($authorId, $articleId, '$content')");
+        $sql = 'insert into comments(author_id, article_id, content) values(:authorId, :articleId, :content)';
+        $args = [':authorId' => $authorId, ':articleId' => $articleId, ':content' => $content];
+
+        return $this->dbQuery->insert($sql, $args);
     }
 
     // удаляет комментарий
