@@ -33,23 +33,22 @@ class Article extends Model
         return $this->dbQuery->queryPrepared($sql, $args);
     }
 
+    // добавить статью
     public function add($author, $title, $summary, $content)
     {
         $sql = 'insert into articles(author_id, title, summary, content) values(:author, :title, :summary, :content)';
-
-        $id = $this->dbQuery->insert(
-            $sql,
-            [':author' => $author, ':title' => $title, ':summary' => $summary, ':content' => $content]
-        );
+        $args = [':author' => $author, ':title' => $title, ':summary' => $summary, ':content' => $content];
+        $id = $this->dbQuery->insert($sql, $args);
 
         return $id;
     }
 
     public function update($id, $title, $summary, $content): bool
     {
-        $sql = "update articles set title = '$title', summary = '$summary', content = '$content' where id = $id";
+        $sql = 'update articles set title = :title, summary = :summary, content = :content where id = :id';
+        $args = [':title' => $title, ':summary' => $summary, ':content' => $content, ':id' => $id];
 
-        return $this->dbQuery->exec($sql) == 1;
+        return $this->dbQuery->update($sql, $args);
     }
 
     public function remove($id): bool
