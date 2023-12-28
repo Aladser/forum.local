@@ -19,10 +19,19 @@ class Article extends Model
     public function all()
     {
         $sql = 'select articles.id as id, login, title, summary, content ';
-        $sql .= 'from articles join users on articles.author_id = users.id';
+        $sql .= 'from articles join users on articles.author_id = users.id order by';
         $articles = $this->dbQuery->queryPrepared(sql: $sqlExpession, isOneValue: false);
 
         return $articles;
+    }
+
+    // список(chunk) части статей
+    public function get_chunk_of_articles(int $limit, int $offset)
+    {
+        $sql = 'select articles.id as id, login as author, title, summary, content from articles ';
+        $sql .= "join users on articles.author_id = users.id order by title limit $limit offset $offset ";
+
+        return $this->dbQuery->query($sql, false);
     }
 
     // информация о статье
@@ -34,14 +43,6 @@ class Article extends Model
         $article = $this->dbQuery->queryPrepared($sql, $args);
 
         return $article;
-    }
-
-    // список(chunk) части статей
-    public function get_chunk_of_articles(int $limit, int $offset)
-    {
-        $sql = "select articles.id as id, login as author, title, summary, content from articles join users on articles.author_id = users.id limit $limit offset $offset";
-
-        return $this->dbQuery->query($sql, false);
     }
 
     // добавить статью
