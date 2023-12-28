@@ -73,7 +73,7 @@ class ArticleController extends Controller
         // проверка существования id
         $articleExisted = $this->articles->exists('id', $articleId);
         if (!$articleExisted) {
-            header('Location: /not_found');
+            header('Location: /');
 
             return;
         }
@@ -151,7 +151,7 @@ class ArticleController extends Controller
         $id = $args['id'];
         $articleExisted = $this->articles->exists('id', $id);
         if (!$articleExisted) {
-            header('Location: /not_found');
+            header('Location: /');
 
             return;
         }
@@ -196,9 +196,9 @@ class ArticleController extends Controller
         $summary = $args['summary'];
         $content = $args['content'];
         // заголовок изменяемой статьи
-        $idTitle = $this->articles->get($id)['title'];
+        $articleTitle = $this->articles->get($id)['title'];
 
-        if (!$this->articles->exists('title', $title) || $title === $idTitle) {
+        if (!$this->articles->exists('title', $title) || $title === $articleTitle) {
             $isUpdated = $this->articles->update($id, $title, $summary, $content);
             if ($isUpdated) {
                 $url = "show/$id";
