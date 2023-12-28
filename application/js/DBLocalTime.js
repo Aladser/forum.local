@@ -1,5 +1,5 @@
 class DBLocalTime {
-    /** получить время, форматированное как время в MySQL*/
+    /** получить текущее время, форматированное как время MySQL*/
     static get() {
         let formatNumber = (number) => number < 10 ? '0'+number : number;
 

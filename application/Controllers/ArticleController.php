@@ -102,7 +102,7 @@ class ArticleController extends Controller
         );
     }
 
-    // форма создания статьи
+    // форма создания
     public function create(mixed $args): void
     {
         $data['login'] = $this->authUser;
@@ -127,7 +127,7 @@ class ArticleController extends Controller
         );
     }
 
-    // сохранить статью в бд
+    // сохранить статью
     public function store(mixed $args): void
     {
         $title = $args['title'];
@@ -145,7 +145,7 @@ class ArticleController extends Controller
         header('Location: /article/'.$url);
     }
 
-    // форма редактирования статьи
+    // форма редактирования
     public function edit(mixed $args): void
     {
         $id = $args['id'];
@@ -188,7 +188,7 @@ class ArticleController extends Controller
         );
     }
 
-    // обновить статью в бд
+    // обновить статью
     public function update(mixed $args): void
     {
         $id = $args['id'];
@@ -212,7 +212,7 @@ class ArticleController extends Controller
         header("Location: /article/$url");
     }
 
-    // удалить статью из бд
+    // удалить статью
     public function remove(mixed $args): void
     {
         $id = $args['id'];

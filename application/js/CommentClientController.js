@@ -10,12 +10,6 @@ class CommentClientController {
         this.sendCommentForm.onsubmit = (event) => this.add(event);
     }
 
-    /** назначить события удаления комментариев */
-    appendRemovingListeners() {
-        this.removeBtnForms = this.commentList.querySelectorAll(`.comment-list__btn-remove`);
-        this.removeBtnForms.forEach((btn) => btn.onclick = (event) => this.remove(event));
-    }
-
     // добавить коммент в БД - comment/store
     add(event) {
         event.preventDefault();
@@ -80,5 +74,11 @@ class CommentClientController {
             this.msgElement,
             params
         );
+    }
+
+    /** назначить события удаления комментариев */
+    appendRemovingListeners() {
+        this.removeBtnForms = this.commentList.querySelectorAll(`.comment-list__btn-remove`);
+        this.removeBtnForms.forEach((btn) => btn.onclick = (event) => this.remove(event));
     }
 }

@@ -18,6 +18,7 @@ class CommentController extends Controller
         $this->comments = new Comment();
     }
 
+    // сохранить комментарий
     public function store(mixed $args)
     {
         $author = $args['author'];
@@ -32,6 +33,7 @@ class CommentController extends Controller
         ]);
     }
 
+    // удалить комментарий
     public function remove(mixed $args)
     {
         $id = $args['id'];
