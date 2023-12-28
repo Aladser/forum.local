@@ -53,9 +53,10 @@ class Article extends Model
 
     public function remove($id): bool
     {
-        $sql = "delete from articles where id = $id";
+        $sql = 'delete from articles where id = :id';
+        $args = [':id' => $id];
 
-        return $this->dbQuery->exec($sql) == 1;
+        return $this->dbQuery->delete($sql, $args);
     }
 
     // список(chunk) части статей

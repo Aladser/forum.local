@@ -135,6 +135,7 @@ class ArticleController extends Controller
         } else {
             $url = "create?error=ttlexst&title=$title";
         }
+
         header('Location: /article/'.$url);
     }
 
@@ -188,29 +189,29 @@ class ArticleController extends Controller
         $title = $args['title'];
         $summary = $args['summary'];
         $content = $args['content'];
-
         // заголовок изменяемой статьи
         $idTitle = $this->articles->get($id)['title'];
+
         if (!$this->articles->exists('title', $title) || $title === $idTitle) {
             $isUpdated = $this->articles->update($id, $title, $summary, $content);
             if ($isUpdated) {
-                $url = 'show/'.$id;
+                $url = "show/$id";
             } else {
-                $url = 'edit/'.$id.'?error=system_error';
+                $url = "edit/$id?error=system_error";
             }
         } else {
-            $url = 'edit/'.$id.'?error=title_exists&title='.rawurlencode($title);
+            $url = "edit/$id?error=title_exists&title=".rawurlencode($title);
         }
-        header('Location: /article/'.$url);
+
+        header("Location: /article/$url");
     }
 
     // удалить статью из бд
     public function remove(mixed $args): void
     {
         $id = $args['id'];
-        $this->comments->removeCommentsOfArticle($id);
         $isRemoved = $this->articles->remove($id);
-        $url = $isRemoved ? '\\' : '\not_found';
+        $url = $isRemoved ? '\\' : '\system_error';
         header('Location: '.$url);
     }
 }

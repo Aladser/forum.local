@@ -65,6 +65,12 @@ class DBQuery
         return $rowCount > 0;
     }
 
+    /** delete операции */
+    public function delete(string $sql, array $args): bool
+    {
+        return $this->update($sql, $args);
+    }
+
     /** выполняет подготовленный запрос
      * @param string $sql        sql-запрос
      * @param array  $args       массив переменных запроса
