@@ -16,7 +16,6 @@ class Article extends Model
         return $isExisted;
     }
 
-    // список статей
     public function all(int $limit = null, int $offset = null)
     {
         $sql = 'select articles.id as id, login as author, title, summary, content from articles ';
@@ -28,7 +27,6 @@ class Article extends Model
         return $this->dbQuery->query($sql, false);
     }
 
-    // информация о статье
     public function get(int $id): array
     {
         $sql = 'select articles.id as id, title, summary, content, login as username, time from articles ';
@@ -39,7 +37,6 @@ class Article extends Model
         return $article;
     }
 
-    // добавить статью
     public function add($author, $title, $summary, $content)
     {
         $sql = 'insert into articles(author_id, title, summary, content) values(:author, :title, :summary, :content)';

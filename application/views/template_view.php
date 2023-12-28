@@ -42,7 +42,9 @@
 <?php include $content_view; ?>
 
 <?php if (!empty($content_js)) { ?>
-    <script type='text/javascript' src="http://forum.local/application/js/<?php echo $content_js; ?>"></script>
+    <?php foreach ($content_js as $script) {?>
+        <script type='text/javascript' src="http://forum.local/application/js/<?php echo $script; ?>"></script>
+    <?php }?>
 <?php } ?>
 </body>
 </html>

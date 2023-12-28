@@ -90,7 +90,7 @@ class ArticleController extends Controller
             'template_view.php',
             'show-article_view.php',
             $data,
-            'article/show-article.js',
+            ['ServerRequest.js', 'DBLocalTime.js', 'article/ArticleClientController.js', 'CommentClientController.js', 'article/show-article.js'],
             'show-article.css',
             $header
         );
