@@ -23,6 +23,6 @@ class View
         $content_css = null,
         $header = null
     ): void {
-        require_once dirname(__DIR__, 1).DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.$template_view;
+        require_once dirname(__DIR__, 2).DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.$template_view;
     }
 }
