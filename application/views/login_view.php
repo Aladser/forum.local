@@ -12,7 +12,7 @@
         </div>
         <div>
             <input type="submit" class='btn w-25 mb-2 text-white bg-lime' value="Войти">
-            <a href="/main" class='text-decoration-none'>
+            <a href="/" class='text-decoration-none'>
                 <div class='mx-auto w-25 text-white p-2 bg-lime'>Назад</div>
             </a>
         </div>
