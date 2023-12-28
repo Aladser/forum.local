@@ -54,7 +54,7 @@ class ArticleController extends Controller
         // порция статей из БД
         $offset = $data['page-index'] * $this->articlesToPage;
 
-        $data['articles'] = $this->articles->get_chunk_of_articles($this->articlesToPage, $offset);
+        $data['articles'] = $this->articles->all($this->articlesToPage, $offset);
 
         $this->view->generate(
             'Форум - статьи',

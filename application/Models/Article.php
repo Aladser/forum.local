@@ -16,26 +16,20 @@ class Article extends Model
         return $isExisted;
     }
 
-    public function all()
-    {
-        $sql = 'select articles.id as id, login, title, summary, content ';
-        $sql .= 'from articles join users on articles.author_id = users.id order by';
-        $articles = $this->dbQuery->queryPrepared(sql: $sqlExpession, isOneValue: false);
-
-        return $articles;
-    }
-
-    // список(chunk) части статей
-    public function get_chunk_of_articles(int $limit, int $offset)
+    // список статей
+    public function all(int $limit = null, int $offset = null)
     {
         $sql = 'select articles.id as id, login as author, title, summary, content from articles ';
-        $sql .= "join users on articles.author_id = users.id order by title limit $limit offset $offset ";
+        $sql .= 'join users on articles.author_id = users.id order by title ';
+        if (!empty($limit) || !empty($offset)) {
+            $sql .= "limit $limit offset $offset";
+        }
 
         return $this->dbQuery->query($sql, false);
     }
 
     // информация о статье
-    public function get($id)
+    public function get(int $id): array
     {
         $sql = 'select articles.id as id, title, summary, content, login as username, time from articles ';
         $sql .= 'join users on users.id=articles.author_id where articles.id = :id';

@@ -10,19 +10,19 @@ class User extends Model
     /** проверить существование пользователя */
     public function exists($login): bool
     {
-        return $this->dbQuery->queryPrepared(
-            'select count(*) as count from users where login = :login',
-            ['login' => $login]
-        )['count'] == 1;
+        $sql = 'select count(*) as count from users where login = :login';
+        $args = ['login' => $login];
+        $isExisted = $this->dbQuery->queryPrepared($sql, $args)['count'] == 1;
+
+        return $isExisted;
     }
 
     // проверка авторизации
     public function is_correct_password($login, $password): bool
     {
-        $passHash = $this->dbQuery->queryPrepared(
-            'select password from users where login=:login',
-            ['login' => $login]
-        )['password'];
+        $sql = 'select password from users where login=:login';
+        $args = ['login' => $login];
+        $passHash = $this->dbQuery->queryPrepared($sql, $args)['password'];
 
         return password_verify($password, $passHash);
     }
@@ -30,17 +30,21 @@ class User extends Model
     // добавить нового пользователя
     public function add($login, $password)
     {
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "insert into users(login, password) values('$login', '$password')";
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        $sql = 'insert into users(login, password) values(:login, :password)';
+        $args = ['login' => $login, 'password' => $passwordHash];
+        $isAdded = $this->dbQuery->insert($sql, $args) > 0;
 
-        return $this->dbQuery->exec($sql) === 1;
+        return $isAdded;
     }
 
     // получить ID пользователя
     public function getId(string $login)
     {
         $sql = 'select id from users where login = :login';
+        $args = ['login' => $login];
+        $id = $this->dbQuery->queryPrepared($sql, $args)['id'];
 
-        return $this->dbQuery->queryPrepared($sql, ['login' => $login])['id'];
+        return $id;
     }
 }
