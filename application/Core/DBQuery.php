@@ -78,11 +78,17 @@ class DBQuery
      *
      * @return mixed массив строк или одно значение
      */
-    public function queryPrepared(string $sql, array $args, bool $isOneValue = true)
+    public function queryPrepared(string $sql, array $args = null, bool $isOneValue = true)
     {
         $this->connect();
+
         $stmt = $this->dbConnection->prepare($sql);
-        $stmt->execute($args);
+        if (!empty($args)) {
+            $stmt->execute($args);
+        } else {
+            $stmt->execute();
+        }
+
         $this->disconnect();
 
         return $isOneValue ? $stmt->fetch(\PDO::FETCH_ASSOC) : $stmt->fetchAll();

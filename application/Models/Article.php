@@ -20,7 +20,7 @@ class Article extends Model
         $sql = 'select articles.id as id, login, title, summary, content ';
         $sql .= 'from articles join users on articles.author_id = users.id';
 
-        return $this->dbQuery->query($sql, false);
+        return $this->dbQuery->queryPrepared($sql, null, false);
     }
 
     // информация о статье
