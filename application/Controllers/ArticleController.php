@@ -67,6 +67,13 @@ class ArticleController extends Controller
     public function show(mixed $args): void
     {
         $articleId = $args['id'];
+        $articleExisted = $this->articles->exists('id', $articleId);
+        if (!$articleExisted) {
+            header('Location: /404');
+
+            return;
+        }
+
         $data['login'] = $this->authUser;
         $data['csrf'] = $this->csrf;
 
@@ -129,6 +136,13 @@ class ArticleController extends Controller
     public function edit(mixed $args): void
     {
         $id = $args['id'];
+        $articleExisted = $this->articles->exists('id', $id);
+        if (!$articleExisted) {
+            header('Location: /404');
+
+            return;
+        }
+
         // данные о статье
         $data = $this->articles->get_article($id);
 

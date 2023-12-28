@@ -7,6 +7,14 @@ use App\Core\Model;
 /** таблица статей */
 class Article extends Model
 {
+    public function exists($fieldName, $value): bool
+    {
+        $sql = "select count(*) as count from articles where $fieldName = :field";
+        $args = ['field' => $value];
+
+        return $this->dbQuery->queryPrepared($sql, $args)['count'] === 1;
+    }
+
     public function all()
     {
         $sql = 'select articles.id as id, login, title, summary, content ';
@@ -47,13 +55,6 @@ class Article extends Model
         $sql = "select articles.id as id, login as author, title, summary, content from articles join users on articles.author_id = users.id limit $limit offset $offset";
 
         return $this->dbQuery->query($sql, false);
-    }
-
-    public function exists($fieldName, $value): bool
-    {
-        $sql = "select count(*) as count from articles where $fieldName = :field";
-
-        return $this->dbQuery->queryPrepared($sql, ['field' => $value])['count'] === 1;
     }
 
     // информация о статье
