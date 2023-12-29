@@ -41,7 +41,7 @@ class UserController extends Controller
         $this->view->generate(
             'Форум - регистрация',
             'template_view.php',
-            'register_view.php',
+            'users/register_view.php',
             $args,
             null,
             'reg.css'
@@ -94,7 +94,7 @@ class UserController extends Controller
         $this->view->generate(
             'Форум - войти',
             'template_view.php',
-            'login_view.php',
+            'users/login_view.php',
             $args
         );
     }

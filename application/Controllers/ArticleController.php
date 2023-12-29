@@ -59,7 +59,7 @@ class ArticleController extends Controller
         $this->view->generate(
             'Форум - статьи',
             'template_view.php',
-            'articles_view.php',
+            'articles/articles_view.php',
             $data,
             null,
             'articles.css'
@@ -88,7 +88,7 @@ class ArticleController extends Controller
         $this->view->generate(
             "Форум. Статья: {$data['article']['title']}",
             'template_view.php',
-            'show-article_view.php',
+            'articles/show-article_view.php',
             $data,
             [
                 'ServerRequest.js',
@@ -122,7 +122,7 @@ class ArticleController extends Controller
         $this->view->generate(
             'Форум - создать статью',
             'template_view.php',
-            'create-article_view.php',
+            'articles/create-article_view.php',
             $data
         );
     }
@@ -183,7 +183,7 @@ class ArticleController extends Controller
         $this->view->generate(
             'Форум - изменить статью',
             'template_view.php',
-            'edit-article_view.php',
+            'articles/edit-article_view.php',
             $data
         );
     }
