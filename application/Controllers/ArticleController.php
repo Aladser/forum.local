@@ -84,7 +84,7 @@ class ArticleController extends Controller
         $data['article'] = $this->articles->get($articleId);
         $data['comments'] = $this->comments->getCommentsOfArticle($articleId);
 
-        $header = '<meta name="csrf" content="'.$this->csrf.'">';
+        $head = '<meta name="csrf" content="'.$this->csrf.'">';
         $this->view->generate(
             "Форум. Статья: {$data['article']['title']}",
             'template_view.php',
@@ -98,7 +98,7 @@ class ArticleController extends Controller
                 'article/show-article.js',
             ],
             'show-article.css',
-            $header
+            $head
         );
     }
 

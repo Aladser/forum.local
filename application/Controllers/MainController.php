@@ -22,7 +22,8 @@ class MainController extends Controller
             'main_view.php',
             null,
             null,
-            'main.css');
+            'main.css'
+        );
     }
 
     public function error($errorName)

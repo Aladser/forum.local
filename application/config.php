@@ -11,6 +11,7 @@ function config($param)
         'NAME_DB' => 'forum',
         'USER_DB' => 'admin',
         'PASS_DB' => '@admin@',
+        'SITE_ADDRESS' => 'forum.local',
     ];
 
     try {

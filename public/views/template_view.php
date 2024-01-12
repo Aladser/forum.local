@@ -4,23 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
-        if (!empty($header)) {
-            echo $header;
+        if (!empty($add_head)) {
+            echo $add_head;
         }
     ?>
     <title><?php echo $pageName; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="icon" href="http://forum.local/public/images/icon.png">
-    <link rel="stylesheet" href="http://forum.local/public/css/reset_styles.css">
-    <link rel="stylesheet" href="http://forum.local/public/css/template.css">
+    <link rel="icon" href="http://<?php echo $site_address; ?>/public/images/icon.png">
+    <link rel="stylesheet" href="http://<?php echo $site_address; ?>/public/css/reset_styles.css">
+    <link rel="stylesheet" href="http://<?php echo $site_address; ?>/public/css/template.css">
     <!-- css -->
     <?php if (!empty($content_css)) { ?>
-        <link rel="stylesheet" href="http://forum.local/public/css/<?php echo $content_css; ?>">
+        <link rel="stylesheet" href="http://<?php echo $site_address; ?>/public/css/<?php echo $content_css; ?>">
     <?php } ?>
     <!-- js -->
     <?php if (!empty($content_js)) { ?>
     <?php foreach ($content_js as $script) {?>
-        <script type='text/javascript' src="http://forum.local/public/js/<?php echo $script; ?>" defer></script>
+        <script type='text/javascript' src="http://<?php echo $site_address; ?>/public/js/<?php echo $script; ?>" defer></script>
     <?php }?>
 <?php } ?>
 </head>

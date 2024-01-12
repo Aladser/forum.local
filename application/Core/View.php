@@ -2,27 +2,33 @@
 
 namespace App\Core;
 
+use function App\config;
+
 class View
 {
-    /** создать верстку страницы.
+    /**
+     * создать верстку страницы.
      *
-     * @param [type] $pageName имя страницы
-     * @param [type] $template_view шаблон-страница
-     * @param [type] $content_view контент-страница
-     * @param [type] $data данные
-     * @param [type] $content_js js-скрипты
-     * @param [type] $content_css css-скрипты
-     * @param [type] $header доп.заголовок
+     * @param string      $pageName      имя страницы
+     * @param string      $template_view путь шаблон-страницы
+     * @param string      $content_view  путь контент-страницы
+     * @param array|null  $data          массив данных страницы
+     * @param array|null  $content_js    массив js-скриптов
+     * @param string|null $content_css   путь css-файла
+     * @param string|null $add_head      дополнительный head
      */
     public function generate(
-        $pageName,
-        $template_view,
-        $content_view,
-        $data = null,
-        $content_js = null,
-        $content_css = null,
-        $header = null
+        string $pageName,
+        string $template_view,
+        string $content_view,
+        array $data = null,
+        array $content_js = null,
+        string $content_css = null,
+        string $add_head = null
     ): void {
+        // базовый адрес сайта
+        $site_address = config('SITE_ADDRESS');
+
         require_once dirname(__DIR__, 2).DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.$template_view;
     }
 }
