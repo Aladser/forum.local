@@ -4,5 +4,5 @@
 }
 
 .comment-list__btn-remove:hover {
-    background-color: #ddd;
+    background-color: var(--theme-gray-color);
 }

@@ -4,16 +4,16 @@
         <?php if ($data['login'] === $data['article']['username']) { ?>
             <a href="<?php echo '/article/edit/'.$data['article']['id']; ?>" 
                id='btn-edit' 
-               class='d-inline-block text-decoration-none p-3 border-lime bg-lime text-white rounded'>Редактировать</a>
+               class='d-inline-block text-decoration-none p-3 border-theme bg-theme text-white rounded'>Редактировать</a>
             <a href="<?php echo '/article/remove/'.$data['article']['id']; ?>" 
                id='btn-edit' 
-               class='d-inline-block text-decoration-none text-dark p-3 border-lime bg-lime text-white rounded'>Удалить</a>
+               class='d-inline-block text-decoration-none text-dark p-3 border-theme bg-theme text-white rounded'>Удалить</a>
         <?php } ?>
-        <a href="/article" class='d-inline-block text-decoration-none text-dark p-3 border-lime bg-lime text-white rounded'>Назад</a>
+        <a href="/article" class='d-inline-block text-decoration-none text-dark p-3 border-theme bg-theme text-white rounded'>Назад</a>
     </section>
 
     <!-- статья --> 
-    <section class='w-50 mx-auto p-2 text-center border-start-lime border-end-lime'>
+    <section class='w-50 mx-auto p-2 text-center border-start-theme border-end-theme'>
         <h2><?php echo $data['article']['title']; ?></h2>
         <p>Автор: <?php echo $data['article']['username']; ?></p>
         <p><?php echo nl2br($data['article']['content']); ?></p>
@@ -22,7 +22,7 @@
     <div class='w-50 mx-auto '><hr></div>
 
     <!-- комментарии -->
-    <section class='w-50 mx-auto p-2 text-center border-start-lime border-end-lime'>
+    <section class='w-50 mx-auto p-2 text-center border-start-theme border-end-theme'>
         <h4 class='text-start ps-2'> Комментарии </h4>
         <section id='comment-list'>
             <?php foreach ($data['comments'] as $comment) { ?>
@@ -43,9 +43,9 @@
                 <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
                 <input type="hidden" name="article" value="<?php echo $data['article']['id']; ?>" >
                 <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
-                <textarea class="input-group-prepend form-control border-lime" 
+                <textarea class="input-group-prepend form-control border-theme" 
                 rows='3' placeholder='Сообщение' name='message' id='form-send-message__msg' required></textarea>
-                <button type="submit" class='btn border-lime bg-lime text-white' title='Отправить'>Отправить</button>
+                <button type="submit" class='btn border-theme bg-theme text-white' title='Отправить'>Отправить</button>
             </form>
         </div>
     </section>

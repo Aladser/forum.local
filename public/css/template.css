@@ -1,5 +1,6 @@
 html{
     --theme-color: #00DD00;
+    --theme-gray-color: rgba(0, 0, 0, 0.5);
     --theme-border: 1px solid var(--theme-color);
 }
 
@@ -9,12 +10,12 @@ hr {border: var(--theme-border);}
 .m-0 {margin: 0;}
 .h-page404{height: 40rem;}
 .cursor-pointer {cursor:pointer;}
-.form__input::placeholder {color: #999;}
+.form__input::placeholder {color: var(--theme-gray-color);}
 
-.bg-lime {background-color: var(--theme-color);}
-.text-lime {color: var(--theme-color);}
-.border-lime {border: var(--theme-border);}
-.border-start-lime {border-left: var(--theme-border);} 
-.border-end-lime {border-right: var(--theme-border);}
-.border-top-lime {border-top: var(--theme-border);}
-.border-bottom-lime {border-bottom: var(--theme-border);}
+.bg-theme {background-color: var(--theme-color);}
+.text-theme {color: var(--theme-color);}
+.border-theme {border: var(--theme-border);}
+.border-start-theme {border-left: var(--theme-border);} 
+.border-end-theme {border-right: var(--theme-border);}
+.border-top-theme {border-top: var(--theme-border);}
+.border-bottom-theme {border-bottom: var(--theme-border);}

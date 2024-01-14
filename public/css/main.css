@@ -1,8 +1,9 @@
 .auth-container-width {
-    width: 900px;
+    --auth-container-width: 900px;
+    width: var(--auth-container-width);
 }
 
-@media (max-width: 900px) {
+@media (max-width: var(--auth-container-width)) {
     .auth-container-width {
         width: 100%;
     }

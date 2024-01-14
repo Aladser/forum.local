@@ -4,16 +4,16 @@
     <form class='login-form' method="POST" action='/user/auth'>
         <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
         <div class='position-relative w-25 mx-auto'>
-            <input type="text" name='login' class="form__input w-100 mb-2 p-1 border-lime" 
+            <input type="text" name='login' class="form__input w-100 mb-2 p-1 border-theme" 
             placeholder="логин" value="<?php echo $data['user']; ?>" required>
         </div>
         <div class='position-relative w-25 mx-auto'>
-            <input type="password" name='password' class="form__input w-100 mb-2 p-1 border-lime" placeholder="пароль"  required>
+            <input type="password" name='password' class="form__input w-100 mb-2 p-1 border-theme" placeholder="пароль"  required>
         </div>
         <div>
-            <input type="submit" class='btn w-25 mb-2 text-white bg-lime' value="Войти">
+            <input type="submit" class='btn w-25 mb-2 text-white bg-theme' value="Войти">
             <a href="/" class='text-decoration-none'>
-                <div class='mx-auto w-25 text-white p-2 bg-lime'>Назад</div>
+                <div class='mx-auto w-25 text-white p-2 bg-theme'>Назад</div>
             </a>
         </div>
     </form>
