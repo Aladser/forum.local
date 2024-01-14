@@ -26,8 +26,8 @@
             <?php for ($i = 0; $i < $data['page-count']; ++$i) {?>
                 <?php
                 $page_number = $i + 1;
-                $class_css = 'bg-theme text-decoration-none py-2 px-4 rounded text-white me-1';
-                $class_css .= $data['page-index'] + 1 === $page_number ? ' fw-bold' : '';
+                $class_css = 'bg-theme text-decoration-none py-2 px-4 rounded me-1';
+                $class_css .= $data['page-index'] + 1 === $page_number ? ' theme-font-weight-bold' : '';
                 ?>
                 <a class="<?php echo $class_css; ?>" href='<?php echo $routes['article'].'?list='.$page_number; ?>'> <?=$page_number?> </a>  
             <?php } ?>
