@@ -24,6 +24,9 @@ class UserController extends Controller
     public function register(mixed $args): void
     {
         $args['csrf'] = $this->csrf;
+        $routes = [
+            'home' => route('home'), 
+        ];
         // ошибки регистрации
         if (isset($args['error'])) {
             if ($args['error'] == 'usrexsts') {
@@ -45,7 +48,8 @@ class UserController extends Controller
             template_view: 'template_view.php',
             content_view: 'users/register_view.php',
             data: $args,
-            content_css: 'reg.css'
+            content_css: 'reg.css',
+            routes: $routes
         );
     }
 
