@@ -11,9 +11,9 @@
             <input type="password" name='password' class="form__input w-100 mb-2 p-1 border-theme" placeholder="пароль"  required>
         </div>
         <div>
-            <input type="submit" class='btn w-25 mb-2 text-white bg-theme' value="Войти">
+            <input type="submit" class='ref p-2 w-25 mb-2' value="Войти">
             <a href=<?=$routes['home'];?> class='text-decoration-none'>
-                <div class='mx-auto w-25 text-white p-2 bg-theme'>Назад</div>
+                <div class='ref mx-auto w-25 p-2'>Назад</div>
             </a>
         </div>
     </form>

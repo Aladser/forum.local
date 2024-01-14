@@ -13,17 +13,8 @@ html {
 textarea {resize: none;}
 hr {border: var(--theme-border);}
 
-/* ссылки */
-a {
-  color: white;
-  background-color:var(--theme-color);
-  text-decoration: none;
-}
-a:hover {
-  color: var(--theme-color);
-  background-color:white;
-}
 
+/* ссылки */
 .ref {
   border: var(--theme-border);
   background-color: var(--theme-color);
@@ -34,14 +25,15 @@ a:hover {
   background-color: white;
   color: var(--theme-color);
 }
-
 .ref-nav {
   border-bottom: 1px solid var(--theme-color);
+  color: white;
 }
 .ref-nav:hover {
   background-color: var(--theme-color);
   color: var(--theme-gray-color);
 }
+
 
 .m-0 {
   margin: 0;
