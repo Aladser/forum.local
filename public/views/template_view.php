@@ -33,7 +33,7 @@
                 <h3 class='p-4 w-90'><?php echo $page_name; ?></h3>
                 <div class='d-flex justify-content-end'>
                     <div class='d-flex align-items-center justify-content-between px-5 border-start border-end border-2 border-light'><?php echo $data['login']; ?></div>
-                    <a href="/main?logout=true" class='text-white text-decoration-none bg-theme'>
+                    <a href="/main?logout=true" class='ref-nav'>
                         <div class='h-100 d-flex align-items-center px-4'>Выйти</div>
                     </a>
                 </div>

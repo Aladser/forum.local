@@ -22,7 +22,26 @@ a {
 a:hover {
   color: var(--theme-color);
   background-color:white;
-  border: 1px solid var(--theme-color);
+}
+
+.button {
+  width: 40%;
+  padding: 1rem;
+  font-size: x-large;
+  border-radius: 3%;
+}
+
+
+.ref {
+  border: var(--theme-border);
+}
+
+.ref-nav {
+  border-bottom: 1px solid var(--theme-color);
+}
+.ref-nav:hover {
+  background-color: var(--theme-color);
+  color: var(--theme-gray-color);
 }
 
 .m-0 {
@@ -58,13 +77,6 @@ a:hover {
 }
 .border-bottom-theme {
   border-bottom: var(--theme-border);
-}
-
-.button {
-  width: 40%;
-  padding: 1rem;
-  font-size: x-large;
-  border-radius: 3%;
 }
 
 @media (max-width: 1300px) {

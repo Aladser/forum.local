@@ -9,7 +9,7 @@
                id='btn-edit' 
                class='d-inline-block text-decoration-none text-dark p-3 border-theme bg-theme text-white rounded'>Удалить</a>
         <?php } ?>
-        <a href="/article" class='d-inline-block text-decoration-none text-dark p-3 border-theme bg-theme text-white rounded'>Назад</a>
+        <a href="/article" class='ref d-inline-block text-decoration-none p-3 rounded'>Назад</a>
     </section>
 
     <!-- статья --> 
