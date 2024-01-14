@@ -3,7 +3,7 @@ html {
   --theme-gray-color: rgba(0, 0, 0, 0.5);
   --error-color: rgba(158, 0, 0, 0.768);
   --theme-border: 1px solid var(--theme-color);
-  --theme-font-weight-bold: 800;
+  --theme-font-weight-bold: 850;
   --ref-color-hover: rgba(255, 255, 255, 0.7);
 }
 
@@ -12,8 +12,18 @@ html {
 
 textarea {resize: none;}
 hr {border: var(--theme-border);}
-a {color: white;}
-a:hover {color: var(--ref-color-hover);}
+
+/* ссылки */
+a {
+  color: white;
+  background-color:var(--theme-color);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--theme-color);
+  background-color:white;
+  border: 1px solid var(--theme-color);
+}
 
 .m-0 {
   margin: 0;
