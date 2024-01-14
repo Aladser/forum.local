@@ -11,6 +11,9 @@ function route($page_name) {
         'register' => '/register',
         'auth' => '/user/auth',
         'store' => '/user/store',
+        'article_create' => '/article/create',
+        'article_show' => '/article/show',
+        'article' => 'article', 
     ];
 
     try {

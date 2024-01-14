@@ -1,5 +1,5 @@
 <section class='w-50 mx-auto'>
-    <a href="/article/create">
+    <a href=<?=$routes['article_create'];?>>
         <p class='d-inline-block text-decoration-none p-3 rounded bg-theme text-white'>Новая тема</p>
     </a>
 
@@ -10,7 +10,7 @@
             <p class='w-25 text-center m-0 fw-bolder p-1 text-secondary'>Автор</p>
         </article>
         <?php foreach ($data['articles'] as $article) { ?>
-            <a href="<?php echo '/article/show/'.$article['id']; ?>" class='text-decoration-none text-dark'>
+            <a href=<?php echo $routes['article_show'].'/'.$article['id']; ?> class='text-decoration-none text-dark'>
                 <!-- для удобства показываю автора статьи -->
                 <article class='table-articles__tr cursor-pointer d-flex py-1 border-top-theme border-start-theme border-end-theme'>
                     <p class='w-25 m-0 p-2'><?php echo $article['title']; ?></p>
@@ -26,10 +26,10 @@
             <?php for ($i = 0; $i < $data['page-count']; ++$i) {?>
                 <?php
                 $page_number = $i + 1;
-                $class = 'bg-theme text-decoration-none py-2 px-4 rounded text-white';
-                $class .= $data['page-index'] + 1 === $page_number ? ' fw-bold' : '';
+                $class_css = 'bg-theme text-decoration-none py-2 px-4 rounded text-white me-1';
+                $class_css .= $data['page-index'] + 1 === $page_number ? ' fw-bold' : '';
                 ?>
-                <a class="<?php echo $class; ?>" href='<?php echo '/article?list='.$page_number; ?>'><?php echo $page_number; ?></a>  
+                <a class="<?php echo $class_css; ?>" href='<?php echo $routes['article'].'?list='.$page_number; ?>'> <?=$page_number?> </a>  
             <?php } ?>
         </section>
     <?php } ?>

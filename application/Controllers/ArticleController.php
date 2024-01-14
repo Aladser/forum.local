@@ -7,6 +7,8 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\Models\User;
 
+use function App\route;
+
 /** статьи */
 class ArticleController extends Controller
 {
@@ -56,12 +58,19 @@ class ArticleController extends Controller
 
         $data['articles'] = $this->articles->all($this->articlesToPage, $offset);
 
+        $routes = [
+            'article_create' => route('article_create'),
+            'article_show' => route('article_show'),
+            'article' => route('article'),
+        ];
+
         $this->view->generate(
             page_name: 'Форум - статьи',
             template_view: 'template_view.php',
             content_view: 'articles/articles_view.php',
             data: $data,
-            content_css: 'articles.css'
+            content_css: 'articles.css',
+            routes: $routes,
         );
     }
 
