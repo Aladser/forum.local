@@ -1,4 +1,4 @@
 .table-articles__tr:hover{
-    background-color: #00DD00;
+    background-color: var(--theme-color);
     color:white;
 }

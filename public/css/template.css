@@ -1,15 +1,20 @@
+html{
+    --theme-color: #00DD00;
+    --theme-border: 1px solid var(--theme-color);
+}
+
 textarea {resize: none;}
-hr {border: 1px solid #00DD00;}
+hr {border: var(--theme-border);}
 
 .m-0 {margin: 0;}
 .h-page404{height: 40rem;}
 .cursor-pointer {cursor:pointer;}
 .form__input::placeholder {color: #999;}
 
-.bg-lime {background-color: #00CC00;}
-.text-lime {color: #00CC00;}
-.border-lime {border: 1px solid #00CC00;}
-.border-start-lime {border-left: 1px solid #00CC00;} 
-.border-end-lime {border-right: 1px solid #00CC00;}
-.border-top-lime {border-top: 1px solid #00CC00;}
-.border-bottom-lime {border-bottom: 1px solid #00CC00;}
+.bg-lime {background-color: var(--theme-color);}
+.text-lime {color: var(--theme-color);}
+.border-lime {border: var(--theme-border);}
+.border-start-lime {border-left: var(--theme-border);} 
+.border-end-lime {border-right: var(--theme-border);}
+.border-top-lime {border-top: var(--theme-border);}
+.border-bottom-lime {border-bottom: var(--theme-border);}
