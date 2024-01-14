@@ -2,7 +2,7 @@ html {
   --theme-color: #00dd00;
   --theme-gray-color: rgba(0, 0, 0, 0.5);
   --error-color: rgba(158, 0, 0, 0.768);
-  --theme-border: 1px solid var(--theme-color);
+  --theme-border: 1.5px solid var(--theme-color);
   --theme-font-weight-bold: 850;
   --ref-color-hover: rgba(255, 255, 255, 0.7);
 }
@@ -24,16 +24,15 @@ a:hover {
   background-color:white;
 }
 
-.button {
-  width: 40%;
-  padding: 1rem;
-  font-size: x-large;
-  border-radius: 3%;
-}
-
-
 .ref {
   border: var(--theme-border);
+  background-color: var(--theme-color);
+  color: white;
+}
+.ref:hover {
+  border: var(--theme-border);
+  background-color: white;
+  color: var(--theme-color);
 }
 
 .ref-nav {

@@ -1,10 +1,16 @@
+.button {
+  width: 40%;
+  padding: 1rem;
+  font-size: x-large;
+}
+
 .auth-container-width {
-    --auth-container-width: 900px;
-    width: var(--auth-container-width);
+  --auth-container-width: 900px;
+  width: var(--auth-container-width);
 }
 
 @media (max-width: var(--auth-container-width)) {
-    .auth-container-width {
-        width: 100%;
-    }
+  .auth-container-width {
+    width: 100%;
+  }
 }
