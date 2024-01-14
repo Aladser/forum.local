@@ -1,6 +1,6 @@
 {
   "autoload": {
-    "files": ["config.php"],
+    "files": ["config.php", "route.php"],
     "psr-4": {
       "App\\": "\\"
     }

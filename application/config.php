@@ -2,6 +2,7 @@
 
 namespace App;
 
+// --- конфиг сайта ---
 function config($param)
 {
     // --- список глобальных параметров ---
@@ -11,6 +12,7 @@ function config($param)
         'NAME_DB' => 'forum',
         'USER_DB' => 'admin',
         'PASS_DB' => '@admin@',
+        // базовый адрес страницы
         'SITE_ADDRESS' => 'forum.local',
     ];
 
