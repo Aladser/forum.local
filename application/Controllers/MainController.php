@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 
+use function App\route;
+
 /** контрллер главной страницы */
 class MainController extends Controller
 {
@@ -16,13 +18,18 @@ class MainController extends Controller
             session_destroy();
         }
 
+        // роуты
+        $routes  = [
+            'register'=>route('register'), 
+            'login'=>route('login')
+        ];
+
         $this->view->generate(
-            'Форум',
-            'template_view.php',
-            'main_view.php',
-            null,
-            null,
-            'main.css'
+            page_name: 'Форум',
+            template_view: 'template_view.php',
+            content_view: 'main_view.php',
+            content_css: 'main.css',
+            routes: $routes
         );
     }
 

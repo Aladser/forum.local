@@ -3,8 +3,7 @@
 namespace App;
 
 // --- роуты ---
-function route($page_name)
-{
+function route($page_name) {
     // --- [имя страницы => url] ---
     $urlPageList = [
         'login' => '/login',
