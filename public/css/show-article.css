@@ -3,6 +3,4 @@
     background-color: white;
 }
 
-.comment-list__btn-remove:hover {
-    background-color: var(--theme-gray-color);
-}
+.comment-list__btn-remove:hover {background-color: var(--theme-gray-color);}
