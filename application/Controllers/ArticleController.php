@@ -57,12 +57,11 @@ class ArticleController extends Controller
         $data['articles'] = $this->articles->all($this->articlesToPage, $offset);
 
         $this->view->generate(
-            'Форум - статьи',
-            'template_view.php',
-            'articles/articles_view.php',
-            $data,
-            null,
-            'articles.css'
+            page_name: 'Форум - статьи',
+            template_view: 'template_view.php',
+            content_view: 'articles/articles_view.php',
+            data: $data,
+            content_css: 'articles.css'
         );
     }
 

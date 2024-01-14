@@ -39,12 +39,11 @@ class UserController extends Controller
         }
 
         $this->view->generate(
-            'Форум - регистрация',
-            'template_view.php',
-            'users/register_view.php',
-            $args,
-            null,
-            'reg.css'
+            page_name: 'Форум - регистрация',
+            template_view: 'template_view.php',
+            content_view: 'users/register_view.php',
+            data: $args,
+            content_css: 'reg.css'
         );
     }
 
