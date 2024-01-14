@@ -10,6 +10,7 @@ function route($page_name) {
         'login' => '/login',
         'register' => '/register',
         'auth' => '/user/auth',
+        'store' => '/user/store',
     ];
 
     try {

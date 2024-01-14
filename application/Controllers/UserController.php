@@ -25,7 +25,8 @@ class UserController extends Controller
     {
         $args['csrf'] = $this->csrf;
         $routes = [
-            'home' => route('home'), 
+            'home' => route('home'),
+            'store' => route('store') 
         ];
         // ошибки регистрации
         if (isset($args['error'])) {

@@ -1,7 +1,7 @@
 <div class='container text-center'>
     <h3 class='mt-4 mb-4 text-secondary'>Регистрация нового пользователя</h3>
 
-    <form class='reg-form' method="POST" action='user/store'>
+    <form class='reg-form' method="POST" action=<?=$routes['store'];?>>
         <input type="hidden" name="CSRF" value=<?php echo $data['csrf']; ?>>
 
         <div class='position-relative w-25 mx-auto'>
@@ -22,7 +22,7 @@
         <div>
             <input type="submit" class='btn w-25 mb-2 text-white bg-theme' value="Регистрация"
                    id='reg-form__reg-btn'>
-            <a href="/" class='text-decoration-none'>
+            <a href=<?=$routes['home'];?> class='text-decoration-none'>
                 <div class='mx-auto w-25 text-white p-2 bg-theme'>Назад</div>
             </a>
         </div>
