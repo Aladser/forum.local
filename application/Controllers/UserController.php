@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\User;
 
+use function App\route;
+
 // пользователи
 class UserController extends Controller
 {
@@ -79,6 +81,11 @@ class UserController extends Controller
     public function login(mixed $args): void
     {
         $args['csrf'] = $this->csrf;
+        $routes = [
+            'home' => route('home'), 
+            'auth' => route('auth')
+        ];
+        
         // ошибки авторизации
         if (isset($args['error'])) {
             if ($args['error'] == 'wp') {
@@ -91,10 +98,11 @@ class UserController extends Controller
         }
 
         $this->view->generate(
-            'Форум - войти',
-            'template_view.php',
-            'users/login_view.php',
-            $args
+            page_name:'Форум - войти',
+            template_view:'template_view.php',
+            content_view:'users/login_view.php',
+            data:$args,
+            routes:$routes,
         );
     }
 

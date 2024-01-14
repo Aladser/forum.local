@@ -1,7 +1,7 @@
 <div class='container text-center'>
     <h3 class='mt-4 mb-4 text-secondary'>Войти</h3>
 
-    <form class='login-form' method="POST" action='/user/auth'>
+    <form class='login-form' method="POST" action=<?=$routes['auth'];?>>
         <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
         <div class='position-relative w-25 mx-auto'>
             <input type="text" name='login' class="form__input w-100 mb-2 p-1 border-theme" 
@@ -12,7 +12,7 @@
         </div>
         <div>
             <input type="submit" class='btn w-25 mb-2 text-white bg-theme' value="Войти">
-            <a href="/" class='text-decoration-none'>
+            <a href=<?=$routes['home'];?> class='text-decoration-none'>
                 <div class='mx-auto w-25 text-white p-2 bg-theme'>Назад</div>
             </a>
         </div>

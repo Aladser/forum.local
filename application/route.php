@@ -6,8 +6,10 @@ namespace App;
 function route($page_name) {
     // --- [имя страницы => url] ---
     $urlPageList = [
+        'home' => '/',
         'login' => '/login',
-        'register' => '/register'
+        'register' => '/register',
+        'auth' => '/user/auth',
     ];
 
     try {
