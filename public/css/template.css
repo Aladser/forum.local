@@ -1,6 +1,7 @@
 html{
     --theme-color: #00DD00;
     --theme-gray-color: rgba(0, 0, 0, 0.5);
+    --error-color: rgba(158, 0, 0, 0.768);
     --theme-border: 1px solid var(--theme-color);
 }
 

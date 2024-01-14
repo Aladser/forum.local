@@ -4,7 +4,7 @@
   position: absolute;
   left: 103%;
   top: 0;
-  color: rgba(158, 0, 0, 0.768);
+  color: var( --error-color);
   font-size: 0.9rem;
   font-weight: bold;
   width: 100%;
