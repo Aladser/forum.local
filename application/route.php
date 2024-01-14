@@ -7,7 +7,8 @@ function route($page_name)
 {
     // --- [имя страницы => url] ---
     $urlPageList = [
-        'SITE_ADDRESS' => 'forum.local',
+        'login' => '/login',
+        'register' => '/register'
     ];
 
     try {
