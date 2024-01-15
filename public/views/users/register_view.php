@@ -20,9 +20,9 @@
         </div>
 
         <div>
-            <input type="submit" class='ref p-2 w-25 mb-2' value="Регистрация" id='reg-form__reg-btn'>
+            <input type="submit" class='ref-color p-2 w-25 mb-2' value="Регистрация" id='reg-form__reg-btn'>
             <a href=<?=$routes['home'];?> class='text-decoration-none'>
-                <div class='ref mx-auto w-25 p-2'>Назад</div>
+                <div class='ref-color mx-auto w-25 p-2'>Назад</div>
             </a>
         </div>
 

@@ -1,7 +1,9 @@
 html {
   --theme-color: #00dd00;
+  --theme-color-hover: rgb(0, 180, 0);
   --theme-gray-color: rgba(0, 0, 0, 0.5);
   --error-color: rgba(158, 0, 0, 0.768);
+  
   --theme-border: 1.5px solid var(--theme-color);
   --theme-font-weight-bold: 850;
   --ref-color-hover: rgba(255, 255, 255, 0.7);
@@ -15,23 +17,23 @@ hr {border: var(--theme-border);}
 
 
 /* ссылки */
-.ref {
+.ref-color {
   border: var(--theme-border);
   background-color: var(--theme-color);
   color: white;
 }
-.ref:hover {
+.ref-color:hover {
   border: var(--theme-border);
   background-color: white;
   color: var(--theme-color);
 }
-.ref-nav {
+.ref-nav-color {
   border-bottom: 1px solid var(--theme-color);
   color: white;
 }
-.ref-nav:hover {
-  background-color: var(--theme-color);
-  color: var(--theme-gray-color);
+.ref-nav-color:hover {
+  background-color: var(--theme-color-hover);
+  color:white;
 }
 
 

@@ -7,9 +7,9 @@
         name='summary' rows='2'placeholder='Краткое содержание'></textarea>
         <textarea class="input-group-prepend form-control mb-2 w-75 mx-auto text-secondary border-theme" 
         name='content' rows='10' placeholder='Содержание' required></textarea>
-        <input type="submit" value='Добавить' class='d-inline-block text-decoration-none p-2 border-theme bg-theme text-white'>
+        <input type="submit" value='Добавить' class='d-inline-block text-decoration-none p-2 border-theme ref-color'>
         <a href="/article">
-            <p class='d-inline-block p-2 text-decoration-none border-theme bg-theme text-white'>Назад</p>
+            <p class='d-inline-block p-2 text-decoration-none border-theme ref-color'>Назад</p>
         </a>
     </form>
     <p id='prg-error' class='pb-4 text-center text-danger fw-bolder'><?php echo $data['error']; ?> </p>

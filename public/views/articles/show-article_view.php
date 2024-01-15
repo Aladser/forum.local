@@ -4,12 +4,12 @@
         <?php if ($data['login'] === $data['article']['username']) { ?>
             <a href="<?php echo '/article/edit/'.$data['article']['id']; ?>" 
                id='btn-edit' 
-               class='d-inline-block text-decoration-none p-3 border-theme bg-theme text-white rounded'>Редактировать</a>
+               class='ref-color d-inline-block text-decoration-none p-3 border-theme rounded'>Редактировать</a>
             <a href="<?php echo '/article/remove/'.$data['article']['id']; ?>" 
                id='btn-edit' 
-               class='d-inline-block text-decoration-none text-dark p-3 border-theme bg-theme text-white rounded'>Удалить</a>
+               class='ref-color d-inline-block text-decoration-none p-3 border-theme rounded'>Удалить</a>
         <?php } ?>
-        <a href="/article" class='ref d-inline-block text-decoration-none p-3 rounded'>Назад</a>
+        <a href="/article" class='ref-color d-inline-block text-decoration-none p-3 rounded'>Назад</a>
     </section>
 
     <!-- статья --> 
@@ -45,7 +45,7 @@
                 <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
                 <textarea class="input-group-prepend form-control border-theme" 
                 rows='3' placeholder='Сообщение' name='message' id='form-send-message__msg' required></textarea>
-                <button type="submit" class='btn border-theme bg-theme text-white' title='Отправить'>Отправить</button>
+                <button type="submit" class='ref-color btn border-theme' title='Отправить'>Отправить</button>
             </form>
         </div>
     </section>
