@@ -18,14 +18,12 @@ hr {border: var(--theme-border);}
 
 /* ссылки */
 .ref-color {
-  border: var(--theme-border);
   background-color: var(--theme-color);
   color: white;
 }
 .ref-color:hover {
-  border: var(--theme-border);
-  background-color: white;
-  color: var(--theme-color);
+  background-color: var(--theme-color-hover);
+  color: white;
 }
 .ref-nav-color {
   border-bottom: 1px solid var(--theme-color);
