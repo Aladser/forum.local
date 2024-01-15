@@ -103,11 +103,12 @@ class UserController extends Controller
         }
 
         $this->view->generate(
-            page_name:'Форум - войти',
-            template_view:'template_view.php',
-            content_view:'users/login_view.php',
-            data:$args,
-            routes:$routes,
+            page_name: 'Форум - войти',
+            template_view: 'template_view.php',
+            content_view: 'users/login_view.php',
+            content_css: 'login.css',
+            data: $args,
+            routes: $routes,
         );
     }
 

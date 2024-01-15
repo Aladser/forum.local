@@ -1,7 +1,6 @@
 .button {
   width: 40%;
   padding: 1rem;
-  font-size: x-large;
 }
 
 .auth-container-width {
@@ -13,4 +12,5 @@
   .auth-container-width {
     width: 100%;
   }
+  
 }

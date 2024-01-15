@@ -3,18 +3,31 @@ html {
   --theme-color-hover: rgb(0, 180, 0);
   --theme-gray-color: rgba(0, 0, 0, 0.5);
   --error-color: rgba(158, 0, 0, 0.768);
-  
+
   --theme-border: 1.5px solid var(--theme-color);
   --theme-font-weight-bold: 850;
   --ref-color-hover: rgba(255, 255, 255, 0.7);
 }
 
-.theme-grey-color {color: var(--theme-gray-color);}
-.theme-font-weight-bold {font-weight: var(--theme-font-weight-bold);}
+.theme-color {
+  color: var(--theme-color);
+}
+.theme-grey-color {
+  color: var(--theme-gray-color);
+}
+.theme-font-weight-bold {
+  font-weight: var(--theme-font-weight-bold);
+}
+.theme-border {
+  border: var(--theme-border);
+}
 
-textarea {resize: none;}
-hr {border: var(--theme-border);}
-
+textarea {
+  resize: none;
+}
+hr {
+  border: var(--theme-border);
+}
 
 /* ссылки */
 .ref-color {
@@ -59,6 +72,10 @@ hr {border: var(--theme-border);}
 }
 .border-bottom-theme {
   border-bottom: var(--theme-border);
+}
+
+.form-font {
+  font-size: 1.5rem;
 }
 
 @media (max-width: 1300px) {
