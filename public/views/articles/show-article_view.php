@@ -19,7 +19,7 @@
         <p><?php echo nl2br($data['article']['content']); ?></p>
     </section>
 
-    <div class='w-50 mx-auto '><hr></div>
+    <div class='w-50 mx-auto '><hr class='theme-border'></div>
 
     <!-- комментарии -->
     <section class='w-50 mx-auto p-2 text-center border-start-theme border-end-theme'>

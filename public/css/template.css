@@ -25,9 +25,6 @@ html {
 textarea {
   resize: none;
 }
-hr {
-  border: var(--theme-border);
-}
 
 /* ссылки */
 .ref-color {
@@ -61,6 +58,7 @@ hr {
 .border-theme {
   border: var(--theme-border);
 }
+
 .border-start-theme {
   border-left: var(--theme-border);
 }
