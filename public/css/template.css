@@ -77,9 +77,27 @@ hr {
 .form-font {
   font-size: 1.5rem;
 }
+.form {
+  width: 60%;
+}
 
+@media(max-width:1000px) {
+  .form {
+      width: 100%;
+  }
+}
+@media(max-width:1200px) {
+  .form {
+      width: 80%;
+  }
+}
 @media (max-width: 1300px) {
   .button {
     width: 25rem;
+  }
+}
+@media (max-width: 500px) {
+  .form-font::placeholder {
+    font-size: 1rem;
   }
 }

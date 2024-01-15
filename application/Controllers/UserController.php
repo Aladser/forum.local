@@ -106,7 +106,6 @@ class UserController extends Controller
             page_name: 'Форум - войти',
             template_view: 'template_view.php',
             content_view: 'users/login_view.php',
-            content_css: 'login.css',
             data: $args,
             routes: $routes,
         );

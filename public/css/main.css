@@ -14,3 +14,9 @@
   }
   
 }
+@media (max-width: 1000px) {
+  .button {
+    width: 20rem;
+  }
+  
+}
