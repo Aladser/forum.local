@@ -25,15 +25,6 @@ hr {border: var(--theme-border);}
   background-color: var(--theme-color-hover);
   color: white;
 }
-.ref-nav-color {
-  border-bottom: 1px solid var(--theme-color);
-  color: white;
-}
-.ref-nav-color:hover {
-  background-color: var(--theme-color-hover);
-  color:white;
-}
-
 
 .m-0 {
   margin: 0;
