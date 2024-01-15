@@ -58,6 +58,7 @@ class ArticleController extends Controller
 
         $data['articles'] = $this->articles->all($this->articlesToPage, $offset);
 
+        // роуты
         $routes = [
             'article_create' => route('article_create'),
             'article_show' => route('article_show'),
@@ -86,6 +87,15 @@ class ArticleController extends Controller
             return;
         }
 
+        // роуты
+        $routes = [
+            'home' => route('home'),
+            'article' => route('article'),
+            'article_show' => route('article_show'),
+            'article_edit' => route('article_edit'),
+            'article_remove' => route('article_remove'),
+        ];
+
         $data['login'] = $this->authUser;
         $data['csrf'] = $this->csrf;
 
@@ -94,19 +104,20 @@ class ArticleController extends Controller
 
         $head = '<meta name="csrf" content="'.$this->csrf.'">';
         $this->view->generate(
-            "Форум. Статья: {$data['article']['title']}",
-            'template_view.php',
-            'articles/show-article_view.php',
-            $data,
-            [
+            page_name:"Форум. Статья: {$data['article']['title']}",
+            template_view:'template_view.php',
+            content_view:'articles/show-article_view.php',
+            data:$data,
+            content_js:[
                 'ServerRequest.js',
                 'DBLocalTime.js',
                 'article/ArticleClientController.js',
                 'CommentClientController.js',
                 'article/show-article.js',
             ],
-            'show-article.css',
-            $head
+            content_css:'show-article.css',
+            add_head:$head,
+            routes:$routes
         );
     }
 
@@ -115,6 +126,12 @@ class ArticleController extends Controller
     {
         $data['login'] = $this->authUser;
         $data['csrf'] = $this->csrf;
+
+        // роуты
+        $routes = [
+            'home' => route('home'),
+            'article_store' => route('article_store'),
+        ];
 
         // проверка ошибок
         if (isset($args['error'])) {
@@ -128,10 +145,11 @@ class ArticleController extends Controller
         }
 
         $this->view->generate(
-            'Форум - создать статью',
-            'template_view.php',
-            'articles/create-article_view.php',
-            $data
+            page_name:'Форум - создать статью',
+            template_view:'template_view.php',
+            content_view:'articles/create-article_view.php',
+            data:$data,
+            routes:$routes,
         );
     }
 
@@ -170,6 +188,13 @@ class ArticleController extends Controller
             header('Location: /article/show/'.$id);
         }
 
+        // роуты
+        $routes = [
+            'home' => route('home'),
+            'article_show' => route('article_show'),
+            'article_update' => route('article_update'),
+        ];
+
         // данные о статье
         $data = $this->articles->get($id);
 
@@ -189,10 +214,11 @@ class ArticleController extends Controller
         $data['csrf'] = $this->csrf;
 
         $this->view->generate(
-            'Форум - изменить статью',
-            'template_view.php',
-            'articles/edit-article_view.php',
-            $data
+            page_name: 'Форум - изменить статью',
+            template_view: 'template_view.php',
+            content_view: 'articles/edit-article_view.php',
+            data: $data,
+            routes: $routes,
         );
     }
 

@@ -2,14 +2,14 @@
     <!-- кнопки -->
     <section class='w-50 mx-auto p-2'>
         <?php if ($data['login'] === $data['article']['username']) { ?>
-            <a href="<?php echo '/article/edit/'.$data['article']['id']; ?>" 
+            <a href=<?=$routes['article_edit'].'/'.$data['article']['id']; ?>
                id='btn-edit' 
                class='ref-color d-inline-block text-decoration-none p-3 border-theme rounded'>Редактировать</a>
-            <a href="<?php echo '/article/remove/'.$data['article']['id']; ?>" 
+            <a href="<?=$routes['article_remove'].'/'.$data['article']['id']; ?>" 
                id='btn-edit' 
                class='ref-color d-inline-block text-decoration-none p-3 border-theme rounded'>Удалить</a>
         <?php } ?>
-        <a href="/article" class='ref-color d-inline-block text-decoration-none p-3 rounded'>Назад</a>
+        <a href=<?=$routes['article']?> class='ref-color d-inline-block text-decoration-none p-3 rounded'>Назад</a>
     </section>
 
     <!-- статья --> 
