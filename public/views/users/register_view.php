@@ -5,13 +5,13 @@
         <input type="hidden" name="CSRF" value=<?php echo $data['csrf']; ?>>
 
         <input type="login" name='login' value="<?php echo $data['user']; ?>" id="reg-form__email-input" 
-        class="form-font theme-border w-100 mb-3 p-2" placeholder="логин" required>
+        class="form-font theme-border w-100 mb-3 p-3" placeholder="логин" required>
 
         <input type="password" name='password' id="reg-form__password1-input"
-        class="form-font theme-border w-100 mb-3 p-2" placeholder="пароль (минимум 3 символа)" required>
+        class="form-font theme-border w-100 mb-3 p-3" placeholder="пароль (минимум 3 символа)" required>
 
         <input type="password" name='password_confirm' id="reg-form__password2-input" 
-        class="form-font theme-border w-100 mb-3 p-2" placeholder="подтвердите пароль" required>
+        class="form-font theme-border w-100 mb-3 p-3" placeholder="подтвердите пароль" required>
 
         <input type="submit" value="Регистрация" id='reg-form__reg-btn' 
         class='ref-color form-font border-0 p-3 mb-2 w-100'>
