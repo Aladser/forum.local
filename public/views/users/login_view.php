@@ -10,7 +10,7 @@
         <input type="password" name='password' 
         class="form-font theme-border w-100 p-3 mb-3" placeholder="Пароль" required>
 
-        <input type="submit" value="Войти" class='form-font ref-color border-0 w-100 p-3 mb-2 ' >
+        <input type="submit" value="Войти" class='border-0 form-font ref-color w-100 p-3 mb-2 ' >
         
         <a href=<?php echo $routes['home']; ?> class='text-decoration-none'>
             <div class='form-font ref-color w-100 p-3 mx-auto'>Назад</div>

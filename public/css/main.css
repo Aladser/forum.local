@@ -1,10 +1,13 @@
-.auth-container-width {
-  --auth-container-width: 900px;
-  width: var(--auth-container-width);
+.button {
+  display: block;
+  width: 30vw;
+  padding: 1rem;
+  font-size: 1.5rem;
+  margin: auto;
 }
 
-@media (max-width: var(--auth-container-width)) {
-  .auth-container-width {
-    width: 100%;
+@media (max-width: 700px) {
+  .button {
+    width: 80vw;
   }
 }

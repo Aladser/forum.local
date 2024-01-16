@@ -1,4 +1,5 @@
 textarea {resize: none;}
+a {text-decoration: none;}
 
 
 html {
@@ -41,9 +42,8 @@ html {
   color: white;
 }
 
-.button {
-  width: 40%;
-  padding: 1rem;
+.btn-small-width {
+  width: 10rem;
 }
 
 .m-0 {margin: 0;}
@@ -56,6 +56,7 @@ html {
 .article__btn{
   width: 70%;
 }
+
 
 @media(max-width:1000px) {
   .form {width: 100%;}
