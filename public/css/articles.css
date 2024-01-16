@@ -2,3 +2,13 @@
     background-color: var(--theme-color);
     color:white;
 }
+
+.content-section {
+    width: 50%;
+}
+
+@media (max-width: 1000px) {
+    .content-section {
+        width: 90%;
+    }
+}

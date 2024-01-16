@@ -1,10 +1,10 @@
-<section class='w-50 mx-auto'>
-    <a href=<?=$routes['article_create'];?>>
+<section class='content-section mx-auto mb-1'>
+    <a href=<?php echo $routes['article_create']; ?>>
         <p class='ref-color d-inline-block p-3 rounded'>Новая тема</p>
     </a>
 
-    <section class='mt-1'>
-         <article class='d-flex border-start-theme border-end-theme p-1'>
+    <section>
+        <article class='d-flex border-start-theme border-end-theme p-1'>
             <p class='w-25 m-0 fw-bolder p-1 text-secondary'>Название</p>
             <p class='w-50 text-center m-0 fw-bolder p-1 text-secondary'>Описание</p>
             <p class='w-25 text-center m-0 fw-bolder p-1 text-secondary'>Автор</p>
@@ -29,7 +29,7 @@
                 $class_css = 'ref-color py-2 px-4 rounded me-1 text-decoration-none';
                 $class_css .= $data['page-index'] + 1 === $page_number ? ' theme-font-weight-bold' : '';
                 ?>
-                <a class="<?php echo $class_css; ?>" href='<?php echo $routes['article'].'?list='.$page_number; ?>'> <?=$page_number?> </a>  
+                <a class="<?php echo $class_css; ?>" href='<?php echo $routes['article'].'?list='.$page_number; ?>'> <?php echo $page_number; ?> </a>  
             <?php } ?>
         </section>
     <?php } ?>
