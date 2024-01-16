@@ -30,18 +30,18 @@
     <div class='theme-bg-сolor text-center text-white d-flex justify-content-between'>
         <?php if (!empty($data)) {?>
             <?php if (array_key_exists('login', $data)) {?>
-                <h3 class='page-name-header'><?php echo $page_name; ?></h3>
+                <h3 class='page-name-header p-3'><?php echo $page_name; ?></h3>
                 <div class='d-flex justify-content-end'>
                     <div class='d-flex align-items-center justify-content-between px-5 border-start border-end border-2 border-light'><?php echo $data['login']; ?></div>
-                    <a href="/main?logout=true" class='ref-color text-decoration-none'>
+                    <a href="<?=$routes['logout']?>" class='ref-color text-decoration-none'>
                         <div class='h-100 d-flex align-items-center px-4'>Выйти</div>
                     </a>
                 </div>
             <?php } else {?>
-                <h3 class='p-4 w-100'><?php echo $page_name; ?></h3>
+                <h3 class='p-3 w-100'><?php echo $page_name; ?></h3>
             <?php } ?>
         <?php } else { ?>
-            <h3 class='p-4 w-100'><?php echo $page_name; ?></h3>
+            <h3 class='p-3 w-100'><?php echo $page_name; ?></h3>
         <?php } ?>
     </div>
 </header>

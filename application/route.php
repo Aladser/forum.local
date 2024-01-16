@@ -18,6 +18,7 @@ function route($page_name) {
         'article_edit' => '/article/edit',
         'article_remove' => '/article/remove',
         'article_update' => '/article/update',
+        'logout' => '/main?logout=true',
     ];
 
     try {

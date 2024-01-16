@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use function App\config;
+use function App\route;
 
 class View
 {
@@ -30,7 +31,8 @@ class View
     ): void {
         // базовый адрес сайта
         $site_address = config('SITE_ADDRESS');
-        
+        $routes['logout'] = route('logout');
+
         require_once dirname(__DIR__, 2).'/public/views/'.$template_view;
     }
 }
