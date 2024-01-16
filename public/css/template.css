@@ -41,20 +41,26 @@ html {
   color: white;
 }
 
-
-.m-0 {
-  margin: 0;
-}
-.h-page404 {
-  height: 40rem;
-}
-.cursor-pointer {
-  cursor: pointer;
+.button {
+  width: 40%;
+  padding: 1rem;
 }
 
+.m-0 {margin: 0;}
+.h-page404 {height: 40rem;}
+.cursor-pointer {cursor: pointer;}
+
+.article-w {
+  width: 50%;
+}
+.article__btn{
+  width: 70%;
+}
 
 @media(max-width:1000px) {
   .form {width: 100%;}
+  .article-w {width: 90%;}
+  .button {width: 20rem;}
 }
 @media(max-width:1200px) {
   .form {width: 80%;}

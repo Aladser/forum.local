@@ -13,16 +13,16 @@
     </section>
 
     <!-- статья --> 
-    <section class='w-50 mx-auto p-2 text-center theme-border-start theme-border-end'>
+    <section class='article-w mx-auto p-2 text-center theme-border-start theme-border-end'>
         <h2><?php echo $data['article']['title']; ?></h2>
         <p>Автор: <?php echo $data['article']['username']; ?></p>
         <p><?php echo nl2br($data['article']['content']); ?></p>
     </section>
 
-    <div class='w-50 mx-auto '><hr class='theme-border'></div>
+    <div class='article-w mx-auto '><hr class='theme-border'></div>
 
     <!-- комментарии -->
-    <section class='w-50 mx-auto p-2 text-center theme-border-start theme-border-end'>
+    <section class='article-w mx-auto p-2 text-center theme-border-start theme-border-end'>
         <h4 class='text-start ps-2'> Комментарии </h4>
         <section id='comment-list'>
             <?php foreach ($data['comments'] as $comment) { ?>
