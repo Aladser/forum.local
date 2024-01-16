@@ -26,7 +26,7 @@ class UserController extends Controller
         $args['csrf'] = $this->csrf;
         $routes = [
             'home' => route('home'),
-            'store' => route('store') 
+            'store' => route('store'),
         ];
         // ошибки регистрации
         if (isset($args['error'])) {
@@ -49,7 +49,7 @@ class UserController extends Controller
             template_view: 'template_view.php',
             content_view: 'users/register_view.php',
             data: $args,
-            content_css: 'reg.css',
+            content_css: 'form.css',
             routes: $routes
         );
     }
@@ -87,10 +87,10 @@ class UserController extends Controller
     {
         $args['csrf'] = $this->csrf;
         $routes = [
-            'home' => route('home'), 
-            'auth' => route('auth')
+            'home' => route('home'),
+            'auth' => route('auth'),
         ];
-        
+
         // ошибки авторизации
         if (isset($args['error'])) {
             if ($args['error'] == 'wp') {
@@ -106,6 +106,7 @@ class UserController extends Controller
             page_name: 'Форум - войти',
             template_view: 'template_view.php',
             content_view: 'users/login_view.php',
+            content_css: 'form.css',
             data: $args,
             routes: $routes,
         );

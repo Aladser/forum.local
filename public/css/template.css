@@ -18,33 +18,15 @@ html {
 .theme-bg-сolor {background-color: var(--theme-color);}
 .theme-color {color: var(--theme-color);}
 .theme-grey-color {color: var(--theme-gray-color);}
+.theme-red-color {color: var(--error-color);}
+
 .theme-border {border: var(--theme-border);}
 .theme-border-start {border-left: var(--theme-border);}
 .theme-border-top {border-top: var(--theme-border);}
 .theme-border-end {border-right: var(--theme-border);}
 .theme-border-bottom {border-bottom: var(--theme-border);}
+
 .theme-font-weight-bold {font-weight: var(--theme-font-weight-bold);}
-
-
-/* форма */
-.form {
-  width: 40%;
-  font-size: 1.5rem;
-}
-.form input, a {
-  padding: 1rem;
-  width: 100%;
-}
-.form input:focus {
-  outline: 2px var(--theme-color) solid;
-}
-.form a {
-  display: inline-block;
-}
-.form input::placeholder {
-  color: #ccc;
-}
-
 
 /* ссылки */
 .ref-color {
@@ -72,19 +54,9 @@ html {
 
 
 @media(max-width:1000px) {
-  .form {width: 100%;}
   .article-w {width: 90%;}
   .button {width: 20rem;}
 }
-@media(max-width:1200px) {
-  .form {width: 80%;}
-}
 @media (max-width: 1300px) {
   .button {width: 25rem;}
-}
-@media (max-width: 500px) {
-  .form input::placeholder {
-    font-size: 1rem;
-    font-weight: bolder;
-  }
 }
