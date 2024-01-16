@@ -4,3 +4,18 @@
 }
 
 .comment-list__btn-remove:hover {background-color: var(--theme-gray-color);}
+
+.btn-small {
+    display: inline-block;
+    text-align: center;
+    padding: 1rem;
+}
+
+@media (max-width: 1000px) {
+    .btn-small {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0.5rem;
+    }
+}

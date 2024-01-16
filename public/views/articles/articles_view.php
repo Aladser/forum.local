@@ -1,6 +1,6 @@
 <section class='content-section mx-auto mb-1'>
     <a href=<?php echo $routes['article_create']; ?>>
-        <p class='btn-small-width ref-color d-inline-block p-3 rounded text-center'>Новая тема</p>
+        <p class='btn-small ref-color d-inline-block p-3 rounded text-center'>Новая тема</p>
     </a>
 
     <section>
