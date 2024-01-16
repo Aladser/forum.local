@@ -4,12 +4,12 @@
   font-size: 1.5rem;
 }
 .form input,
-a {
+.form a {
   padding: 1rem;
   width: 100%;
 }
 .form input[type="text"],
-input[type="password"] {
+.form input[type="password"] {
   margin-bottom: 1rem;
   border: var(--theme-border);
 }
