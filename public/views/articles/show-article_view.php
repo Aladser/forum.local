@@ -2,18 +2,18 @@
     <!-- кнопки -->
     <section class='w-50 mx-auto p-2'>
         <?php if ($data['login'] === $data['article']['username']) { ?>
-            <a href=<?=$routes['article_edit'].'/'.$data['article']['id']; ?>
+            <a href=<?php echo $routes['article_edit'].'/'.$data['article']['id']; ?>
                id='btn-edit' 
-               class='ref-color d-inline-block text-decoration-none p-3 border-theme rounded'>Редактировать</a>
-            <a href="<?=$routes['article_remove'].'/'.$data['article']['id']; ?>" 
+               class='ref-color d-inline-block text-decoration-none p-3 theme-border rounded'>Редактировать</a>
+            <a href="<?php echo $routes['article_remove'].'/'.$data['article']['id']; ?>" 
                id='btn-edit' 
-               class='ref-color d-inline-block text-decoration-none p-3 border-theme rounded'>Удалить</a>
+               class='ref-color d-inline-block text-decoration-none p-3 theme-border rounded'>Удалить</a>
         <?php } ?>
-        <a href=<?=$routes['article']?> class='ref-color d-inline-block text-decoration-none p-3 rounded'>Назад</a>
+        <a href=<?php echo $routes['article']; ?> class='ref-color d-inline-block text-decoration-none p-3 rounded'>Назад</a>
     </section>
 
     <!-- статья --> 
-    <section class='w-50 mx-auto p-2 text-center border-start-theme border-end-theme'>
+    <section class='w-50 mx-auto p-2 text-center theme-border-start theme-border-end'>
         <h2><?php echo $data['article']['title']; ?></h2>
         <p>Автор: <?php echo $data['article']['username']; ?></p>
         <p><?php echo nl2br($data['article']['content']); ?></p>
@@ -22,7 +22,7 @@
     <div class='w-50 mx-auto '><hr class='theme-border'></div>
 
     <!-- комментарии -->
-    <section class='w-50 mx-auto p-2 text-center border-start-theme border-end-theme'>
+    <section class='w-50 mx-auto p-2 text-center theme-border-start theme-border-end'>
         <h4 class='text-start ps-2'> Комментарии </h4>
         <section id='comment-list'>
             <?php foreach ($data['comments'] as $comment) { ?>
@@ -43,9 +43,9 @@
                 <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
                 <input type="hidden" name="article" value="<?php echo $data['article']['id']; ?>" >
                 <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
-                <textarea class="input-group-prepend form-control border-theme" 
+                <textarea class="input-group-prepend form-control theme-border" 
                 rows='3' placeholder='Сообщение' name='message' id='form-send-message__msg' required></textarea>
-                <button type="submit" class='ref-color btn border-theme' title='Отправить'>Отправить</button>
+                <button type="submit" class='ref-color btn theme-border' title='Отправить'>Отправить</button>
             </form>
         </div>
     </section>

@@ -4,7 +4,7 @@
     </a>
 
     <section>
-        <article class='d-flex border-start-theme border-end-theme p-1'>
+        <article class='d-flex theme-border-start theme-border-end p-1'>
             <p class='w-25 m-0 fw-bolder p-1 text-secondary'>Название</p>
             <p class='w-50 text-center m-0 fw-bolder p-1 text-secondary'>Описание</p>
             <p class='w-25 text-center m-0 fw-bolder p-1 text-secondary'>Автор</p>
@@ -12,7 +12,7 @@
         <?php foreach ($data['articles'] as $article) { ?>
             <a href=<?php echo $routes['article_show'].'/'.$article['id']; ?> class='text-decoration-none text-dark'>
                 <!-- для удобства показываю автора статьи -->
-                <article class='table-articles__tr cursor-pointer d-flex py-1 border-top-theme border-start-theme border-end-theme'>
+                <article class='table-articles__tr cursor-pointer d-flex py-1 theme-border-top theme-border-start theme-border-end'>
                     <p class='w-25 m-0 p-2'><?php echo $article['title']; ?></p>
                     <p class='w-50 text-center m-0 p-2'><?php echo $article['summary']; ?></p>
                     <p class='w-25 text-center m-0 p-2'><?php echo $article['author']; ?></p>

@@ -27,7 +27,7 @@
 <body>
 
 <header class='mb-4'>
-    <div class='text-center text-white bg-theme d-flex justify-content-between'>
+    <div class='theme-bg-сolor text-center text-white d-flex justify-content-between'>
         <?php if (!empty($data)) {?>
             <?php if (array_key_exists('login', $data)) {?>
                 <h3 class='p-4 w-90'><?php echo $page_name; ?></h3>

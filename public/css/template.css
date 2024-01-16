@@ -1,30 +1,35 @@
+textarea {resize: none;}
+
+
 html {
+  /* тематические цвета */
   --theme-color: #00dd00;
   --theme-color-hover: rgb(0, 180, 0);
   --theme-gray-color: rgba(0, 0, 0, 0.5);
+  --ref-color-hover: rgba(255, 255, 255, 0.7);
   --error-color: rgba(158, 0, 0, 0.768);
 
   --theme-border: 1.5px solid var(--theme-color);
   --theme-font-weight-bold: 850;
-  --ref-color-hover: rgba(255, 255, 255, 0.7);
 }
 
-.theme-color {
-  color: var(--theme-color);
-}
-.theme-grey-color {
-  color: var(--theme-gray-color);
-}
-.theme-font-weight-bold {
-  font-weight: var(--theme-font-weight-bold);
-}
-.theme-border {
-  border: var(--theme-border);
-}
 
-textarea {
-  resize: none;
-}
+.theme-bg-сolor {background-color: var(--theme-color);}
+.theme-color {color: var(--theme-color);}
+.theme-grey-color {color: var(--theme-gray-color);}
+.theme-text {color: var(--theme-color);}
+.theme-border {border: var(--theme-border);}
+.theme-border-start {border-left: var(--theme-border);}
+.theme-border-top {border-top: var(--theme-border);}
+.theme-border-end {border-right: var(--theme-border);}
+.theme-border-bottom {border-bottom: var(--theme-border);}
+.theme-font-weight-bold {font-weight: var(--theme-font-weight-bold);}
+
+
+.form {width: 60%;}
+.form-font {font-size: 1.5rem;}
+.form__input::placeholder {color: var(--theme-gray-color);}
+
 
 /* ссылки */
 .ref-color {
@@ -36,6 +41,7 @@ textarea {
   color: white;
 }
 
+
 .m-0 {
   margin: 0;
 }
@@ -45,57 +51,17 @@ textarea {
 .cursor-pointer {
   cursor: pointer;
 }
-.form__input::placeholder {
-  color: var(--theme-gray-color);
-}
 
-.bg-theme {
-  background-color: var(--theme-color);
-}
-.text-theme {
-  color: var(--theme-color);
-}
-.border-theme {
-  border: var(--theme-border);
-}
-
-.border-start-theme {
-  border-left: var(--theme-border);
-}
-.border-end-theme {
-  border-right: var(--theme-border);
-}
-.border-top-theme {
-  border-top: var(--theme-border);
-}
-.border-bottom-theme {
-  border-bottom: var(--theme-border);
-}
-
-.form-font {
-  font-size: 1.5rem;
-}
-.form {
-  width: 60%;
-}
 
 @media(max-width:1000px) {
-  .form {
-      width: 100%;
-  }
+  .form {width: 100%;}
 }
 @media(max-width:1200px) {
-  .form {
-      width: 80%;
-  }
+  .form {width: 80%;}
 }
 @media (max-width: 1300px) {
-  .button {
-    width: 25rem;
-  }
+  .button {width: 25rem;}
 }
 @media (max-width: 500px) {
-  .form-font::placeholder {
-    font-size: 1rem;
-  }
+  .form-font::placeholder {font-size: 1rem;}
 }
