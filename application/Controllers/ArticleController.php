@@ -66,7 +66,7 @@ class ArticleController extends Controller
         ];
 
         $this->view->generate(
-            page_name: "{$this->site_name} - статьи",
+            page_name: $this->site_name,
             template_view: 'template_view.php',
             content_view: 'articles/articles_view.php',
             data: $data,
@@ -212,9 +212,10 @@ class ArticleController extends Controller
 
         $data['login'] = $this->authUser;
         $data['csrf'] = $this->csrf;
+        $title = $data['title'];
 
         $this->view->generate(
-            page_name: 'Форум - изменить статью',
+            page_name: "Форум: $title - редактирование",
             template_view: 'template_view.php',
             content_view: 'articles/edit-article_view.php',
             data: $data,
