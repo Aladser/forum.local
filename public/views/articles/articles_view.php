@@ -12,8 +12,7 @@
             </article>
             <?php foreach ($data['articles'] as $article) { ?>
                 <a href=<?php echo $article['url']; ?> class='text-dark'>
-                    <!-- для удобства показываю автора статьи -->
-                    <article class='table-articles__tr cursor-pointer d-flex py-1 theme-border-top theme-border-start theme-border-end'>
+                    <article class='table-article-row theme-border-top theme-border-start theme-border-end'>
                         <p class='w-25 m-0 p-2'><?php echo $article['title']; ?></p>
                         <p class='w-50 text-center m-0 p-2'><?php echo $article['summary']; ?></p>
                         <p class='w-25 text-center m-0 p-2'><?php echo $article['author']; ?></p>

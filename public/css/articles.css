@@ -1,4 +1,9 @@
-.table-articles__tr:hover{
+.table-article-row{
+    cursor: pointer;
+    display: flex;
+    padding: 0.5rem 0 0.5rem 0;
+}
+.table-article-row:hover{
     background-color: var(--theme-color);
     color:white;
 }
