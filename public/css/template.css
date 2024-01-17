@@ -52,12 +52,13 @@ html {
   width: 50%;
 }
 .article__btn{
-  width: 70%;
+  width: 50%;
 }
 
 
 @media(max-width:1000px) {
   .article-w {width: 90%;}
+  .article__btn {width: 100%;}
   .button {width: 20rem;}
 }
 @media (max-width: 1300px) {

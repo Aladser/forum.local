@@ -215,7 +215,7 @@ class ArticleController extends Controller
         $title = $data['title'];
 
         $this->view->generate(
-            page_name: "Форум: $title - редактирование",
+            page_name: "{$this->site_name}: $title - редактирование",
             template_view: 'template_view.php',
             content_view: 'articles/edit-article_view.php',
             data: $data,
