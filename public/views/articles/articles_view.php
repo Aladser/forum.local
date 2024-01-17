@@ -1,21 +1,21 @@
 <container>
     <div class='content-width'>
         <section class='ps-2'>
-        <a href=<?php echo $routes['article_create']; ?> class='ref mb-2'>Новая тема</a>
+            <a href=<?php echo $routes['article_create']; ?> class='ref mb-2'>Новая тема</a>
         </section>
 
         <section>
-            <article class='d-flex theme-border-start theme-border-end p-1'>
+            <article class='d-flex p-1 theme-border-start theme-border-end'>
                 <p class='w-25 m-0 fw-bolder p-1 text-secondary'>Название</p>
                 <p class='w-50 text-center m-0 fw-bolder p-1 text-secondary'>Описание</p>
                 <p class='w-25 text-center m-0 fw-bolder p-1 text-secondary'>Автор</p>
             </article>
             <?php foreach ($data['articles'] as $article) { ?>
                 <a href=<?php echo $article['url']; ?> class='text-dark'>
-                    <article class='table-article-row theme-border-top theme-border-start theme-border-end'>
+                    <article class='table-article-row'>
                         <p class='w-25 m-0 p-2'><?php echo $article['title']; ?></p>
-                        <p class='w-50 text-center m-0 p-2'><?php echo $article['summary']; ?></p>
-                        <p class='w-25 text-center m-0 p-2'><?php echo $article['author']; ?></p>
+                        <p class='w-50 m-0 text-center p-2'><?php echo $article['summary']; ?></p>
+                        <p class='w-25 m-0 text-center p-2'><?php echo $article['author']; ?></p>
                     </article>
                 </a>
             <?php }?>
@@ -32,7 +32,8 @@
                         $class_css .= ' theme-font-weight-bold';
                     }
                     ?>
-                    <a class="<?php echo $class_css; ?>" href='<?php echo $routes['article'].'?list='.$page_number; ?>'> <?php echo $page_number; ?> </a>  
+                    <?php $pageNumberUrl = $routes['article'].'?list='.$page_number; ?>
+                    <a class="<?php echo $class_css; ?>" href='<?php echo $pageNumberUrl; ?>'> <?php echo $page_number; ?> </a>  
                 <?php } ?>
             </section>
         <?php } ?>
