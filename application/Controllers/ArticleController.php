@@ -57,11 +57,16 @@ class ArticleController extends Controller
         $offset = $data['page-index'] * $this->articlesToPage;
 
         $data['articles'] = $this->articles->all($this->articlesToPage, $offset);
+        // url отдельных страниц
+        $showArticleURL = route('article_show');
+        for ($i = 0; $i < count($data['articles']); ++$i) {
+            $id = $data['articles'][$i]['id'];
+            $data['articles'][$i]['url'] = "$showArticleURL/$id";
+        }
 
         // роуты
         $routes = [
             'article_create' => route('article_create'),
-            'article_show' => route('article_show'),
             'article' => route('article'),
         ];
 
