@@ -1,16 +1,12 @@
 <container>
     <div class='content-width'>
         <!-- кнопки -->
-        <section class='p-2'>
+        <section>
             <?php if ($data['login'] === $data['article']['username']) { ?>
-                <a href=<?php echo $routes['article_edit'].'/'.$data['article']['id']; ?>
-                id='btn-edit' 
-                class='btn-small ref-color theme-border rounded'>Редактировать</a>
-                <a href="<?php echo $routes['article_remove'].'/'.$data['article']['id']; ?>" 
-                id='btn-edit' 
-                class='btn-small ref-color theme-border rounded'>Удалить</a>
+                <a href=<?php echo $routes['article_edit'].'/'.$data['article']['id']; ?> id='btn-edit' class='ref'>Редактировать</a>
+                <a href="<?php echo $routes['article_remove'].'/'.$data['article']['id']; ?>" id='btn-edit' class='ref'>Удалить</a>
             <?php } ?>
-            <a href=<?php echo $routes['article']; ?> class='btn-small ref-color text-decoration-none rounded'>Назад</a>
+            <a href=<?php echo $routes['article']; ?> class='ref text-decoration-none rounded'>Назад</a>
         </section>
 
         <!-- статья --> 
