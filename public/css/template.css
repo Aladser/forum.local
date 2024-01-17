@@ -3,7 +3,6 @@ a {text-decoration: none;}
 
 
 html {
-  /* тематические цвета */
   --theme-color: #00dd00;
   --theme-color-hover: rgb(0, 180, 0);
   --theme-gray-color: rgba(0, 0, 0, 0.5);
@@ -12,6 +11,8 @@ html {
 
   --theme-border: 1.5px solid var(--theme-color);
   --theme-font-weight-bold: 850;
+  --theme-button-size: 20rem;
+  --theme-content-size: 55rem;
 }
 
 
@@ -38,23 +39,34 @@ html {
   color: white;
 }
 
-.btn-small {
-  width: 10rem;
-}
-
 .h-page404 {height: 40rem;}
 .cursor-pointer {cursor: pointer;}
 .page-name-header {
   font-size: 1.4rem;
 }
 
-.article-w {
-  width: 50%;
+/* контейнер */
+.content-width {
+  width: 55rem;
+  margin: auto;
 }
-.article__btn{
-  width: 50%;
+@media (max-width: 55rem) {
+  .content-width {
+    width: 95%;
+    margin: auto;
+  }
 }
 
+.button-basic {
+  display: block;
+  background-color: var(--theme-color);
+  color: white;
+  width: var(--theme-button-size);
+  text-align: center;
+  border: none;
+  padding: 0.75rem;
+  margin: auto;
+}
 
 @media(max-width:1000px) {
   .article-w {width: 90%;}

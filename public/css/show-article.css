@@ -1,3 +1,7 @@
+.comment-list__item {
+    border-top: 1px solid #ccc;
+}
+
 .comment-list__btn-remove {
     font-size: 0.75rem;
     background-color: white;
