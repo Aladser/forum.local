@@ -45,7 +45,7 @@ class UserController extends Controller
         }
 
         $this->view->generate(
-            page_name: 'Форум - регистрация',
+            page_name: "{$this->site_name} - регистрация пользователя",
             template_view: 'template_view.php',
             content_view: 'users/register_view.php',
             data: $args,
@@ -103,7 +103,7 @@ class UserController extends Controller
         }
 
         $this->view->generate(
-            page_name: 'Форум - войти',
+            page_name: "{$this->site_name} - авторизация",
             template_view: 'template_view.php',
             content_view: 'users/login_view.php',
             content_css: 'form.css',

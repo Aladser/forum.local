@@ -66,7 +66,7 @@ class ArticleController extends Controller
         ];
 
         $this->view->generate(
-            page_name: 'Форум - статьи',
+            page_name: "{$this->site_name} - статьи",
             template_view: 'template_view.php',
             content_view: 'articles/articles_view.php',
             data: $data,
@@ -104,20 +104,20 @@ class ArticleController extends Controller
 
         $head = '<meta name="csrf" content="'.$this->csrf.'">';
         $this->view->generate(
-            page_name:"Форум. Статья: {$data['article']['title']}",
-            template_view:'template_view.php',
-            content_view:'articles/show-article_view.php',
-            data:$data,
-            content_js:[
+            page_name: "{$this->site_name}: {$data['article']['title']}",
+            template_view: 'template_view.php',
+            content_view: 'articles/show-article_view.php',
+            data: $data,
+            content_js: [
                 'ServerRequest.js',
                 'DBLocalTime.js',
                 'article/ArticleClientController.js',
                 'CommentClientController.js',
                 'article/show-article.js',
             ],
-            content_css:'show-article.css',
-            add_head:$head,
-            routes:$routes
+            content_css: 'show-article.css',
+            add_head: $head,
+            routes: $routes
         );
     }
 
@@ -145,11 +145,11 @@ class ArticleController extends Controller
         }
 
         $this->view->generate(
-            page_name:'Форум - создать статью',
-            template_view:'template_view.php',
-            content_view:'articles/create-article_view.php',
-            data:$data,
-            routes:$routes,
+            page_name: "{$this->site_name} - добавить статью",
+            template_view: 'template_view.php',
+            content_view: 'articles/create-article_view.php',
+            data: $data,
+            routes: $routes,
         );
     }
 

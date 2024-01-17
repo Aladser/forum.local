@@ -19,13 +19,13 @@ class MainController extends Controller
         }
 
         // роуты
-        $routes  = [
-            'register'=>route('register'), 
-            'login'=>route('login')
+        $routes = [
+            'register' => route('register'),
+            'login' => route('login'),
         ];
 
         $this->view->generate(
-            page_name: 'Форум',
+            page_name: $this->site_name,
             template_view: 'template_view.php',
             content_view: 'main_view.php',
             content_css: 'main.css',

@@ -2,12 +2,16 @@
 
 namespace App\Core;
 
+use function App\config;
+
 abstract class Controller
 {
     public View $view;
+    protected string $site_name;
 
     public function __construct()
     {
+        $this->site_name = config('SITE_NAME');
         $this->view = new View();
     }
 
