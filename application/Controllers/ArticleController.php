@@ -265,8 +265,9 @@ class ArticleController extends Controller
     public function remove(mixed $args): void
     {
         $id = $args['id'];
+        $article_show_url = route('article_show');
         $isRemoved = $this->articles->remove($id);
-        $url = $isRemoved ? '\\' : '\system_error';
-        header('Location: '.$url);
+        $url = $isRemoved ? route('home') : "$article_show_url/$id?error=system_error";
+        header("Location: $url");
     }
 }
