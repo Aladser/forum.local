@@ -53,8 +53,6 @@ class ArticleController extends Controller
         $data['login'] = $this->auth_user;
         // индекс текущей страницы
         $data['page-index'] = isset($args['list']) ? $args['list'] - 1 : 0;
-        // число страниц
-        $data['page-count'] = $this->pageCount;
         // порция статей из БД
         $offset = $data['page-index'] * $this->articlesToPage;
 
@@ -63,6 +61,32 @@ class ArticleController extends Controller
         for ($i = 0; $i < count($data['articles']); ++$i) {
             $id = $data['articles'][$i]['id'];
             $data['articles'][$i]['url'] = "{$this->article_show_url}/$id";
+        }
+
+        // страницы показа статей (по 10)
+        $data['page-count'] = $this->pageCount;
+        $data['page-list'] = [];
+        if ($data['page-count'] > 1) {
+            for ($i = 0; $i < $data['page-count']; ++$i) {
+                $page_number = $i + 1;
+                $class_css = 'theme-bg-сolor-btn text-white py-2 px-4 rounded me-1';
+                if ($data['page-index'] + 1 === $page_number) {
+                    $class_css .= ' theme-font-weight-bold';
+                }
+                $pageUrl = route('article').'?list='.$page_number;
+                $data['page-list'][] = [
+                    'number' => $page_number,
+                    'css' => $class_css,
+                    'url' => $pageUrl,
+                ];
+            }
+        } else {
+            $css = 'theme-bg-сolor-btn text-white py-2 px-4 rounded me-1';
+            $data['page-list'][] = [
+                'number' => 1,
+                'css' => $css,
+                'url' => route('home'),
+            ];
         }
 
         // роуты
