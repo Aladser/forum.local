@@ -15,7 +15,7 @@
             placeholder='Содержание' required><?php echo $data['content']; ?></textarea>
 
             <input type="submit" value='Сохранить' class='theme-bg-сolor-btn button-basic mb-1'>
-            <a href="<?php echo $routes['article_show'].'/'.$data['id']; ?>" class='theme-bg-сolor-btn button-basic'>Назад</a>
+            <a href="<?php echo $data['show_url']; ?>" class='theme-bg-сolor-btn button-basic'>Назад</a>
         </form>
         <p id='prg-error' class='pb-4 text-center text-danger fw-bolder'><?php echo $data['error']; ?></p>
     </div>

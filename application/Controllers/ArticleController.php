@@ -224,6 +224,7 @@ class ArticleController extends Controller
 
         // данные о статье
         $data = $this->articles->get($id);
+        $data['show_url'] = route('article_show')."/$id";
 
         // проверка ошибок
         if (isset($args['error'])) {
