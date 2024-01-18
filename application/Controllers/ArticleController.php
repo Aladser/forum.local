@@ -87,7 +87,7 @@ class ArticleController extends Controller
         // проверка существования id
         $articleExisted = $this->articles->exists('id', $articleId);
         if (!$articleExisted) {
-            header('Location: /');
+            header('Location: '.route('home'));
 
             return;
         }
@@ -168,12 +168,12 @@ class ArticleController extends Controller
 
         if (!$this->articles->exists('title', $title)) {
             $id = $this->articles->add($authorId, $title, $summary, $content);
-            $url = "show/$id";
+            $url = route('article_show')."/$id";
         } else {
-            $url = "create?error=ttlexst&title=$title";
+            $url = route('article_create')."?error=ttlexst&title=$title";
         }
 
-        header('Location: /article/'.$url);
+        header("Location: $url");
     }
 
     // форма редактирования
@@ -182,7 +182,7 @@ class ArticleController extends Controller
         $id = $args['id'];
         $articleExisted = $this->articles->exists('id', $id);
         if (!$articleExisted) {
-            header('Location: /');
+            header('Location: '.route('home'));
 
             return;
         }
@@ -190,7 +190,8 @@ class ArticleController extends Controller
         // проверка автора статьи
         $authorName = $this->articles->get($id)['author'];
         if ($authorName !== $this->authUser) {
-            header('Location: /article/show/'.$id);
+            $article_show_url = route('article_show');
+            header("Location: $article_show_url/$id");
         }
 
         // роуты
@@ -231,10 +232,12 @@ class ArticleController extends Controller
     // обновить статью
     public function update(mixed $args): void
     {
+        $article_show_url = route('article_show');
+        $article_edit_url = route('article_edit');
         // поиск статьи в БД
         $id = $args['id'];
         if (!$this->articles->exists('id', $id)) {
-            header("Location: edit/$id?error=system_error");
+            header("Location: $article_edit_url/$id?error=system_error");
         }
         unset($args['id']);
 
@@ -249,13 +252,13 @@ class ArticleController extends Controller
 
         // обновление данных
         if (count($columns_updated) === 0) {
-            $url = "show/$id";
+            $url = "$article_show_url/$id";
         } else {
             $columns_updated['id'] = $id;
             $isUpdated = $this->articles->update($columns_updated);
-            $url = $isUpdated ? "show/$id" : "edit/$id?error=system_error";
+            $url = $isUpdated ? "$article_show_url/$id" : "$article_edit_url/$id?error=system_error";
         }
-        header("Location: /article/$url");
+        header("Location: $url");
     }
 
     // удалить статью
