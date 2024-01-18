@@ -3,10 +3,10 @@
         <!-- кнопки -->
         <section>
             <?php if ($data['login'] === $data['article']['author']) { ?>
-                <a href=<?php echo $routes['article_edit'].'/'.$data['article']['id']; ?> id='btn-edit' class='theme-bg-сolor-btn ref'>Редактировать</a>
-                <a href="<?php echo $routes['article_remove'].'/'.$data['article']['id']; ?>" id='btn-edit' class='theme-bg-сolor-btn ref'>Удалить</a>
+                <a href=<?php echo $routes['article_edit']; ?> class='theme-bg-сolor-btn ref'>Редактировать</a>
+                <a href="<?php echo $routes['article_remove']; ?>" class='theme-bg-сolor-btn ref'>Удалить</a>
             <?php } ?>
-            <a href=<?php echo $routes['article']; ?> class='theme-bg-сolor-btn ref rounded'>Назад</a>
+            <a href=<?php echo $routes['home']; ?> class='theme-bg-сolor-btn ref rounded'>Назад</a>
         </section>
 
         <!-- статья --> 

@@ -108,29 +108,26 @@ class ArticleController extends Controller
     // показать статью
     public function show(mixed $args): void
     {
-        $articleId = $args['id'];
+        $article_id = $args['id'];
         // проверка существования id
-        $articleExisted = $this->articles->exists('id', $articleId);
+        $articleExisted = $this->articles->exists('id', $article_id);
         if (!$articleExisted) {
             header('Location: '.route('home'));
 
             return;
         }
 
+        $data['login'] = $this->auth_user;
+        $data['csrf'] = $this->csrf;
+        $data['article'] = $this->articles->get($article_id);
+        $data['comments'] = $this->comments->getCommentsOfArticle($article_id);
+
         // роуты
         $routes = [
             'home' => route('home'),
-            'article' => route('article'),
-            'article_show' => $this->article_show_url,
-            'article_edit' => $this->article_edit_url,
-            'article_remove' => route('article_remove'),
+            'article_edit' => route('article_edit')."/$article_id",
+            'article_remove' => route('article_remove')."/$article_id",
         ];
-
-        $data['login'] = $this->auth_user;
-        $data['csrf'] = $this->csrf;
-
-        $data['article'] = $this->articles->get($articleId);
-        $data['comments'] = $this->comments->getCommentsOfArticle($articleId);
 
         $head = '<meta name="csrf" content="'.$this->csrf.'">';
         $this->view->generate(
