@@ -2,3 +2,4 @@ application/vendor/*
 vendor/*
 composer.lock
 application/composer.lock
+logs/*
