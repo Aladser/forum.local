@@ -12,10 +12,8 @@ use function App\route;
 /** статьи */
 class ArticleController extends Controller
 {
-    // csrf
     private string $csrf;
-    // аутентифицированный пользователь
-    private string $authUser;
+    private string $auth_user;
     private string $article_show_url;
     private string $article_edit_url;
 
@@ -29,7 +27,7 @@ class ArticleController extends Controller
         $this->articles = new Article();
         $this->comments = new Comment();
 
-        $this->authUser = UserController::getAuthUser();
+        $this->auth_user = UserController::getAuthUser();
         $this->csrf = Controller::createCSRFToken();
 
         // данные для пагинации
@@ -52,7 +50,7 @@ class ArticleController extends Controller
     // список статей
     public function index(mixed $args): void
     {
-        $data['login'] = $this->authUser;
+        $data['login'] = $this->auth_user;
         // индекс текущей страницы
         $data['page-index'] = isset($args['list']) ? $args['list'] - 1 : 0;
         // число страниц
@@ -104,7 +102,7 @@ class ArticleController extends Controller
             'article_remove' => route('article_remove'),
         ];
 
-        $data['login'] = $this->authUser;
+        $data['login'] = $this->auth_user;
         $data['csrf'] = $this->csrf;
 
         $data['article'] = $this->articles->get($articleId);
@@ -132,7 +130,7 @@ class ArticleController extends Controller
     // форма создания
     public function create(mixed $args): void
     {
-        $data['login'] = $this->authUser;
+        $data['login'] = $this->auth_user;
         $data['csrf'] = $this->csrf;
 
         // роуты
@@ -167,7 +165,7 @@ class ArticleController extends Controller
         $title = $args['title'];
         $summary = $args['summary'];
         $content = $args['content'];
-        $authorId = $this->users->getId($this->authUser);
+        $authorId = $this->users->getId($this->auth_user);
 
         if (!$this->articles->exists('title', $title)) {
             $id = $this->articles->add($authorId, $title, $summary, $content);
@@ -192,7 +190,7 @@ class ArticleController extends Controller
 
         // проверка автора статьи
         $authorName = $this->articles->get($id)['author'];
-        if ($authorName !== $this->authUser) {
+        if ($authorName !== $this->auth_user) {
             header("Location: {$this->article_show_url}/$id");
         }
 
@@ -218,7 +216,7 @@ class ArticleController extends Controller
             $data['error'] = '';
         }
 
-        $data['login'] = $this->authUser;
+        $data['login'] = $this->auth_user;
         $data['csrf'] = $this->csrf;
         $title = $data['title'];
 
