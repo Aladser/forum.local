@@ -1,5 +1,5 @@
 application/vendor/*
+application/composer.lock
 vendor/*
 composer.lock
-application/composer.lock
 logs/*
