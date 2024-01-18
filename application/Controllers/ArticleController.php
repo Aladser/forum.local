@@ -231,14 +231,15 @@ class ArticleController extends Controller
     // обновить статью
     public function update(mixed $args): void
     {
+        // поиск статьи в БД
         $id = $args['id'];
         if (!$this->articles->exists('id', $id)) {
             header("Location: edit/$id?error=system_error");
         }
         unset($args['id']);
 
-        $articleFromDB = $this->articles->get($id);
         // поиск измененных колонок
+        $articleFromDB = $this->articles->get($id);
         $columns_updated = [];
         foreach ($args as $key => $value) {
             if ($value != $articleFromDB[$key]) {
@@ -246,6 +247,7 @@ class ArticleController extends Controller
             }
         }
 
+        // обновление данных
         if (count($columns_updated) === 0) {
             $url = "show/$id";
         } else {
@@ -253,7 +255,6 @@ class ArticleController extends Controller
             $isUpdated = $this->articles->update($columns_updated);
             $url = $isUpdated ? "show/$id" : "edit/$id?error=system_error";
         }
-
         header("Location: /article/$url");
     }
 
