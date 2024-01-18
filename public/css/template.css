@@ -86,6 +86,11 @@ html {
 .button-basic:hover {
   color: white;
 }
+@media(max-width:700px) {
+  .button-basic {
+    width: 95%;
+  }
+}
 
 .button-wide {
   font-size: 1.5rem;
@@ -93,11 +98,8 @@ html {
   padding: 1rem;
 }
 
-@media(max-width:1000px) {
-  .article-w {width: 90%;}
-  .article__btn {width: 100%;}
-  .button {width: 20rem;}
-}
-@media (max-width: 1300px) {
-  .button {width: 25rem;}
+@media(max-width:700px) {
+  .button-wide {
+    width: 95%;
+  }
 }

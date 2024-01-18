@@ -28,7 +28,6 @@ class MainController extends Controller
             page_name: $this->site_name,
             template_view: 'template_view.php',
             content_view: 'main_view.php',
-            content_css: 'main.css',
             routes: $routes
         );
     }
