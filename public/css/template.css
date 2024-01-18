@@ -16,7 +16,16 @@ html {
 }
 
 
-.theme-bg-сolor {background-color: var(--theme-color);}
+.theme-bg-сolor {
+  background-color: var(--theme-color);
+}
+.theme-bg-сolor-btn {
+  background-color: var(--theme-color);
+}
+.theme-bg-сolor-btn:hover {
+  background-color: var(--theme-color-hover);
+}
+
 .theme-color {color: var(--theme-color);}
 .theme-grey-color {color: var(--theme-gray-color);}
 .theme-red-color {color: var(--error-color);}
@@ -32,7 +41,6 @@ html {
 /* ссылки */
 .ref {
   display: inline-block;
-  background-color: var(--theme-color);
   color: white;
   padding: 0.75rem;
   width: 8rem;
@@ -42,8 +50,10 @@ html {
   margin-bottom: 0.5rem;
 }
 .ref:hover {
-  background-color: var(--theme-color-hover);
   color: white;
+}
+.ref-size-8 {
+  width: 8rem;
 }
 
 .h-page404 {height: 40rem;}
@@ -66,13 +76,21 @@ html {
 
 .button-basic {
   display: block;
-  background-color: var(--theme-color);
   color: white;
-  width: var(--theme-button-size);
   text-align: center;
   border: none;
-  padding: 0.75rem;
   margin: auto;
+  width: var(--theme-button-size);
+  padding: 0.75rem;
+}
+.button-basic:hover {
+  color: white;
+}
+
+.button-wide {
+  font-size: 1.5rem;
+  width: 30rem;
+  padding: 1rem;
 }
 
 @media(max-width:1000px) {

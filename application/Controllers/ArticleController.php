@@ -188,7 +188,7 @@ class ArticleController extends Controller
         }
 
         // проверка автора статьи
-        $authorName = $this->articles->get($id)['username'];
+        $authorName = $this->articles->get($id)['author'];
         if ($authorName !== $this->authUser) {
             header('Location: /article/show/'.$id);
         }
@@ -232,21 +232,26 @@ class ArticleController extends Controller
     public function update(mixed $args): void
     {
         $id = $args['id'];
-        $title = $args['title'];
-        $summary = $args['summary'];
-        $content = $args['content'];
-        // заголовок изменяемой статьи
-        $articleTitle = $this->articles->get($id)['title'];
+        if (!$this->articles->exists('id', $id)) {
+            header("Location: edit/$id?error=system_error");
+        }
+        unset($args['id']);
 
-        if (!$this->articles->exists('title', $title) || $title === $articleTitle) {
-            $isUpdated = $this->articles->update($id, $title, $summary, $content);
-            if ($isUpdated) {
-                $url = "show/$id";
-            } else {
-                $url = "edit/$id?error=system_error";
+        $articleFromDB = $this->articles->get($id);
+        // поиск измененных колонок
+        $columns_updated = [];
+        foreach ($args as $key => $value) {
+            if ($value != $articleFromDB[$key]) {
+                $columns_updated[$key] = $value;
             }
+        }
+
+        if (count($columns_updated) === 0) {
+            $url = "show/$id";
         } else {
-            $url = "edit/$id?error=title_exists&title=".rawurlencode($title);
+            $columns_updated['id'] = $id;
+            $isUpdated = $this->articles->update($columns_updated);
+            $url = $isUpdated ? "show/$id" : "edit/$id?error=system_error";
         }
 
         header("Location: /article/$url");

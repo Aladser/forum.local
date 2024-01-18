@@ -2,17 +2,17 @@
     <div class='content-width'>
         <!-- кнопки -->
         <section>
-            <?php if ($data['login'] === $data['article']['username']) { ?>
-                <a href=<?php echo $routes['article_edit'].'/'.$data['article']['id']; ?> id='btn-edit' class='ref'>Редактировать</a>
-                <a href="<?php echo $routes['article_remove'].'/'.$data['article']['id']; ?>" id='btn-edit' class='ref'>Удалить</a>
+            <?php if ($data['login'] === $data['article']['author']) { ?>
+                <a href=<?php echo $routes['article_edit'].'/'.$data['article']['id']; ?> id='btn-edit' class='theme-bg-сolor-btn ref'>Редактировать</a>
+                <a href="<?php echo $routes['article_remove'].'/'.$data['article']['id']; ?>" id='btn-edit' class='theme-bg-сolor-btn ref'>Удалить</a>
             <?php } ?>
-            <a href=<?php echo $routes['article']; ?> class='ref text-decoration-none rounded'>Назад</a>
+            <a href=<?php echo $routes['article']; ?> class='theme-bg-сolor-btn ref rounded'>Назад</a>
         </section>
 
         <!-- статья --> 
         <section class='p-2 text-center theme-border-start theme-border-end'>
             <h2><?php echo $data['article']['title']; ?></h2>
-            <p>Автор: <?php echo $data['article']['username']; ?></p>
+            <p>Автор: <?php echo $data['article']['author']; ?></p>
             <p><?php echo nl2br($data['article']['content']); ?></p>
         </section>
 
@@ -42,7 +42,7 @@
                     <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
                     <textarea class="input-group-prepend form-control theme-border" 
                     rows='3' placeholder='Сообщение' name='message' id='form-send-message__msg' required></textarea>
-                    <button type="submit" class='ref-color btn theme-border' title='Отправить'>Отправить</button>
+                    <button type="submit" class='btn-send-msg theme-bg-сolor-btn ' title='Отправить'>Отправить</button>
                 </form>
             </div>
         </section>

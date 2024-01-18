@@ -9,10 +9,10 @@
 
 .comment-list__btn-remove:hover {background-color: var(--theme-gray-color);}
 
-.btn-small {
-    display: inline-block;
-    text-align: center;
-    padding: 1rem;
+.btn-send-msg {
+    border: none;
+    color:white;
+    padding: 0.25rem;
 }
 
 @media (max-width: 1000px) {

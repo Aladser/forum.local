@@ -13,8 +13,8 @@
         <input type="password" name='password_confirm'
         class="theme-border w-100 mb-3" placeholder="Подтвердите пароль" required>
 
-        <input type="submit" value="Регистрация" class='border-0 ref-color mb-2'>
-        <a href=<?php echo $routes['home']; ?> class='ref-color'>Назад</a>  
+        <input type="submit" value="Регистрация" class='theme-bg-сolor-btn border-0 button-basic button-wide mb-2'>
+        <a href=<?php echo $routes['home']; ?> class='theme-bg-сolor-btn button-basic button-wide'>Назад</a>  
     </form>
 
     <?php if (isset($data['error'])) {?>

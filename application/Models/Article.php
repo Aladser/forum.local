@@ -29,7 +29,7 @@ class Article extends Model
 
     public function get(int $id): array
     {
-        $sql = 'select articles.id as id, title, summary, content, login as username, time from articles ';
+        $sql = 'select articles.id as id, title, summary, content, login as author, time from articles ';
         $sql .= 'join users on users.id=articles.author_id where articles.id = :id';
         $args = [':id' => $id];
         $article = $this->dbQuery->queryPrepared($sql, $args);
@@ -46,12 +46,16 @@ class Article extends Model
         return $id;
     }
 
-    public function update($id, $title, $summary, $content): bool
+    public function update($columns): bool
     {
-        $sql = 'update articles set title = :title, summary = :summary, content = :content where id = :id';
-        $args = [':title' => $title, ':summary' => $summary, ':content' => $content, ':id' => $id];
+        $sql_values = '';
+        foreach ($columns as $key => $value) {
+            $sql_values .= "$key = :$key, ";
+        }
+        $sql_values = mb_substr($sql_values, 0, mb_strlen($sql_values) - 2);
+        $sql = "update articles set $sql_values where id = :id";
 
-        return $this->dbQuery->update($sql, $args);
+        return $this->dbQuery->update($sql, $columns);
     }
 
     public function remove($id): bool

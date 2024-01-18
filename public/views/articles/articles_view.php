@@ -1,7 +1,7 @@
 <container>
     <div class='content-width'>
         <section class='ps-2'>
-            <a href=<?php echo $routes['article_create']; ?> class='ref mb-2'>Новая тема</a>
+            <a href=<?php echo $routes['article_create']; ?> class='theme-bg-сolor-btn ref mb-2'>Новая тема</a>
         </section>
 
         <section>
@@ -27,7 +27,7 @@
                 <?php for ($i = 0; $i < $data['page-count']; ++$i) {?>
                     <?php
                     $page_number = $i + 1;
-                    $class_css = 'theme-bg-сolor text-white py-2 px-4 rounded me-1';
+                    $class_css = 'theme-bg-сolor-btn text-white py-2 px-4 rounded me-1';
                     if ($data['page-index'] + 1 === $page_number) {
                         $class_css .= ' theme-font-weight-bold';
                     }
