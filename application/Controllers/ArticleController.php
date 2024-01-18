@@ -16,10 +16,14 @@ class ArticleController extends Controller
     private string $csrf;
     // аутентифицированный пользователь
     private string $authUser;
+    private string $article_show_url;
+    private string $article_edit_url;
 
     public function __construct(int $articlesToPage = 10)
     {
         parent::__construct();
+        $this->article_show_url = route('article_show');
+        $this->article_edit_url = route('article_edit');
 
         $this->users = new User();
         $this->articles = new Article();
@@ -58,10 +62,9 @@ class ArticleController extends Controller
 
         $data['articles'] = $this->articles->all($this->articlesToPage, $offset);
         // url отдельных страниц
-        $showArticleURL = route('article_show');
         for ($i = 0; $i < count($data['articles']); ++$i) {
             $id = $data['articles'][$i]['id'];
-            $data['articles'][$i]['url'] = "$showArticleURL/$id";
+            $data['articles'][$i]['url'] = "{$this->article_show_url}/$id";
         }
 
         // роуты
@@ -96,8 +99,8 @@ class ArticleController extends Controller
         $routes = [
             'home' => route('home'),
             'article' => route('article'),
-            'article_show' => route('article_show'),
-            'article_edit' => route('article_edit'),
+            'article_show' => $this->article_show_url,
+            'article_edit' => $this->article_edit_url,
             'article_remove' => route('article_remove'),
         ];
 
@@ -168,7 +171,7 @@ class ArticleController extends Controller
 
         if (!$this->articles->exists('title', $title)) {
             $id = $this->articles->add($authorId, $title, $summary, $content);
-            $url = route('article_show')."/$id";
+            $url = "{$this->article_show_url}/$id";
         } else {
             $url = route('article_create')."?error=ttlexst&title=$title";
         }
@@ -190,14 +193,13 @@ class ArticleController extends Controller
         // проверка автора статьи
         $authorName = $this->articles->get($id)['author'];
         if ($authorName !== $this->authUser) {
-            $article_show_url = route('article_show');
-            header("Location: $article_show_url/$id");
+            header("Location: {$this->article_show_url}/$id");
         }
 
         // роуты
         $routes = [
             'home' => route('home'),
-            'article_show' => route('article_show'),
+            'article_show' => $this->article_show_url,
             'article_update' => route('article_update'),
         ];
 
@@ -232,12 +234,10 @@ class ArticleController extends Controller
     // обновить статью
     public function update(mixed $args): void
     {
-        $article_show_url = route('article_show');
-        $article_edit_url = route('article_edit');
         // поиск статьи в БД
         $id = $args['id'];
         if (!$this->articles->exists('id', $id)) {
-            header("Location: $article_edit_url/$id?error=system_error");
+            header("Location: {$this->article_edit_url}/$id?error=system_error");
         }
         unset($args['id']);
 
@@ -252,11 +252,11 @@ class ArticleController extends Controller
 
         // обновление данных
         if (count($columns_updated) === 0) {
-            $url = "$article_show_url/$id";
+            $url = "{$this->article_show_url}/$id";
         } else {
             $columns_updated['id'] = $id;
             $isUpdated = $this->articles->update($columns_updated);
-            $url = $isUpdated ? "$article_show_url/$id" : "$article_edit_url/$id?error=system_error";
+            $url = $isUpdated ? "{$this->article_show_url}/$id" : "{$this->article_edit_url}/$id?error=system_error";
         }
         header("Location: $url");
     }
@@ -265,9 +265,8 @@ class ArticleController extends Controller
     public function remove(mixed $args): void
     {
         $id = $args['id'];
-        $article_show_url = route('article_show');
         $isRemoved = $this->articles->remove($id);
-        $url = $isRemoved ? route('home') : "$article_show_url/$id?error=system_error";
+        $url = $isRemoved ? route('home') : "{$this->article_show_url}/$id?error=system_error";
         header("Location: $url");
     }
 }
