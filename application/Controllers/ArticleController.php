@@ -16,12 +16,18 @@ class ArticleController extends Controller
     private string $auth_user;
     private string $article_show_url;
     private string $article_edit_url;
+    private string $article_url;
+    private string $article_create_url;
+    private string $home_url;
 
     public function __construct(int $articlesToPage = 10)
     {
         parent::__construct();
         $this->article_show_url = route('article_show');
         $this->article_edit_url = route('article_edit');
+        $this->article_create_url = route('article_create');
+        $this->article_url = route('article');
+        $this->home_url = route('home');
 
         $this->users = new User();
         $this->articles = new Article();
@@ -73,7 +79,7 @@ class ArticleController extends Controller
                 if ($data['page-index'] + 1 === $page_number) {
                     $class_css .= ' theme-font-weight-bold';
                 }
-                $pageUrl = route('article').'?list='.$page_number;
+                $pageUrl = "{$this->article_url}?list=$page_number";
                 $data['page-list'][] = [
                     'number' => $page_number,
                     'css' => $class_css,
@@ -85,14 +91,14 @@ class ArticleController extends Controller
             $data['page-list'][] = [
                 'number' => 1,
                 'css' => $css,
-                'url' => route('home'),
+                'url' => $this->home_url,
             ];
         }
 
         // роуты
         $routes = [
-            'article_create' => route('article_create'),
-            'article' => route('article'),
+            'article_create' => $this->article_create_url,
+            'article' => $this->article_url,
         ];
 
         $this->view->generate(
@@ -112,7 +118,7 @@ class ArticleController extends Controller
         // проверка существования id
         $articleExisted = $this->articles->exists('id', $article_id);
         if (!$articleExisted) {
-            header('Location: '.route('home'));
+            header("Location: $this->home_url");
 
             return;
         }
@@ -124,8 +130,8 @@ class ArticleController extends Controller
 
         // роуты
         $routes = [
-            'home' => route('home'),
-            'article_edit' => route('article_edit')."/$article_id",
+            'home' => $this->home_url,
+            'article_edit' => "$this->article_edit_url/$article_id",
             'article_remove' => route('article_remove')."/$article_id",
         ];
 
@@ -156,7 +162,7 @@ class ArticleController extends Controller
 
         // роуты
         $routes = [
-            'home' => route('home'),
+            'home' => $this->home_url,
             'article_store' => route('article_store'),
         ];
 
@@ -192,7 +198,7 @@ class ArticleController extends Controller
             $id = $this->articles->add($authorId, $title, $summary, $content);
             $url = "{$this->article_show_url}/$id";
         } else {
-            $url = route('article_create')."?error=ttlexst&title=$title";
+            $url = "{$this->article_create_url}?error=ttlexst&title=$title";
         }
 
         header("Location: $url");
@@ -204,7 +210,7 @@ class ArticleController extends Controller
         $id = $args['id'];
         $articleExisted = $this->articles->exists('id', $id);
         if (!$articleExisted) {
-            header('Location: '.route('home'));
+            header("Location: $this->home_url");
 
             return;
         }
@@ -217,14 +223,14 @@ class ArticleController extends Controller
 
         // роуты
         $routes = [
-            'home' => route('home'),
+            'home' => $this->home_url,
             'article_show' => $this->article_show_url,
             'article_update' => route('article_update'),
         ];
 
         // данные о статье
         $data = $this->articles->get($id);
-        $data['show_url'] = route('article_show')."/$id";
+        $data['show_url'] = "$this->article_show_url/$id";
 
         // проверка ошибок
         if (isset($args['error'])) {
@@ -286,7 +292,7 @@ class ArticleController extends Controller
     {
         $id = $args['id'];
         $isRemoved = $this->articles->remove($id);
-        $url = $isRemoved ? route('home') : "{$this->article_show_url}/$id?error=system_error";
+        $url = $isRemoved ? $this->home_url : "{$this->article_show_url}/$id?error=system_error";
         header("Location: $url");
     }
 }
