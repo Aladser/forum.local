@@ -4,7 +4,7 @@ namespace App;
 
 use App\Core\Route;
 
-require __DIR__.'/vendor/autoload.php';
+require dirname(__DIR__, 1).'/vendor/autoload.php';
 
 if (!file_exists(dirname(__DIR__, 1).'/logs/access.log')) {
     $rootDir = dirname(__DIR__, 1);
