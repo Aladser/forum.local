@@ -11,6 +11,7 @@ class Route
     private static $specificRoutes = [
         'login' => 'User',
         'register' => 'User',
+        'logout' => 'User',
        ];
 
     public static function start()

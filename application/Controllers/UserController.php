@@ -132,10 +132,16 @@ class UserController extends Controller
         }
     }
 
-    /** Сохранить авторизацию в куки и сессии.
-     *
-     * @param string $user имя пользователя
-     */
+    public function logout()
+    {
+        foreach ($_COOKIE as $key => $value) {
+            setcookie($key, '', time() - 3600, '/');
+        }
+        session_destroy();
+        header('Location: '.route('home'));
+    }
+
+    // Сохранить авторизацию в куки и сессии.
     private function saveAuth(string $user): void
     {
         // сессия
