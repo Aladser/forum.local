@@ -14,6 +14,7 @@ function config($param)
         'PASS_DB' => '@admin@',
         // базовый адрес страницы
         'SITE_ADDRESS' => 'forum.local',
+        // название сайта
         'SITE_NAME' => 'Форум',
     ];
 
