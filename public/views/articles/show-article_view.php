@@ -3,10 +3,10 @@
         <!-- кнопки -->
         <section>
             <?php if ($data['login'] === $data['article']['author']) { ?>
-                <a href=<?php echo $routes['article_edit']; ?> class='theme-bg-сolor-btn ref'>Редактировать</a>
-                <a href="<?php echo $routes['article_remove']; ?>" class='theme-bg-сolor-btn ref'>Удалить</a>
+                <a href=<?php echo $routes['article_edit']; ?> class='button-theme-color ref'>Редактировать</a>
+                <a href="<?php echo $routes['article_remove']; ?>" class='button-theme-color ref'>Удалить</a>
             <?php } ?>
-            <a href=<?php echo $routes['home']; ?> class='theme-bg-сolor-btn ref rounded'>Назад</a>
+            <a href=<?php echo $routes['home']; ?> class='button-theme-color ref rounded'>Назад</a>
         </section>
 
         <!-- статья --> 
@@ -42,7 +42,7 @@
                     <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
                     <textarea class="input-group-prepend form-control theme-border" 
                     rows='3' placeholder='Сообщение' name='message' id='form-send-message__msg' required></textarea>
-                    <button type="submit" class='btn-send-msg theme-bg-сolor-btn ' title='Отправить'>Отправить</button>
+                    <button type="submit" class='btn-send-msg button-theme-color ' title='Отправить'>Отправить</button>
                 </form>
             </div>
         </section>

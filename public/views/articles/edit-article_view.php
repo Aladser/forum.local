@@ -14,8 +14,8 @@
             <textarea name='content' class="input-group-prepend form-control mb-2 w-100 theme-border" rows='10' 
             placeholder='Содержание' required><?php echo $data['content']; ?></textarea>
 
-            <input type="submit" value='Сохранить' class='theme-bg-сolor-btn button-basic mb-1'>
-            <a href="<?php echo $data['show_url']; ?>" class='theme-bg-сolor-btn button-basic'>Назад</a>
+            <input type="submit" value='Сохранить' class='button-theme-color button-basic mb-1'>
+            <a href="<?php echo $data['show_url']; ?>" class='button-theme-color button-basic'>Назад</a>
         </form>
         <p id='prg-error' class='pb-4 text-center text-danger fw-bolder'><?php echo $data['error']; ?></p>
     </div>

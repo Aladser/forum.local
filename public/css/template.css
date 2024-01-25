@@ -16,41 +16,39 @@ html {
 }
 
 
-.theme-bg-сolor {
-  background-color: var(--theme-color);
-}
-.theme-bg-сolor-btn {
-  background-color: var(--theme-color);
-}
-.theme-bg-сolor-btn:hover {
-  background-color: var(--theme-color-hover);
-}
-
+.theme-bg-сolor {background-color: var(--theme-color);}
 .theme-color {color: var(--theme-color);}
 .theme-grey-color {color: var(--theme-gray-color);}
 .theme-red-color {color: var(--error-color);}
-
 .theme-border {border: var(--theme-border);}
 .theme-border-start {border-left: var(--theme-border);}
 .theme-border-top {border-top: var(--theme-border);}
 .theme-border-end {border-right: var(--theme-border);}
 .theme-border-bottom {border-bottom: var(--theme-border);}
-
 .theme-font-weight-bold {font-weight: var(--theme-font-weight-bold);}
+
+
+/** цвет кнопки */
+.button-theme-color {
+  color: white;
+  background-color: var(--theme-color);
+}
+.button-theme-color:hover {
+  color: white;
+  background-color: white;
+  background-color: var(--theme-color-hover);
+}
+
 
 /* ссылки */
 .ref {
   display: inline-block;
-  color: white;
   padding: 0.75rem;
   width: 8rem;
   text-align: center;
   font-size: 0.9rem;
   border-radius: 5%;
   margin-bottom: 0.5rem;
-}
-.ref:hover {
-  color: white;
 }
 .ref-size-8 {
   width: 8rem;
