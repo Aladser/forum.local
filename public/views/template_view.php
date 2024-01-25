@@ -32,7 +32,7 @@
             <?php if (array_key_exists('login', $data)) {?>
                 <h3 class='page-name-header p-3'><?php echo $page_name; ?></h3>
                 <div class='d-flex justify-content-end'>
-                    <div class='d-flex align-items-center justify-content-between px-5 border-start border-end border-2 border-light'><?php echo $data['login']; ?></div>
+                    <div class='d-flex align-items-center justify-content-between px-5 border-2 border-end border-white'><?php echo $data['login']; ?></div>
                     <a href="<?php echo $routes['logout']; ?>">
                         <div class='button-theme-color h-100 d-flex align-items-center px-4'>Выйти</div>
                     </a>

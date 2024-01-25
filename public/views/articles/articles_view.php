@@ -1,7 +1,7 @@
 <container>
     <div class='content-width'>
-        <section class='ps-2'>
-            <a href=<?php echo $routes['article_create']; ?> class='button-theme-color ref mb-2'>Новая тема</a>
+        <section class='ps-2 mb-3'>
+            <a href=<?php echo $routes['article_create']; ?> class='button-theme-color button-small mb-2'>Новая тема</a>
         </section>
 
         <section class='mb-1'>

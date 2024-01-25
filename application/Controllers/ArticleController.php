@@ -75,7 +75,7 @@ class ArticleController extends Controller
         if ($data['page-count'] > 1) {
             for ($i = 0; $i < $data['page-count']; ++$i) {
                 $page_number = $i + 1;
-                $class_css = 'button-theme-color text-white py-2 px-4 rounded me-1';
+                $class_css = 'button-theme-color py-2 px-4 rounded me-1';
                 if ($data['page-index'] + 1 === $page_number) {
                     $class_css .= ' theme-font-weight-bold';
                 }
@@ -87,7 +87,7 @@ class ArticleController extends Controller
                 ];
             }
         } else {
-            $css = 'button-theme-color text-white py-2 px-4 rounded me-1';
+            $css = 'button-theme-color py-2 px-4 rounded me-1';
             $data['page-list'][] = [
                 'number' => 1,
                 'css' => $css,

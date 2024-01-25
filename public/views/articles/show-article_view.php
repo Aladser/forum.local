@@ -3,10 +3,10 @@
         <!-- кнопки -->
         <section>
             <?php if ($data['login'] === $data['article']['author']) { ?>
-                <a href=<?php echo $routes['article_edit']; ?> class='button-theme-color ref'>Редактировать</a>
-                <a href="<?php echo $routes['article_remove']; ?>" class='button-theme-color ref'>Удалить</a>
+                <a href=<?php echo $routes['article_edit']; ?> class='button-small button-theme-color'>Редактировать</a>
+                <a href="<?php echo $routes['article_remove']; ?>" class='button-small button-theme-color'>Удалить</a>
             <?php } ?>
-            <a href=<?php echo $routes['home']; ?> class='button-theme-color ref rounded'>Назад</a>
+            <a href=<?php echo $routes['home']; ?> class='button-small button-theme-color'>Назад</a>
         </section>
 
         <!-- статья --> 
