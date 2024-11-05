@@ -4,10 +4,7 @@ namespace App\Core;
 
 use PDO;
 
-/**
- * Класс запросов в БД на основе PDO
- * Поддерживаемые СУБД: mysql, pgsql, mssql, sqlite, sybase.
- */
+/** Класс запросов в БД на основе PDO */
 class DBQuery
 {
     private string $host;
@@ -20,11 +17,21 @@ class DBQuery
     // массив поддерживаемых СУБД
     private static $DB_TYPE = ['mysql', 'pgsql', 'mssql', 'sqlite', 'sybase'];
 
+    /**
+     * Undocumented function.
+     *
+     * @param string $host       хост
+     * @param string $nameDB     имя бд
+     * @param string $userDB     пользователь
+     * @param string $passwordDB пароль
+     * @param string $db_type    тип БД: mysql, pgsql, mssql, sqlite, sybase
+     */
     public function __construct(string $host, string $nameDB, string $userDB, string $passwordDB, string $db_type)
     {
         if (!in_array($db_type, DBQuery::$DB_TYPE)) {
             throw new \Exception("указанный тип БД ($db_type) не поддерживается");
         }
+
         $this->host = $host;
         $this->nameDB = $nameDB;
         $this->userDB = $userDB;
