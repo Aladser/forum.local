@@ -13,20 +13,20 @@ class DBQuery
     private string $passwordDB;
     private string $db_type;
 
+    private $isPermanentConnection;
     private $dbConnection;
     // массив поддерживаемых СУБД
     private static $DB_TYPE = ['mysql', 'pgsql', 'mssql', 'sqlite', 'sybase'];
 
     /**
-     * Undocumented function.
-     *
-     * @param string $host       хост
-     * @param string $nameDB     имя бд
-     * @param string $userDB     пользователь
-     * @param string $passwordDB пароль
-     * @param string $db_type    тип БД: mysql, pgsql, mssql, sqlite, sybase
+     * @param string $host                  хост
+     * @param string $nameDB                имя бд
+     * @param string $userDB                пользователь
+     * @param string $passwordDB            пароль
+     * @param string $db_type               тип БД: mysql, pgsql, mssql, sqlite, sybase
+     * @param bool   $isPermanentConnection флаг постоянного подключения
      */
-    public function __construct(string $host, string $nameDB, string $userDB, string $passwordDB, string $db_type)
+    public function __construct(string $host, string $nameDB, string $userDB, string $passwordDB, string $db_type, bool $isPermanentConnection = false)
     {
         if (!in_array($db_type, DBQuery::$DB_TYPE)) {
             throw new \Exception("указанный тип БД ($db_type) не поддерживается");
@@ -37,6 +37,11 @@ class DBQuery
         $this->userDB = $userDB;
         $this->passwordDB = $passwordDB;
         $this->db_type = $db_type;
+        $this->isPermanentConnection = $isPermanentConnection;
+
+        if ($isPermanentConnection) {
+            $this->connect();
+        }
     }
 
     /** подключение к БД */
@@ -62,11 +67,17 @@ class DBQuery
     /** insert операции */
     public function insert(string $sql, array $args): int
     {
-        $this->connect();
+        if (!$this->isPermanentConnection) {
+            $this->connect();
+        }
+
         $stmt = $this->dbConnection->prepare($sql);
         $stmt->execute($args);
         $id = $this->dbConnection->lastInsertId();
-        $this->disconnect();
+
+        if (!$this->isPermanentConnection) {
+            $this->disconnect();
+        }
 
         return $id;
     }
@@ -74,11 +85,17 @@ class DBQuery
     /** update операции */
     public function update(string $sql, array $args): bool
     {
-        $this->connect();
+        if (!$this->isPermanentConnection) {
+            $this->connect();
+        }
+
         $stmt = $this->dbConnection->prepare($sql);
         $stmt->execute($args);
         $rowCount = $stmt->rowCount();
-        $this->disconnect();
+
+        if (!$this->isPermanentConnection) {
+            $this->disconnect();
+        }
 
         return $rowCount > 0;
     }
@@ -96,7 +113,9 @@ class DBQuery
      */
     public function queryPrepared(string $sqlExpession, ?array $arguments = null, bool $isOneValue = true)
     {
-        $this->connect();
+        if (!$this->isPermanentConnection) {
+            $this->connect();
+        }
 
         $stmt = $this->dbConnection->prepare($sqlExpession);
         if (!empty($arguments)) {
@@ -105,7 +124,9 @@ class DBQuery
             $stmt->execute();
         }
 
-        $this->disconnect();
+        if (!$this->isPermanentConnection) {
+            $this->disconnect();
+        }
 
         return $isOneValue ? $stmt->fetch(\PDO::FETCH_ASSOC) : $stmt->fetchAll();
     }
@@ -118,9 +139,15 @@ class DBQuery
      */
     public function query(string $sql, bool $isOneValue = true)
     {
-        $this->connect();
+        if (!$this->isPermanentConnection) {
+            $this->connect();
+        }
+
         $query = $this->dbConnection->query($sql);
-        $this->disconnect();
+
+        if (!$this->isPermanentConnection) {
+            $this->disconnect();
+        }
 
         return $isOneValue ? $query->fetch(\PDO::FETCH_ASSOC) : $query->fetchAll();
     }
@@ -132,9 +159,15 @@ class DBQuery
      */
     public function exec(string $sql)
     {
-        $this->connect();
+        if (!$this->isPermanentConnection) {
+            $this->connect();
+        }
+
         $numRows = $this->dbConnection->exec($sql);
-        $this->disconnect();
+
+        if (!$this->isPermanentConnection) {
+            $this->disconnect();
+        }
 
         return $numRows;
     }
@@ -145,12 +178,18 @@ class DBQuery
      */
     public function executeProcedure($sql, $out)
     {
-        $this->connect();
+        if (!$this->isPermanentConnection) {
+            $this->connect();
+        }
+
         $stmt = $this->dbConnection->prepare("call $sql");
         $stmt->execute();
         $stmt->closeCursor();
         $procRst = $this->dbConnection->query("select $out as info");
-        $this->disconnect();
+
+        if (!$this->isPermanentConnection) {
+            $this->disconnect();
+        }
 
         return $procRst->fetch(\PDO::FETCH_ASSOC)['info'];
     }
