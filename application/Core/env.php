@@ -1,11 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Core;
 
 // --- конфиг сайта ---
-function config($key)
+function env($key)
 {
-    $env = parse_ini_file(__DIR__.'/.env');
+    $env_file = dirname(__DIR__, 2);
+    $env = parse_ini_file("$env_file/.env");
 
     if (array_key_exists($key, $env)) {
         return $env[$key];

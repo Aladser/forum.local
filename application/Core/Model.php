@@ -2,14 +2,12 @@
 
 namespace App\Core;
 
-use function App\config;
-
 class Model
 {
     protected DBQuery $dbQuery;
 
     public function __construct()
     {
-        $this->dbQuery = new DBQuery(config('HOST_DB'), config('NAME_DB'), config('USER_DB'), config('PASS_DB'), config('DB_TYPE'));
+        $this->dbQuery = new DBQuery(env('HOST_DB'), env('NAME_DB'), env('USER_DB'), env('PASS_DB'), env('DB_TYPE'));
     }
 }

@@ -7,8 +7,9 @@
 - bootstrap
 
 ## Разворачивание
-- Для запуска на сервере apache конфиг сервера */storage/forum.local.conf*
-- дамп базы MySQL */storage/forum_create.sql*
++ Для запуска на сервере apache конфиг сервера */storage/forum.local.conf*
++ дамп базы MySQL */storage/forum_create.sql*
++ создать файл .env по аналогии .env.example
 
 ## Предисловие
 * MVC - структура проекта;

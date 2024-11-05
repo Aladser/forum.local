@@ -2,8 +2,6 @@
 
 namespace App\Core;
 
-use function App\config;
-
 abstract class Controller
 {
     public View $view;
@@ -11,7 +9,7 @@ abstract class Controller
 
     public function __construct()
     {
-        $this->site_name = config('SITE_NAME');
+        $this->site_name = env('SITE_NAME');
         $this->view = new View();
     }
 

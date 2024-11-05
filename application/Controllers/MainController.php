@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 
-use function App\route;
+use function App\Core\route;
 
 /** контрллер главной страницы */
 class MainController extends Controller

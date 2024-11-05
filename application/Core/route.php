@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Core;
 
 // --- роуты ---
 function route($page_name)
