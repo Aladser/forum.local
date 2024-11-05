@@ -7,7 +7,7 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\Models\User;
 
-use function App\route;
+use function App\Core\route;
 
 /** статьи */
 class ArticleController extends Controller

@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\User;
 
-use function App\route;
+use function App\Core\route;
 
 // пользователи
 class UserController extends Controller

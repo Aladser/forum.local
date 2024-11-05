@@ -2,9 +2,6 @@
 
 namespace App\Core;
 
-use function App\config;
-use function App\route;
-
 class View
 {
     /**
@@ -23,14 +20,14 @@ class View
         string $page_name,
         string $template_view,
         string $content_view,
-        array $data = null,
-        array $content_js = null,
-        string $content_css = null,
-        string $add_head = null,
-        array $routes = null,
+        ?array $data = null,
+        ?array $content_js = null,
+        ?string $content_css = null,
+        ?string $add_head = null,
+        ?array $routes = null,
     ): void {
         // базовый адрес сайта
-        $site_address = config('SITE_ADDRESS');
+        $site_address = env('SITE_ADDRESS');
         $routes['logout'] = route('logout');
         $boostrap_url = 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css';
         $boostrap_integrity = 'sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC';
