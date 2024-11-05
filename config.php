@@ -8,10 +8,11 @@ function config($param)
     // --- список глобальных параметров ---
     $paramList = [
         // подключение к БД
+        'DB_TYPE' => 'mysql',
         'HOST_DB' => 'localhost',
         'NAME_DB' => 'forum',
         'USER_DB' => 'admin',
-        'PASS_DB' => '@admin@',
+        'PASS_DB' => 'Database_1821',
         // базовый адрес страницы
         'SITE_ADDRESS' => 'forum.local',
         // название сайта

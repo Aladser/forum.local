@@ -7,26 +7,44 @@ use PDO;
 /** Класс запросов в БД на основе PDO */
 class DBQuery
 {
-    private $dbConnection;
     private string $host;
     private string $nameDB;
     private string $userDB;
     private string $passwordDB;
+    private string $db_type;
 
-    public function __construct($host, $nameDB, $userDB, $passwordDB)
+    private $dbConnection;
+    // массив поддерживаемых СУБД
+    private static $DB_TYPE = ['mysql', 'pgsql', 'mssql', 'sqlite', 'sybase'];
+
+    /**
+     * Undocumented function.
+     *
+     * @param string $host       хост
+     * @param string $nameDB     имя бд
+     * @param string $userDB     пользователь
+     * @param string $passwordDB пароль
+     * @param string $db_type    тип БД: mysql, pgsql, mssql, sqlite, sybase
+     */
+    public function __construct(string $host, string $nameDB, string $userDB, string $passwordDB, string $db_type)
     {
+        if (!in_array($db_type, DBQuery::$DB_TYPE)) {
+            throw new \Exception("указанный тип БД ($db_type) не поддерживается");
+        }
+
         $this->host = $host;
         $this->nameDB = $nameDB;
         $this->userDB = $userDB;
         $this->passwordDB = $passwordDB;
+        $this->db_type = $db_type;
     }
 
-    /** соединение с БД */
+    /** подключение к БД */
     private function connect()
     {
         try {
             $this->dbConnection = new \PDO(
-                "mysql:dbname=$this->nameDB; host=$this->host",
+                "$this->db_type:dbname=$this->nameDB; host=$this->host",
                 $this->userDB,
                 $this->passwordDB
             );
@@ -35,7 +53,7 @@ class DBQuery
         }
     }
 
-    /** отсоединение от БД */
+    /** отключение от БД */
     private function disconnect()
     {
         $this->dbConnection = null;
@@ -76,7 +94,7 @@ class DBQuery
      *
      * @return mixed массив строк или одно значение
      */
-    public function queryPrepared(string $sqlExpession, array $arguments = null, bool $isOneValue = true)
+    public function queryPrepared(string $sqlExpession, ?array $arguments = null, bool $isOneValue = true)
     {
         $this->connect();
 

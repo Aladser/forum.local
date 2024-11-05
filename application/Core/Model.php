@@ -10,6 +10,6 @@ class Model
 
     public function __construct()
     {
-        $this->dbQuery = new DBQuery(config('HOST_DB'), config('NAME_DB'), config('USER_DB'), config('PASS_DB'));
+        $this->dbQuery = new DBQuery(config('HOST_DB'), config('NAME_DB'), config('USER_DB'), config('PASS_DB'), config('DB_TYPE'));
     }
 }

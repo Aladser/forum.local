@@ -4,12 +4,8 @@ namespace App;
 
 use App\Core\Route;
 
-require dirname(__DIR__, 1).'/vendor/autoload.php';
+/**Корневая папка */
+define('ROOT_FOLDER', dirname(__DIR__, 1));
 
-if (!file_exists(dirname(__DIR__, 1).'/logs/access.log')) {
-    $rootDir = dirname(__DIR__, 1);
-    exec("echo > $rootDir/logs/access.log");
-    exec("echo > $rootDir/logs/error.log");
-}
-
+require ROOT_FOLDER.'/vendor/autoload.php';
 Route::start();
