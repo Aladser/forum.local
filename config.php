@@ -3,29 +3,13 @@
 namespace App;
 
 // --- конфиг сайта ---
-function config($param)
+function config($key)
 {
-    // --- список глобальных параметров ---
-    $paramList = [
-        // подключение к БД
-        'DB_TYPE' => 'mysql',
-        'HOST_DB' => 'localhost',
-        'NAME_DB' => 'forum',
-        'USER_DB' => 'admin',
-        'PASS_DB' => 'Database_1821',
-        // базовый адрес страницы
-        'SITE_ADDRESS' => 'forum.local',
-        // название сайта
-        'SITE_NAME' => 'Форум',
-    ];
+    $env = parse_ini_file(__DIR__.'/.env');
 
-    try {
-        if (array_key_exists($param, $paramList)) {
-            return $paramList[$param];
-        } else {
-            throw new \Exception("Параметр $param не существует");
-        }
-    } catch (\Exception $ex) {
-        exit($ex);
+    if (array_key_exists($key, $env)) {
+        return $env[$key];
+    } else {
+        throw new \Exception("Параметр $key не существует");
     }
 }
