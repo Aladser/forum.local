@@ -1,7 +1,7 @@
 <container>
     <div class='content-width'>
         <!-- кнопки -->
-        <section>
+        <section class='mb-3'>
             <?php if ($data['login'] === $data['article']['author']) { ?>
                 <a href=<?php echo $routes['article_edit']; ?> class='button-small button-theme-color'>Редактировать</a>
                 <a href="<?php echo $routes['article_remove']; ?>" class='button-small button-theme-color'>Удалить</a>

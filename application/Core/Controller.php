@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Core;
+use function App\Core\env;
 
 abstract class Controller
 {

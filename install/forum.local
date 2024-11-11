@@ -1,0 +1,28 @@
+server {
+        listen 80;
+        server_name    forum.local;
+        root  /var/www/forum.local/public;
+        
+        error_log  /var/www/forum.local/error_log  error;
+        index index.php;
+
+        location / {
+                try_files $uri $uri/ /index.php?$query_string;
+                add_header Cache-Control "max-age=0, no-cache, no-store, must-revalidate";
+		add_header Pragma "no-cache";
+        }
+        
+        location /static/ { 
+	    root /var/www/forum.local;
+    	}
+
+        location ~* \.php$ {
+		try_files $uri = 404;
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+		fastcgi_index index.php;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		include fastcgi_params;
+    	}
+}
+

@@ -29,9 +29,6 @@ class View
         // базовый адрес сайта
         $site_address = env('SITE_ADDRESS');
         $routes['logout'] = route('logout');
-        $boostrap_url = 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css';
-        $boostrap_integrity = 'sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC';
-
         require_once dirname(__DIR__, 2).'/public/views/'.$template_view;
     }
 }
