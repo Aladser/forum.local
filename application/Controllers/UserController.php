@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\User;
+use App\Services\UserService;
 
 use function App\Core\route;
 
@@ -57,28 +58,28 @@ class UserController extends Controller
     // регистрация пользователя
     public function store(mixed $args): void
     {
-        $email = $args['login'];
+        $login = $args['login'];
         $password = $args['password'];
         $passwordConfirm = $args['password_confirm'];
+        $isUser = User::where('login', $login)->exists();
 
         // проверка паролей
         if ($args['password'] !== $args['password_confirm']) {
             // проверка совпадения паролей
-            header("Location: /register?error=dp&user=$email");
+            header("Location: /register?error=dp&user=$login");
         } elseif (strlen($password) < 3) {
             // длина пароля
-            header("Location: /register?error=sp&user=$email");
-        } elseif (!$this->userModel->exists($email)) {
-            // проверить существование пользователя
-            $isUserRegistered = $this->userModel->add($email, $password);
-            if ($isUserRegistered) {
-                $this->saveAuth($email);
-                header('Location: /');
-            } else {
-                header('Location: /register?error=system_error');
-            }
+            header("Location: /register?error=sp&user=$login");
+        } elseif (!$isUser) {
+            $params = [
+                'login' => $login,
+                'password' => $password,
+            ];
+            User::insert($params);
+            $this->saveAuth($login);
+            header('Location: /');
         } else {
-            header("Location: /register?error=usrexsts&user=$email");
+            header("Location: /register?error=usrexsts&user=$login");
         }
     }
 
@@ -117,16 +118,12 @@ class UserController extends Controller
     {
         $login = $args['login'];
         $password = $args['password'];
+        $isUser = User::where('login', $login)->where('password', $password)->exists();
+
         // проверка аутентификации
-        if ($this->userModel->exists($login)) {
-            // проверка введенных данных
-            $isAuth = $this->userModel->is_correct_password($login, $password);
-            if ($isAuth) {
-                $this->saveAuth($login);
-                header('Location: /');
-            } else {
-                header("Location: /login?user=$login&error=wp");
-            }
+        if ($isUser) {
+            $this->saveAuth($login);
+            header('Location: /');
         } else {
             header("Location: /login?user=$login&error=wu");
         }
@@ -134,11 +131,8 @@ class UserController extends Controller
 
     public function logout()
     {
-        foreach ($_COOKIE as $key => $value) {
-            setcookie($key, '', time() - 3600, '/');
-        }
-        session_destroy();
-        header('Location: '.route('home'));
+        UserService::removeAuthData();
+        header('Location: /');
     }
 
     // Сохранить авторизацию в куки и сессии.

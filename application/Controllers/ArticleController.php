@@ -28,7 +28,7 @@ class ArticleController extends Controller
         $data['page-index'] = isset($args['list']) ? $args['list'] - 1 : 0;
         $skipArticles = $data['page-index'] * $this->articlesToPage;
 
-        $data['articles'] = Article::skip($skipArticles)->take($this->articlesToPage)->get();
+        $data['articles'] = Article::skip($skipArticles)->take($this->articlesToPage)->orderBy('time', 'desc')->get();
         $data['page-count'] = ceil(Article::all()->count() / $this->articlesToPage);
         $data['login'] = $this->auth_user;
 
