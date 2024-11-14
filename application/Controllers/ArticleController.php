@@ -4,8 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\Article;
-use App\Models\Comment;
-use App\Models\User;
+use Illuminate\Database\Capsule\Manager;
 
 use function App\Core\route;
 
@@ -14,130 +13,57 @@ class ArticleController extends Controller
 {
     private string $csrf;
     private string $auth_user;
-    private string $article_show_url;
-    private string $article_edit_url;
-    private string $article_url;
-    private string $article_create_url;
-    private string $home_url;
 
-    public function __construct(int $articlesToPage = 10)
+    public function __construct(int $articlesToPage = 5)
     {
         parent::__construct();
-        $this->article_show_url = route('article_show');
-        $this->article_edit_url = route('article_edit');
-        $this->article_create_url = route('article_create');
-        $this->article_url = route('article');
-        $this->home_url = route('home');
-
-        $this->users = new User();
-        $this->articles = new Article();
-        $this->comments = new Comment();
-
         $this->auth_user = UserController::getAuthUser();
         $this->csrf = Controller::createCSRFToken();
-
-        // данные для пагинации
-        // число статей на странице
         $this->articlesToPage = $articlesToPage;
-        // число статей
-        $this->articleCount = $this->articles->count();
-        // число страниц
-        if ($this->articleCount <= $this->articlesToPage) {
-            $this->pageCount = 1;
-        } else {
-            $this->pageCount = intdiv($this->articleCount, $this->articlesToPage);
-
-            if ($this->articleCount % $this->articlesToPage != 0) {
-                ++$this->pageCount;
-            }
-        }
     }
 
     // список статей
     public function index(mixed $args): void
     {
-        $data['login'] = $this->auth_user;
-        // индекс текущей страницы
+        // OFFSET
         $data['page-index'] = isset($args['list']) ? $args['list'] - 1 : 0;
-        // порция статей из БД
-        $offset = $data['page-index'] * $this->articlesToPage;
+        $skipArticles = $data['page-index'] * $this->articlesToPage;
 
-        $data['articles'] = $this->articles->all($this->articlesToPage, $offset);
-        // url отдельных страниц
-        for ($i = 0; $i < count($data['articles']); ++$i) {
-            $id = $data['articles'][$i]['id'];
-            $data['articles'][$i]['url'] = "{$this->article_show_url}/$id";
-        }
-
-        // страницы показа статей (по 10)
-        $data['page-count'] = $this->pageCount;
-        $data['page-list'] = [];
-        if ($data['page-count'] > 1) {
-            for ($i = 0; $i < $data['page-count']; ++$i) {
-                $page_number = $i + 1;
-                $class_css = 'button-theme-color py-2 px-4 rounded me-1';
-                if ($data['page-index'] + 1 === $page_number) {
-                    $class_css .= ' theme-font-weight-bold';
-                }
-                $pageUrl = "{$this->article_url}?list=$page_number";
-                $data['page-list'][] = [
-                    'number' => $page_number,
-                    'css' => $class_css,
-                    'url' => $pageUrl,
-                ];
-            }
-        } else {
-            $css = 'button-theme-color py-2 px-4 rounded me-1';
-            $data['page-list'][] = [
-                'number' => 1,
-                'css' => $css,
-                'url' => $this->home_url,
-            ];
-        }
-
-        // роуты
-        $routes = [
-            'article_create' => $this->article_create_url,
-            'article' => $this->article_url,
-        ];
+        $data['articles'] = Article::skip($skipArticles)->take($this->articlesToPage)->get();
+        $data['page-count'] = Article::all()->count() / $this->articlesToPage;
+        $data['login'] = $this->auth_user;
 
         $this->view->generate(
-            page_name: $this->site_name,
+            page_name: 'Статьи',
             template_view: 'template_view.php',
             content_view: 'articles/articles_view.php',
             data: $data,
             content_css: 'articles.css',
-            routes: $routes,
         );
     }
 
     // показать статью
     public function show(mixed $args): void
     {
-        $article_id = $args['id'];
-        // проверка существования id
-        $articleExisted = $this->articles->exists('id', $article_id);
-        if (!$articleExisted) {
-            header("Location: $this->home_url");
-
-            return;
-        }
+        $test = Article::find(1);
+        var_dump($test);
 
         $data['login'] = $this->auth_user;
         $data['csrf'] = $this->csrf;
-        $data['article'] = $this->articles->get($article_id);
-        $data['comments'] = $this->comments->getCommentsOfArticle($article_id);
+        $data['article'] = $article;
+        $data['article']->author = Manager::table('users')->where('id', $article->author_id)->first();
+        $data['comments'] = $this->comments->getCommentsOfArticle($article->id);
 
         // роуты
         $routes = [
             'home' => $this->home_url,
-            'article_edit' => "$this->article_edit_url/$article_id",
-            'article_remove' => route('article_remove')."/$article_id",
+            'article_edit' => "$this->article_edit_url/$article->id",
+            'article_remove' => route('article_remove')."/$article->id",
         ];
 
         $head = '<meta name="csrf" content="'.$this->csrf.'">';
         $this->view->generate(
-            page_name: "{$this->site_name}: {$data['article']['title']}",
+            page_name: "{$this->site_name}: {$article->title}",
             template_view: 'template_view.php',
             content_view: 'articles/show-article_view.php',
             data: $data,

@@ -2,7 +2,7 @@
     <div class='content-width'>
         <!-- кнопки -->
         <section class='mb-3'>
-            <?php if ($data['login'] === $data['article']['author']) { ?>
+            <?php if ($data['login'] === $data['article']->author->login) { ?>
                 <a href=<?php echo $routes['article_edit']; ?> class='button-small button-theme-color'>Редактировать</a>
                 <a href="<?php echo $routes['article_remove']; ?>" class='button-small button-theme-color'>Удалить</a>
             <?php } ?>
@@ -11,9 +11,9 @@
 
         <!-- статья --> 
         <section class='p-2 text-center theme-border-start theme-border-end'>
-            <h2><?php echo $data['article']['title']; ?></h2>
-            <p>Автор: <?php echo $data['article']['author']; ?></p>
-            <p><?php echo nl2br($data['article']['content']); ?></p>
+            <h2><?php echo $data['article']->title; ?></h2>
+            <p>Автор: <?php echo $data['article']->author->login; ?></p>
+            <p><?php echo nl2br($data['article']->content); ?></p>
         </section>
 
         <div><hr class='theme-border'></div>

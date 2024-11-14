@@ -14,35 +14,35 @@
     <link rel="stylesheet" href="/static/css/reset_styles.css">
     <link rel="stylesheet" href="/static/css/template.css">
     
-    <?php if (!empty($content_css)): ?>
+    <?php if (!empty($content_css)) { ?>
         <!-- css -->
-        <link rel="stylesheet" href="/static/css/<?= $content_css; ?>">
-    <?php endif ?>
+        <link rel="stylesheet" href="/static/css/<?php echo $content_css; ?>">
+    <?php } ?>
 
-    <?php if (!empty($content_js)): ?>
+    <?php if (!empty($content_js)) { ?>
         <!-- js -->
-        <?php foreach ($content_js as $script): ?> 
-            <script type='text/javascript' src="/static/js/<?php echo $script ?>" defer></script> 
-        <?php endforeach ?>
-    <?php endif ?>
+        <?php foreach ($content_js as $script) { ?> 
+            <script type='text/javascript' src="/static/js/<?php echo $script; ?>" defer></script> 
+        <?php } ?>
+    <?php } ?>
 </head>
 <body>
 
 <header class='mb-4'>
     <div class='theme-bg-сolor text-center text-white d-flex justify-content-between'>
-        <?php if (!empty($data)): ?>
-            <?php if (array_key_exists('login', $data)): ?>
+        <?php if (!empty($data)) { ?>
+            <?php if (array_key_exists('login', $data)) { ?>
                 <h3 class='page-name-header p-3'><?php echo $page_name; ?></h3>
                 <div class='d-flex justify-content-end'>
                     <div class='d-flex align-items-center justify-content-between px-5 border-2 border-end border-white'><?php echo $data['login']; ?></div>
-                    <a href="<?php echo $routes['logout']; ?>"> <div class='button-theme-color h-100 d-flex align-items-center px-4'>Выйти</div> </a>
+                    <a href="/logout"> <div class='button-theme-color h-100 d-flex align-items-center px-4'>Выйти</div> </a>
                 </div>
-            <?php else: ?>
+            <?php } else { ?>
                 <h3 class='p-3 w-100'><?php echo $page_name; ?></h3>
-            <?php endif ?>
-        <?php else: ?>
+            <?php } ?>
+        <?php } else { ?>
             <h3 class='p-3 w-100'><?php echo $page_name; ?></h3>
-        <?php endif ?>
+        <?php } ?>
     </div>
 </header>
 
