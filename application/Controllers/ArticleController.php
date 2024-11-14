@@ -7,8 +7,6 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\Models\User;
 
-use function App\Core\route;
-
 /** статьи */
 class ArticleController extends Controller
 {
@@ -31,7 +29,7 @@ class ArticleController extends Controller
         $skipArticles = $data['page-index'] * $this->articlesToPage;
 
         $data['articles'] = Article::skip($skipArticles)->take($this->articlesToPage)->get();
-        $data['page-count'] = Article::all()->count() / $this->articlesToPage;
+        $data['page-count'] = ceil(Article::all()->count() / $this->articlesToPage);
         $data['login'] = $this->auth_user;
 
         $this->view->generate(
@@ -71,18 +69,10 @@ class ArticleController extends Controller
         );
     }
 
-    // форма создания
+    // --- CREATE ---
     public function create(mixed $args): void
     {
-        $data['login'] = $this->auth_user;
         $data['csrf'] = $this->csrf;
-
-        // роуты
-        $routes = [
-            'home' => $this->home_url,
-            'article_store' => route('article_store'),
-        ];
-
         // проверка ошибок
         if (isset($args['error'])) {
             if ($args['error'] == 'ttlexst') {
@@ -95,30 +85,25 @@ class ArticleController extends Controller
         }
 
         $this->view->generate(
-            page_name: "{$this->site_name} - добавить статью",
+            page_name: 'Добавить статью',
             template_view: 'template_view.php',
             content_view: 'articles/create-article_view.php',
             data: $data,
-            routes: $routes,
         );
     }
 
-    // сохранить статью
+    // --- STORE ---
     public function store(mixed $args): void
     {
-        $title = $args['title'];
-        $summary = $args['summary'];
-        $content = $args['content'];
-        $authorId = $this->users->getId($this->auth_user);
+        $params = [
+            'title' => $args['title'],
+            'summary' => $args['summary'],
+            'content' => $args['content'],
+            'author_id' => User::where('login', $this->auth_user)->first()->id,
+        ];
+        Article::insert($params);
 
-        if (!$this->articles->exists('title', $title)) {
-            $id = $this->articles->add($authorId, $title, $summary, $content);
-            $url = "{$this->article_show_url}/$id";
-        } else {
-            $url = "{$this->article_create_url}?error=ttlexst&title=$title";
-        }
-
-        header("Location: $url");
+        header('Location: /article/show/'.Article::max('id'));
     }
 
     // форма редактирования

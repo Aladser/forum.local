@@ -1,6 +1,6 @@
 <container>
     <div class='content-width'>
-        <form method='POST' id='form-create-article' action=<?php echo $routes['article_store']; ?>>
+        <form method='POST' id='form-create-article' action="/article/store">
             <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
 
             <input type="text" class='w-100 d-block ps-3 p-2 mb-2 text-secondary theme-border' 
@@ -13,7 +13,7 @@
             name='content' rows='10' placeholder='Содержание' required></textarea>
 
             <input type="submit" value='Добавить' class='button-basic button-wide button-theme-color mb-2'>
-            <a href=<?php echo $routes['home']; ?> class='button-basic button-wide button-theme-color'>Назад</a>
+            <a href="/" class='button-basic button-wide button-theme-color'>Назад</a>
         </form>
         <p id='prg-error' class='pb-4 text-center text-danger fw-bolder'><?php echo $data['error']; ?> </p>
     </div>
