@@ -106,7 +106,7 @@ class ArticleController extends Controller
         header('Location: /article/show/'.Article::max('id'));
     }
 
-    // форма редактирования
+    // --- EDIT ---
     public function edit(mixed $args): void
     {
         $authuser = User::where('login', $this->auth_user)->first();
@@ -143,34 +143,12 @@ class ArticleController extends Controller
         );
     }
 
-    // обновить статью
+    // --- UPDATE ---
     public function update(mixed $args): void
     {
-        // поиск статьи в БД
-        $id = $args['id'];
-        if (!$this->articles->exists('id', $id)) {
-            header("Location: {$this->article_edit_url}/$id?error=system_error");
-        }
-        unset($args['id']);
+        Article::where('id', $args['id'])->update(['title' => $args['title'], 'summary' => $args['summary'], 'content' => $args['content']]);
 
-        // поиск измененных колонок
-        $articleFromDB = $this->articles->get($id);
-        $columns_updated = [];
-        foreach ($args as $key => $value) {
-            if ($value != $articleFromDB[$key]) {
-                $columns_updated[$key] = $value;
-            }
-        }
-
-        // обновление данных
-        if (count($columns_updated) === 0) {
-            $url = "{$this->article_show_url}/$id";
-        } else {
-            $columns_updated['id'] = $id;
-            $isUpdated = $this->articles->update($columns_updated);
-            $url = $isUpdated ? "{$this->article_show_url}/$id" : "{$this->article_edit_url}/$id?error=system_error";
-        }
-        header("Location: $url");
+        header('Location: /article/show/'.$args['id']);
     }
 
     // --- REMOVE ---
