@@ -53,7 +53,7 @@ class ArticleController extends Controller
 
         $head = '<meta name="csrf" content="'.$this->csrf.'">';
         $this->view->generate(
-            page_name: "{$this->site_name}: {$article->title}",
+            page_name: $article->title,
             template_view: 'template_view.php',
             content_view: 'articles/show-article_view.php',
             data: $data,
