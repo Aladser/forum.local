@@ -4,7 +4,8 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\Article;
-use Illuminate\Database\Capsule\Manager;
+use App\Models\Comment;
+use App\Models\User;
 
 use function App\Core\route;
 
@@ -22,7 +23,7 @@ class ArticleController extends Controller
         $this->articlesToPage = $articlesToPage;
     }
 
-    // список статей
+    // --- INDEX ---
     public function index(mixed $args): void
     {
         // OFFSET
@@ -42,24 +43,15 @@ class ArticleController extends Controller
         );
     }
 
-    // показать статью
+    // --- SHOW ---
     public function show(mixed $args): void
     {
-        $test = Article::find(1);
-        var_dump($test);
+        $article = Article::find($args['id']);
 
         $data['login'] = $this->auth_user;
         $data['csrf'] = $this->csrf;
         $data['article'] = $article;
-        $data['article']->author = Manager::table('users')->where('id', $article->author_id)->first();
-        $data['comments'] = $this->comments->getCommentsOfArticle($article->id);
-
-        // роуты
-        $routes = [
-            'home' => $this->home_url,
-            'article_edit' => "$this->article_edit_url/$article->id",
-            'article_remove' => route('article_remove')."/$article->id",
-        ];
+        $data['comments'] = Comment::where('article_id', $article->id)->get();
 
         $head = '<meta name="csrf" content="'.$this->csrf.'">';
         $this->view->generate(
@@ -76,7 +68,6 @@ class ArticleController extends Controller
             ],
             content_css: 'show-article.css',
             add_head: $head,
-            routes: $routes
         );
     }
 
@@ -133,30 +124,16 @@ class ArticleController extends Controller
     // форма редактирования
     public function edit(mixed $args): void
     {
-        $id = $args['id'];
-        $articleExisted = $this->articles->exists('id', $id);
-        if (!$articleExisted) {
+        $authuser = User::where('login', $this->auth_user)->first();
+        $data['article'] = Article::findOr($args['id'], function () {
             header("Location: $this->home_url");
+        });
 
-            return;
-        }
-
+        $author = User::find($data['article']->author_id);
         // проверка автора статьи
-        $authorName = $this->articles->get($id)['author'];
-        if ($authorName !== $this->auth_user) {
-            header("Location: {$this->article_show_url}/$id");
+        if ($author != $authuser) {
+            header("Location: /article/show/$id");
         }
-
-        // роуты
-        $routes = [
-            'home' => $this->home_url,
-            'article_show' => $this->article_show_url,
-            'article_update' => route('article_update'),
-        ];
-
-        // данные о статье
-        $data = $this->articles->get($id);
-        $data['show_url'] = "$this->article_show_url/$id";
 
         // проверка ошибок
         if (isset($args['error'])) {
@@ -172,14 +149,12 @@ class ArticleController extends Controller
 
         $data['login'] = $this->auth_user;
         $data['csrf'] = $this->csrf;
-        $title = $data['title'];
 
         $this->view->generate(
-            page_name: "{$this->site_name}: $title - редактирование",
+            page_name: 'Изменить запись',
             template_view: 'template_view.php',
             content_view: 'articles/edit-article_view.php',
             data: $data,
-            routes: $routes,
         );
     }
 
@@ -213,12 +188,22 @@ class ArticleController extends Controller
         header("Location: $url");
     }
 
-    // удалить статью
+    // --- REMOVE ---
     public function remove(mixed $args): void
     {
-        $id = $args['id'];
-        $isRemoved = $this->articles->remove($id);
-        $url = $isRemoved ? $this->home_url : "{$this->article_show_url}/$id?error=system_error";
+        $isRemoved = Article::where('id', $args['id'])->delete();
+        $url = $isRemoved ? '/' : "/article/show/{$args['id']}?error=system_error";
         header("Location: $url");
+    }
+
+    // --- ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ ---
+    public function removeConfirm(mixed $args): void
+    {
+        $this->view->generate(
+            page_name: 'Подтверждение удаления статьи',
+            template_view: 'template_view.php',
+            content_view: 'articles/article-confirm-delete_view.php',
+            data: ['article' => Article::find($args['id']), 'csrf' => $this->csrf],
+        );
     }
 }

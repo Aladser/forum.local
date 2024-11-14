@@ -15,7 +15,7 @@
                     <article class='table-article-row'>
                         <p class='w-25 m-0 p-2'><?php echo $article->title; ?></p>
                         <p class='w-50 m-0 text-center p-2'><?php echo $article->summary; ?></p>
-                        <p class='w-25 m-0 text-center p-2'><?php echo $article->author; ?></p>
+                        <p class='w-25 m-0 text-center p-2'><?php echo $article->author->login; ?></p>
                     </article>
                 </a>
             <?php }?>

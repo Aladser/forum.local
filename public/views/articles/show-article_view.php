@@ -3,10 +3,9 @@
         <!-- кнопки -->
         <section class='mb-3'>
             <?php if ($data['login'] === $data['article']->author->login) { ?>
-                <a href=<?php echo $routes['article_edit']; ?> class='button-small button-theme-color'>Редактировать</a>
-                <a href="<?php echo $routes['article_remove']; ?>" class='button-small button-theme-color'>Удалить</a>
+                <a href="/article/edit/<?php echo $data['article']->id; ?>" class='button-small button-theme-color'>Редактировать</a>
+                <a href="/article/remove-confirm/<?php echo $data['article']->id; ?>" class='button-small button-theme-color'>Удалить</a>
             <?php } ?>
-            <a href=<?php echo $routes['home']; ?> class='button-small button-theme-color'>Назад</a>
         </section>
 
         <!-- статья --> 

@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-// оффер
 class Article extends Model
 {
     use HasFactory;
     public $timestamps = false;
 
-    protected $fillable = [
-        'title',
-    ];
+    public function author()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
