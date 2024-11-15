@@ -28,7 +28,7 @@ class ArticleController extends Controller
         $data['articles'] = Article::skip($skipArticles)->take($this->articlesToPage)->orderBy('time', 'desc')->get();
         $data['page-count'] = ceil(Article::all()->count() / $this->articlesToPage);
 
-        $this->view->generate(
+        $this->render(
             page_name: 'Статьи',
             template_view: 'template_view.php',
             content_view: 'articles/articles_view.php',
@@ -43,7 +43,7 @@ class ArticleController extends Controller
         $data['article'] = Article::find($args['id']);
         $data['comments'] = Comment::where('article_id', $data['article']->id)->get();
 
-        $this->view->generate(
+        $this->render(
             page_name: 'Статья "'.$data['article']->title.'"',
             template_view: 'template_view.php',
             content_view: 'articles/show-article_view.php',
@@ -73,7 +73,7 @@ class ArticleController extends Controller
             $data['title'] = '';
         }
 
-        $this->view->generate(
+        $this->render(
             page_name: 'Добавить статью',
             template_view: 'template_view.php',
             content_view: 'articles/create-article_view.php',
@@ -116,7 +116,7 @@ class ArticleController extends Controller
             }
         }
 
-        $this->view->generate(
+        $this->render(
             page_name: 'Изменить запись',
             template_view: 'template_view.php',
             content_view: 'articles/edit-article_view.php',
@@ -142,7 +142,7 @@ class ArticleController extends Controller
     // --- ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ ---
     public function removeConfirm(mixed $args): void
     {
-        $this->view->generate(
+        $this->render(
             page_name: 'Подтверждение удаления статьи',
             template_view: 'template_view.php',
             content_view: 'articles/article-confirm-delete_view.php',
