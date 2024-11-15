@@ -6,7 +6,6 @@ use App\Core\Controller;
 use App\Models\User;
 use App\Services\UserService;
 
-// пользователи
 class UserController extends Controller
 {
     // форма регистрации
@@ -29,7 +28,7 @@ class UserController extends Controller
         }
 
         $this->view->generate(
-            page_name: "{$this->site_name} - регистрация пользователя",
+            page_name: 'Регистрация',
             template_view: 'template_view.php',
             content_view: 'users/register_view.php',
             data: $args,
@@ -37,7 +36,7 @@ class UserController extends Controller
         );
     }
 
-    // регистрация пользователя
+    // сохранение нового пользователя
     public function store(mixed $args): void
     {
         $login = $args['login'];
@@ -73,7 +72,7 @@ class UserController extends Controller
         }
 
         $this->view->generate(
-            page_name: 'Авторизация',
+            page_name: 'Войти в систему',
             template_view: 'template_view.php',
             content_view: 'users/login_view.php',
             content_css: 'form.css',
@@ -81,7 +80,7 @@ class UserController extends Controller
         );
     }
 
-    // авторизация
+    // аутентификация
     public function auth(mixed $args): void
     {
         $login = $args['login'];
@@ -97,6 +96,7 @@ class UserController extends Controller
         }
     }
 
+    // выйти из системы
     public function logout()
     {
         UserService::removeAuth();
