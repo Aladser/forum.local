@@ -1,6 +1,4 @@
 <div class='container text-center'>
-    <h3 class='mb-4 theme-grey-color'>Войти</h3>
-
     <form class='form mx-auto mb-3' method="POST" action="/user/auth">
         <input type="hidden" name='CSRF' value=<?php echo $CSRF; ?>>
 

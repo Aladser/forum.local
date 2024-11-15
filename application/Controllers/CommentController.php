@@ -28,8 +28,8 @@ class CommentController extends Controller
 
         echo json_encode([
             'author' => $this->authuser->login,
-            'content' => $args['content'],
             'id' => Comment::max('id'),
+            'content' => $args['content'],
             'CSRF' => UserService::CSRF(),
         ]);
     }

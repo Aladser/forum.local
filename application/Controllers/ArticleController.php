@@ -25,6 +25,7 @@ class ArticleController extends Controller
         // OFFSET
         $data['page-index'] = isset($args['list']) ? $args['list'] - 1 : 0;
         $skipArticles = $data['page-index'] * $this->articlesToPage;
+
         $data['articles'] = Article::skip($skipArticles)->take($this->articlesToPage)->orderBy('time', 'desc')->get();
         $data['page-count'] = ceil(Article::all()->count() / $this->articlesToPage);
 
@@ -127,8 +128,7 @@ class ArticleController extends Controller
     // --- UPDATE ---
     public function update(mixed $args): void
     {
-        $article = Article::where('id', $args['id']);
-        $article->update(['title' => $args['title'], 'summary' => $args['summary'], 'content' => $args['content']]);
+        Article::where('id', $args['id'])->update(['title' => $args['title'], 'summary' => $args['summary'], 'content' => $args['content']]);
         header('Location: /article/show/'.$args['id']);
     }
 
