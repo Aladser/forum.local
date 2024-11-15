@@ -12,6 +12,7 @@ define('ROOT_FOLDER', dirname(__DIR__, 1));
 
 require ROOT_FOLDER.'/vendor/autoload.php';
 
+// подключение к БД
 $capsule = new Capsule();
 $capsule->addConnection([
     'driver' => env('DB_DRIVER'),
