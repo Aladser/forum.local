@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\Article;
-use App\Models\Comment;
 use App\Services\UserService;
 
 /** статьи */
@@ -41,7 +40,6 @@ class ArticleController extends Controller
     public function show(mixed $args): void
     {
         $data['article'] = Article::find($args['id']);
-        $data['comments'] = Comment::where('article_id', $data['article']->id)->get();
 
         $this->render(
             page_name: 'Статья "'.$data['article']->title.'"',
