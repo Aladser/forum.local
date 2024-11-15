@@ -25,7 +25,6 @@ class ArticleController extends Controller
         // OFFSET
         $data['page-index'] = isset($args['list']) ? $args['list'] - 1 : 0;
         $skipArticles = $data['page-index'] * $this->articlesToPage;
-
         $data['articles'] = Article::skip($skipArticles)->take($this->articlesToPage)->orderBy('time', 'desc')->get();
         $data['page-count'] = ceil(Article::all()->count() / $this->articlesToPage);
 
@@ -45,7 +44,7 @@ class ArticleController extends Controller
         $data['comments'] = Comment::where('article_id', $data['article']->id)->get();
 
         $this->view->generate(
-            page_name: 'Статья - '.$data['article']->title,
+            page_name: 'Статья "'.$data['article']->title.'"',
             template_view: 'template_view.php',
             content_view: 'articles/show-article_view.php',
             data: $data,
@@ -93,7 +92,7 @@ class ArticleController extends Controller
         ];
         Article::insert($params);
 
-        header('Location: /article/show/'.Article::max('id'));
+        self::redirect('/article/show/'.Article::max('id'));
     }
 
     // --- EDIT ---
@@ -128,15 +127,16 @@ class ArticleController extends Controller
     // --- UPDATE ---
     public function update(mixed $args): void
     {
-        Article::where('id', $args['id'])->update(['title' => $args['title'], 'summary' => $args['summary'], 'content' => $args['content']]);
-        header('Location: /article/show/'.$args['id']);
+        $article = Article::where('id', $args['id']);
+        $article->update(['title' => $args['title'], 'summary' => $args['summary'], 'content' => $args['content']]);
+        self::redirect('/article/show/'.$args['id']);
     }
 
     // --- REMOVE ---
     public function remove(mixed $args): void
     {
         Article::where('id', $args['id'])->delete();
-        header('Location: /');
+        self::redirect('/');
     }
 
     // --- ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ ---

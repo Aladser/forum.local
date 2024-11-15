@@ -10,4 +10,9 @@ abstract class Controller
     {
         $this->view = new View();
     }
+
+    public static function redirect(string $url): void
+    {
+        header("Location: $url");
+    }
 }
