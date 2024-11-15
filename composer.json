@@ -1,8 +1,7 @@
 {
   "autoload": {
     "files": [
-      "application/Core/env.php",
-      "application/Core/route.php"
+      "application/Core/env.php"
     ],
     "psr-4": {
       "App\\": "\\application"

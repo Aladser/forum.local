@@ -26,10 +26,10 @@ class CommentController extends Controller
         ];
         Comment::insert($params);
 
-        echo json_encode([
+        self::replyToAJAX([
             'author' => $this->authuser->login,
-            'content' => $args['content'],
             'id' => Comment::max('id'),
+            'content' => $args['content'],
             'CSRF' => UserService::CSRF(),
         ]);
     }
@@ -41,6 +41,9 @@ class CommentController extends Controller
         if ($this->authuser != $comment->first()->author) {
             echo json_encode(['result' => 403]);
         }
-        echo json_encode(['result' => $comment->delete()]);
+
+        self::replyToAJAX([
+            'result' => $comment->delete(),
+        ]);
     }
 }

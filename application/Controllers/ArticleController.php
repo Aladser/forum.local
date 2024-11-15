@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\Article;
-use App\Models\Comment;
 use App\Services\UserService;
 
 /** статьи */
@@ -28,7 +27,7 @@ class ArticleController extends Controller
         $data['articles'] = Article::skip($skipArticles)->take($this->articlesToPage)->orderBy('time', 'desc')->get();
         $data['page-count'] = ceil(Article::all()->count() / $this->articlesToPage);
 
-        $this->view->generate(
+        $this->render(
             page_name: 'Статьи',
             template_view: 'template_view.php',
             content_view: 'articles/articles_view.php',
@@ -41,10 +40,9 @@ class ArticleController extends Controller
     public function show(mixed $args): void
     {
         $data['article'] = Article::find($args['id']);
-        $data['comments'] = Comment::where('article_id', $data['article']->id)->get();
 
-        $this->view->generate(
-            page_name: 'Статья - '.$data['article']->title,
+        $this->render(
+            page_name: 'Статья "'.$data['article']->title.'"',
             template_view: 'template_view.php',
             content_view: 'articles/show-article_view.php',
             data: $data,
@@ -73,7 +71,7 @@ class ArticleController extends Controller
             $data['title'] = '';
         }
 
-        $this->view->generate(
+        $this->render(
             page_name: 'Добавить статью',
             template_view: 'template_view.php',
             content_view: 'articles/create-article_view.php',
@@ -92,7 +90,7 @@ class ArticleController extends Controller
         ];
         Article::insert($params);
 
-        header('Location: /article/show/'.Article::max('id'));
+        self::redirect('/article/show/'.Article::max('id'));
     }
 
     // --- EDIT ---
@@ -116,7 +114,7 @@ class ArticleController extends Controller
             }
         }
 
-        $this->view->generate(
+        $this->render(
             page_name: 'Изменить запись',
             template_view: 'template_view.php',
             content_view: 'articles/edit-article_view.php',
@@ -129,20 +127,22 @@ class ArticleController extends Controller
     {
         $article = Article::where('id', $args['id']);
         $article->update(['title' => $args['title'], 'summary' => $args['summary'], 'content' => $args['content']]);
-        header('Location: /article/show/'.$args['id']);
+
+        self::redirect('/article/show/'.$args['id']);
     }
 
     // --- REMOVE ---
     public function remove(mixed $args): void
     {
         Article::where('id', $args['id'])->delete();
-        header('Location: /');
+
+        self::redirect('/');
     }
 
     // --- ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ ---
     public function removeConfirm(mixed $args): void
     {
-        $this->view->generate(
+        $this->render(
             page_name: 'Подтверждение удаления статьи',
             template_view: 'template_view.php',
             content_view: 'articles/article-confirm-delete_view.php',

@@ -20,7 +20,7 @@
         <section class='p-2 text-center theme-border-start theme-border-end'>
             <h4 class='text-start ps-2'> Комментарии </h4>
             <section id='comment-list'>
-                <?php foreach ($data['comments'] as $comment) { ?>
+                <?php foreach ($data['article']->comments as $comment) { ?>
                     <article class='comment-list__item mb-2'>
                         <p class='text-start m-0 ps-2 fw-bolder'><?php echo $comment->author->login; ?></p>
                         <p class='text-start m-0 py-2 ps-3 fs-5'><?php echo nl2br($comment->content); ?></p>
