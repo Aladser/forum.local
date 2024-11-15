@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Services\UserService;
+
 class View
 {
     /**
@@ -16,17 +18,11 @@ class View
      * @param string|null $add_head      дополнительный head
      * @param string|null $routes        cписок роутов
      */
-    public function generate(
-        string $page_name,
-        string $template_view,
-        string $content_view,
-        ?array $data = null,
-        ?array $content_js = null,
-        ?string $content_css = null,
-        ?string $add_head = null,
-        ?array $routes = null,
-    ): void {
-        // базовый адрес сайта
+    public function generate(string $page_name, string $template_view, string $content_view, ?array $data = null, ?array $content_js = null, ?string $content_css = null, ?string $add_head = null, ?array $routes = null): void
+    {
+        $authuser = UserService::getAuthUser();
+        $CSRF = UserService::createCSRFToken();
+
         $site_address = env('SITE_ADDRESS');
         $routes['logout'] = route('logout');
         require_once dirname(__DIR__, 2).'/public/views/'.$template_view;

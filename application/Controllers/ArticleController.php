@@ -6,6 +6,7 @@ use App\Core\Controller;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\User;
+use App\Services\UserService;
 
 /** статьи */
 class ArticleController extends Controller
@@ -16,8 +17,6 @@ class ArticleController extends Controller
     public function __construct(int $articlesToPage = 5)
     {
         parent::__construct();
-        $this->auth_user = UserController::getAuthUser();
-        $this->csrf = Controller::createCSRFToken();
         $this->articlesToPage = $articlesToPage;
     }
 
@@ -27,17 +26,15 @@ class ArticleController extends Controller
         // OFFSET
         $data['page-index'] = isset($args['list']) ? $args['list'] - 1 : 0;
         $skipArticles = $data['page-index'] * $this->articlesToPage;
-
         $data['articles'] = Article::skip($skipArticles)->take($this->articlesToPage)->orderBy('time', 'desc')->get();
         $data['page-count'] = ceil(Article::all()->count() / $this->articlesToPage);
-        $data['login'] = $this->auth_user;
 
         $this->view->generate(
             page_name: 'Статьи',
             template_view: 'template_view.php',
             content_view: 'articles/articles_view.php',
-            data: $data,
             content_css: 'articles.css',
+            data: $data,
         );
     }
 
@@ -45,15 +42,11 @@ class ArticleController extends Controller
     public function show(mixed $args): void
     {
         $article = Article::find($args['id']);
-
-        $data['login'] = $this->auth_user;
-        $data['csrf'] = $this->csrf;
         $data['article'] = $article;
         $data['comments'] = Comment::where('article_id', $article->id)->get();
 
-        $head = '<meta name="csrf" content="'.$this->csrf.'">';
         $this->view->generate(
-            page_name: $article->title,
+            page_name: "Статья - $article->title",
             template_view: 'template_view.php',
             content_view: 'articles/show-article_view.php',
             data: $data,
@@ -65,14 +58,13 @@ class ArticleController extends Controller
                 'article/show-article.js',
             ],
             content_css: 'show-article.css',
-            add_head: $head,
+            add_head: '<meta name="csrf" content="'.UserService::createCSRFToken().'">',
         );
     }
 
     // --- CREATE ---
     public function create(mixed $args): void
     {
-        $data['csrf'] = $this->csrf;
         // проверка ошибок
         if (isset($args['error'])) {
             if ($args['error'] == 'ttlexst') {
@@ -109,7 +101,7 @@ class ArticleController extends Controller
     // --- EDIT ---
     public function edit(mixed $args): void
     {
-        $authuser = User::where('login', $this->auth_user)->first();
+        $authuser = UserService::getAuthUser();
         $data['article'] = Article::findOr($args['id'], function () {
             header("Location: $this->home_url");
         });
@@ -117,23 +109,20 @@ class ArticleController extends Controller
         $author = User::find($data['article']->author_id);
         // проверка автора статьи
         if ($author != $authuser) {
-            header("Location: /article/show/$id");
-        }
-
-        // проверка ошибок
-        if (isset($args['error'])) {
-            if ($args['error'] === 'title_exists') {
-                $data['error'] = 'Заголовок занят';
-                $data['title'] = $args['title'];
-            } elseif ($args['error'] === 'system_error') {
-                $data['error'] = 'Системная ошибка. Попробуйте позже';
-            }
+            $data['error'] = 'Нет доступа';
         } else {
-            $data['error'] = '';
+            // проверка ошибок
+            if (isset($args['error'])) {
+                if ($args['error'] === 'title_exists') {
+                    $data['error'] = 'Заголовок занят';
+                    $data['title'] = $args['title'];
+                } elseif ($args['error'] === 'system_error') {
+                    $data['error'] = 'Системная ошибка. Попробуйте позже';
+                }
+            } else {
+                $data['error'] = '';
+            }
         }
-
-        $data['login'] = $this->auth_user;
-        $data['csrf'] = $this->csrf;
 
         $this->view->generate(
             page_name: 'Изменить запись',
@@ -147,16 +136,14 @@ class ArticleController extends Controller
     public function update(mixed $args): void
     {
         Article::where('id', $args['id'])->update(['title' => $args['title'], 'summary' => $args['summary'], 'content' => $args['content']]);
-
         header('Location: /article/show/'.$args['id']);
     }
 
     // --- REMOVE ---
     public function remove(mixed $args): void
     {
-        $isRemoved = Article::where('id', $args['id'])->delete();
-        $url = $isRemoved ? '/' : "/article/show/{$args['id']}?error=system_error";
-        header("Location: $url");
+        Article::where('id', $args['id'])->delete();
+        header('Location: /');
     }
 
     // --- ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ ---

@@ -2,7 +2,7 @@
     <div class='content-width'>
         <!-- кнопки -->
         <section class='mb-3'>
-            <?php if ($data['login'] === $data['article']->author->login) { ?>
+            <?php if ($authuser == $data['article']->author) { ?>
                 <a href="/article/edit/<?php echo $data['article']->id; ?>" class='button-small button-theme-color'>Редактировать</a>
                 <a href="/article/remove-confirm/<?php echo $data['article']->id; ?>" class='button-small button-theme-color'>Удалить</a>
             <?php } ?>
@@ -36,9 +36,8 @@
             </section>
             <div class='input-group pb-2'>
                 <form method='post' class='d-flex justify-content-between w-100' id='form-send-message'>
-                    <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
+                    <input type="hidden" name='CSRF' value=<?php echo $CSRF; ?>>
                     <input type="hidden" name="article" value="<?php echo $data['article']['id']; ?>" >
-                    <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
                     <textarea class="input-group-prepend form-control theme-border" 
                     rows='3' placeholder='Сообщение' name='message' id='form-send-message__msg' required></textarea>
                     <button type="submit" class='btn-send-msg button-theme-color ' title='Отправить'>Отправить</button>
