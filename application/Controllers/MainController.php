@@ -9,7 +9,7 @@ class MainController extends Controller
 {
     public function index()
     {
-        $this->view->generate(
+        $this->render(
             template_view: 'template_view.php',
             content_view: 'main_view.php',
         );
@@ -17,12 +17,11 @@ class MainController extends Controller
 
     public function error($error)
     {
-        $data = ['error' => $error];
-        $this->view->generate(
+        $this->render(
             'Ошибка',
             'template_view.php',
             'page_error_view.php',
-            $data
+            ['error' => $error]
         );
     }
 }

@@ -23,4 +23,9 @@ abstract class Controller
         }
         $this->view->generate($template_view, $content_view, $page_name, $data, $content_js, $content_css);
     }
+
+    public static function replyToAJAX(array $data): void
+    {
+        echo json_encode($data);
+    }
 }

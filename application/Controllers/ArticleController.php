@@ -129,6 +129,7 @@ class ArticleController extends Controller
     {
         $article = Article::where('id', $args['id']);
         $article->update(['title' => $args['title'], 'summary' => $args['summary'], 'content' => $args['content']]);
+
         self::redirect('/article/show/'.$args['id']);
     }
 
@@ -136,6 +137,7 @@ class ArticleController extends Controller
     public function remove(mixed $args): void
     {
         Article::where('id', $args['id'])->delete();
+
         self::redirect('/');
     }
 

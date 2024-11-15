@@ -27,7 +27,7 @@ class UserController extends Controller
             $args['user'] = '';
         }
 
-        $this->view->generate(
+        $this->render(
             page_name: 'Регистрация',
             template_view: 'template_view.php',
             content_view: 'users/register_view.php',
@@ -44,10 +44,11 @@ class UserController extends Controller
         $passwordConfirm = $args['password_confirm'];
         $isUser = User::where('login', $login)->exists();
 
+        $url = null;
         if ($password !== $passwordConfirm) {
-            header("Location: /register?error=dp&user=$login");
+            $url = "/register?error=dp&user=$login";
         } elseif (strlen($password) < 3) {
-            header("Location: /register?error=sp&user=$login");
+            $url = "/register?error=sp&user=$login";
         } elseif (!$isUser) {
             $params = [
                 'login' => $login,
@@ -55,10 +56,12 @@ class UserController extends Controller
             ];
             User::insert($params);
             UserService::saveAuth($login);
-            header('Location: /');
+            $url = '/';
         } else {
-            header("Location: /register?error=usrexsts&user=$login");
+            $url = "/register?error=usrexsts&user=$login";
         }
+
+        self::redirect($url);
     }
 
     // форма входа
@@ -71,7 +74,7 @@ class UserController extends Controller
             $args['user'] = '';
         }
 
-        $this->view->generate(
+        $this->render(
             page_name: 'Войти в систему',
             template_view: 'template_view.php',
             content_view: 'users/login_view.php',
@@ -85,21 +88,25 @@ class UserController extends Controller
     {
         $login = $args['login'];
         $password = $args['password'];
-
         $isUser = User::where('login', $login)->where('password', $password)->exists();
+
+        $url = null;
         // проверка аутентификации
         if ($isUser) {
             UserService::saveAuth($login);
-            header('Location: /');
+            $url = '/';
         } else {
-            header("Location: /login?user=$login&error=1");
+            $url = "/login?user=$login&error=1";
         }
+
+        self::redirect($url);
     }
 
     // выйти из системы
-    public function logout()
+    public function logout(): void
     {
         UserService::removeAuth();
-        header('Location: /');
+
+        self::redirect('/');
     }
 }
