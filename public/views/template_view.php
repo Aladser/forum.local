@@ -9,43 +9,43 @@
         }
     ?>
     <title><?php echo $page_name; ?></title>
-    <link href="<?php echo $boostrap_url; ?>" rel="stylesheet" integrity="<?php echo $boostrap_integrity; ?>" crossorigin="anonymous">
-    <link rel="icon" href="http://<?php echo $site_address; ?>/public/images/icon.png">
-    <link rel="stylesheet" href="http://<?php echo $site_address; ?>/public/css/reset_styles.css">
-    <link rel="stylesheet" href="http://<?php echo $site_address; ?>/public/css/template.css">
-    <!-- css -->
+    <link rel="icon" href="/static/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/reset_styles.css">
+    <link rel="stylesheet" href="/static/css/template.css">
+    
     <?php if (!empty($content_css)) { ?>
-        <link rel="stylesheet" href="http://<?php echo $site_address; ?>/public/css/<?php echo $content_css; ?>">
+        <!-- css -->
+        <link rel="stylesheet" href="/static/css/<?php echo $content_css; ?>">
     <?php } ?>
-    <!-- js -->
+
     <?php if (!empty($content_js)) { ?>
-    <?php foreach ($content_js as $script) {?>
-        <script type='text/javascript' src="http://<?php echo $site_address; ?>/public/js/<?php echo $script; ?>" defer></script>
-    <?php }?>
-<?php } ?>
+        <!-- js -->
+        <?php foreach ($content_js as $script) { ?> 
+            <script type='text/javascript' src="/static/js/<?php echo $script; ?>" defer></script> 
+        <?php } ?>
+    <?php } ?>
 </head>
 <body>
 
-<header class='mb-4'>
-    <div class='theme-bg-сolor text-center text-white d-flex justify-content-between'>
-        <?php if (!empty($data)) {?>
-            <?php if (array_key_exists('login', $data)) {?>
-                <h3 class='page-name-header p-3'><?php echo $page_name; ?></h3>
-                <div class='d-flex justify-content-end'>
-                    <div class='d-flex align-items-center justify-content-between px-5 border-2 border-end border-white'><?php echo $data['login']; ?></div>
-                    <a href="<?php echo $routes['logout']; ?>">
-                        <div class='button-theme-color h-100 d-flex align-items-center px-4'>Выйти</div>
-                    </a>
-                </div>
-            <?php } else {?>
-                <h3 class='p-3 w-100'><?php echo $page_name; ?></h3>
-            <?php } ?>
-        <?php } else { ?>
-            <h3 class='p-3 w-100'><?php echo $page_name; ?></h3>
+<header class='pb-1 mb-4'>
+    <div class='theme-bg-сolor text-center text-white d-flex justify-content-between shadow'>
+        <a href="/" class='page-name-header p-3 text-decoration-none text-light fw-bolder'>ФОРУМ</a>
+        <?php if ($authuser) { ?>
+            <div class='d-flex justify-content-end'>
+                <div class='d-flex align-items-center justify-content-between px-5 border-2 border-end border-white'><?php echo $authuser->login; ?></div>
+                <a href="/logout"><div class='button-theme-color h-100 d-flex align-items-center px-4'>Выйти</div></a>
+            </div>
         <?php } ?>
     </div>
 </header>
 
-<?php include $content_view; ?>
+<container>
+    <div class='content-width'>
+        <h1 class='text-center p-1 theme-grey-color '><?php echo $page_name; ?></h1>
+        <?php include $content_view; ?>
+    </div>
+</container>
+
 </body>
 </html>

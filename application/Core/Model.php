@@ -8,6 +8,6 @@ class Model
 
     public function __construct()
     {
-        $this->dbQuery = new DBQuery(env('HOST_DB'), env('NAME_DB'), env('USER_DB'), env('PASS_DB'), env('DB_TYPE'));
+        $this->dbQuery = new DBQuery(env('DB_HOST'), env('DB_NAME'), env('DB_USER'), env('DB_PASSWORD'), env('DB_DRIVER'));
     }
 }

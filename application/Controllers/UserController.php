@@ -4,30 +4,13 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\User;
+use App\Services\UserService;
 
-use function App\Core\route;
-
-// пользователи
 class UserController extends Controller
 {
-    private User $userModel;
-    private string $csrf;
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->userModel = new User();
-        $this->csrf = Controller::createCSRFToken();
-    }
-
     // форма регистрации
     public function register(mixed $args): void
     {
-        $args['csrf'] = $this->csrf;
-        $routes = [
-            'home' => route('home'),
-            'store' => route('store'),
-        ];
         // ошибки регистрации
         if (isset($args['error'])) {
             if ($args['error'] == 'usrexsts') {
@@ -45,122 +28,78 @@ class UserController extends Controller
         }
 
         $this->view->generate(
-            page_name: "{$this->site_name} - регистрация пользователя",
+            page_name: 'Регистрация',
             template_view: 'template_view.php',
             content_view: 'users/register_view.php',
             data: $args,
             content_css: 'form.css',
-            routes: $routes
         );
     }
 
-    // регистрация пользователя
+    // сохранение нового пользователя
     public function store(mixed $args): void
     {
-        $email = $args['login'];
+        $login = $args['login'];
         $password = $args['password'];
         $passwordConfirm = $args['password_confirm'];
+        $isUser = User::where('login', $login)->exists();
 
-        // проверка паролей
-        if ($args['password'] !== $args['password_confirm']) {
-            // проверка совпадения паролей
-            header("Location: /register?error=dp&user=$email");
+        if ($password !== $passwordConfirm) {
+            header("Location: /register?error=dp&user=$login");
         } elseif (strlen($password) < 3) {
-            // длина пароля
-            header("Location: /register?error=sp&user=$email");
-        } elseif (!$this->userModel->exists($email)) {
-            // проверить существование пользователя
-            $isUserRegistered = $this->userModel->add($email, $password);
-            if ($isUserRegistered) {
-                $this->saveAuth($email);
-                header('Location: /');
-            } else {
-                header('Location: /register?error=system_error');
-            }
+            header("Location: /register?error=sp&user=$login");
+        } elseif (!$isUser) {
+            $params = [
+                'login' => $login,
+                'password' => $password,
+            ];
+            User::insert($params);
+            UserService::saveAuth($login);
+            header('Location: /');
         } else {
-            header("Location: /register?error=usrexsts&user=$email");
+            header("Location: /register?error=usrexsts&user=$login");
         }
     }
 
     // форма входа
     public function login(mixed $args): void
     {
-        $args['csrf'] = $this->csrf;
-        $routes = [
-            'home' => route('home'),
-            'auth' => route('auth'),
-        ];
-
         // ошибки авторизации
         if (isset($args['error'])) {
-            if ($args['error'] == 'wp') {
-                $args['error'] = 'Неверный пароль';
-            } elseif ($args['error'] == 'wu') {
-                $args['error'] = 'Пользователь не существует';
-            }
+            $args['error'] = 'Неверные логин или пароль';
         } else {
             $args['user'] = '';
         }
 
         $this->view->generate(
-            page_name: "{$this->site_name} - авторизация",
+            page_name: 'Войти в систему',
             template_view: 'template_view.php',
             content_view: 'users/login_view.php',
             content_css: 'form.css',
             data: $args,
-            routes: $routes,
         );
     }
 
-    // авторизация
+    // аутентификация
     public function auth(mixed $args): void
     {
         $login = $args['login'];
         $password = $args['password'];
+
+        $isUser = User::where('login', $login)->where('password', $password)->exists();
         // проверка аутентификации
-        if ($this->userModel->exists($login)) {
-            // проверка введенных данных
-            $isAuth = $this->userModel->is_correct_password($login, $password);
-            if ($isAuth) {
-                $this->saveAuth($login);
-                header('Location: /');
-            } else {
-                header("Location: /login?user=$login&error=wp");
-            }
+        if ($isUser) {
+            UserService::saveAuth($login);
+            header('Location: /');
         } else {
-            header("Location: /login?user=$login&error=wu");
+            header("Location: /login?user=$login&error=1");
         }
     }
 
+    // выйти из системы
     public function logout()
     {
-        foreach ($_COOKIE as $key => $value) {
-            setcookie($key, '', time() - 3600, '/');
-        }
-        session_destroy();
-        header('Location: '.route('home'));
-    }
-
-    // Сохранить авторизацию в куки и сессии.
-    private function saveAuth(string $user): void
-    {
-        // сессия
-        $_SESSION['auth'] = 1;
-        $_SESSION['login'] = $user;
-        // куки
-        setcookie('auth', 1, time() + 60 * 60 * 24, '/');
-        setcookie('login', $user, time() + 60 * 60 * 24, '/');
-    }
-
-    /** получить логин из сессии или куки */
-    public static function getAuthUser(): string
-    {
-        if (isset($_SESSION['login'])) {
-            return $_SESSION['login'];
-        } elseif (isset($_COOKIE['login'])) {
-            return $_COOKIE['login'];
-        } else {
-            return false;
-        }
+        UserService::removeAuth();
+        header('Location: /');
     }
 }

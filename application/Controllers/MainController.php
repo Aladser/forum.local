@@ -4,30 +4,21 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 
-use function App\Core\route;
-
 /** контрллер главной страницы */
 class MainController extends Controller
 {
     public function index()
     {
-        // роуты
-        $routes = [
-            'register' => route('register'),
-            'login' => route('login'),
-        ];
-
         $this->view->generate(
-            page_name: $this->site_name,
+            page_name: 'Форум',
             template_view: 'template_view.php',
             content_view: 'main_view.php',
-            routes: $routes
         );
     }
 
-    public function error($errorName)
+    public function error($error)
     {
-        $data = ['error' => $errorName];
+        $data = ['error' => $error];
         $this->view->generate(
             'Ошибка',
             'template_view.php',

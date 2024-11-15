@@ -1,19 +1,17 @@
 <container>
     <div class='content-width'>
         <!-- кнопки -->
-        <section>
-            <?php if ($data['login'] === $data['article']['author']) { ?>
-                <a href=<?php echo $routes['article_edit']; ?> class='button-small button-theme-color'>Редактировать</a>
-                <a href="<?php echo $routes['article_remove']; ?>" class='button-small button-theme-color'>Удалить</a>
+        <section class='mb-3'>
+            <?php if ($authuser == $data['article']->author) { ?>
+                <a href="/article/edit/<?php echo $data['article']->id; ?>" class='button-small button-theme-color rounded'>Редактировать</a>
+                <a href="/article/remove-confirm/<?php echo $data['article']->id; ?>" class='button-small button-theme-color rounded'>Удалить</a>
             <?php } ?>
-            <a href=<?php echo $routes['home']; ?> class='button-small button-theme-color'>Назад</a>
         </section>
 
         <!-- статья --> 
         <section class='p-2 text-center theme-border-start theme-border-end'>
-            <h2><?php echo $data['article']['title']; ?></h2>
-            <p>Автор: <?php echo $data['article']['author']; ?></p>
-            <p><?php echo nl2br($data['article']['content']); ?></p>
+            <p>Автор: <?php echo $data['article']->author->login; ?></p>
+            <p class='m-2 p-2 border-top border-bottom text-start'><?php echo nl2br($data['article']->content); ?></p>
         </section>
 
         <div><hr class='theme-border'></div>
@@ -23,25 +21,26 @@
             <h4 class='text-start ps-2'> Комментарии </h4>
             <section id='comment-list'>
                 <?php foreach ($data['comments'] as $comment) { ?>
-                    <article class='comment-list__item mb-2' id='<?php echo "id-{$comment['id']}"; ?>'>
-                        <p class='text-start m-0 ps-2 fw-bolder'><?php echo $comment['login']; ?></p>
-                        <p class='text-start m-0 py-2 ps-3 fs-5'><?php echo nl2br($comment['content']); ?></p>
+                    <article class='comment-list__item mb-2'>
+                        <p class='text-start m-0 ps-2 fw-bolder'><?php echo $comment->author->login; ?></p>
+                        <p class='text-start m-0 py-2 ps-3 fs-5'><?php echo nl2br($comment->content); ?></p>
                         <div class='text-end m-0 pe-2'>
-                            <?php if ($data['login'] === $comment['login']) { ?>
-                                <input type='submit' class='comment-list__btn-remove border-0' title='Удалить' value='🗑'>
+                            <?php if ($authuser == $comment->author) { ?>
+                                <form method="POST" action="<?php echo '/comment/remove/'.$comment->id; ?>" class="remove-comment-form d-inline-block">
+                                    <input type="hidden" name='CSRF' value=<?php echo $CSRF; ?>>
+                                    <input type='submit' class='comment-list__btn-remove border-0' title='Удалить' value='🗑'>
+                                </form>
                             <?php }?>
-                            <span><?php echo $comment['time']; ?></span>
-                            </div>
+                            <span><?php echo $comment->time; ?></span>
+                        </div>
                     </article>
                 <?php } ?>
             </section>
             <div class='input-group pb-2'>
                 <form method='post' class='d-flex justify-content-between w-100' id='form-send-message'>
-                    <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
-                    <input type="hidden" name="article" value="<?php echo $data['article']['id']; ?>" >
-                    <input type="hidden" name="author" value="<?php echo $data['login']; ?>" >
-                    <textarea class="input-group-prepend form-control theme-border" 
-                    rows='3' placeholder='Сообщение' name='message' id='form-send-message__msg' required></textarea>
+                    <input type="hidden" name='CSRF' value=<?php echo $CSRF; ?>>
+                    <input type="hidden" name="article_id" value="<?php echo $data['article']->id; ?>" >
+                    <textarea class="input-group-prepend form-control theme-border" rows='3' placeholder='Сообщение' name='content' id='form-send-message__msg' required></textarea>
                     <button type="submit" class='btn-send-msg button-theme-color ' title='Отправить'>Отправить</button>
                 </form>
             </div>

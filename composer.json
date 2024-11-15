@@ -11,6 +11,7 @@
   "require": {
     "friendsofphp/php-cs-fixer": "^3.47",
     "ext-json": "*",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "illuminate/database": "^11.30"
   }
 }
