@@ -28,8 +28,8 @@
 </head>
 <body>
 
-<header class='mb-4'>
-    <div class='theme-bg-сolor text-center text-white d-flex justify-content-between'>
+<header class='pb-1 mb-4'>
+    <div class='theme-bg-сolor text-center text-white d-flex justify-content-between shadow'>
         <a href="/" class='page-name-header p-3 text-decoration-none text-light fw-bolder'>ФОРУМ</a>
         <?php if ($authuser) { ?>
             <div class='d-flex justify-content-end'>
@@ -40,6 +40,12 @@
     </div>
 </header>
 
-<?php include $content_view; ?>
+<container>
+    <div class='content-width'>
+        <h1 class='text-center p-1 theme-grey-color '><?php echo $page_name; ?></h1>
+        <?php include $content_view; ?>
+    </div>
+</container>
+
 </body>
 </html>

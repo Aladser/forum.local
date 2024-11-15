@@ -3,16 +3,15 @@
         <!-- кнопки -->
         <section class='mb-3'>
             <?php if ($authuser == $data['article']->author) { ?>
-                <a href="/article/edit/<?php echo $data['article']->id; ?>" class='button-small button-theme-color'>Редактировать</a>
-                <a href="/article/remove-confirm/<?php echo $data['article']->id; ?>" class='button-small button-theme-color'>Удалить</a>
+                <a href="/article/edit/<?php echo $data['article']->id; ?>" class='button-small button-theme-color rounded'>Редактировать</a>
+                <a href="/article/remove-confirm/<?php echo $data['article']->id; ?>" class='button-small button-theme-color rounded'>Удалить</a>
             <?php } ?>
         </section>
 
         <!-- статья --> 
         <section class='p-2 text-center theme-border-start theme-border-end'>
-            <h2><?php echo $data['article']->title; ?></h2>
             <p>Автор: <?php echo $data['article']->author->login; ?></p>
-            <p><?php echo nl2br($data['article']->content); ?></p>
+            <p class='m-2 p-2 border-top border-bottom text-start'><?php echo nl2br($data['article']->content); ?></p>
         </section>
 
         <div><hr class='theme-border'></div>

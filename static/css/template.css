@@ -73,7 +73,7 @@ html {
 
 /* контейнер */
 .content-width {
-  width: 55rem;
+  width: 70rem;
   margin: auto;
 }
 @media (max-width: 55rem) {
