@@ -1,7 +1,7 @@
 <container>
     <div class='content-width'>
         <form method='POST' id='form-create-article' action="/article/store">
-            <input type="hidden" name='CSRF' value=<?php echo $data['csrf']; ?>>
+            <input type="hidden" name='CSRF' value=<?php echo $CSRF; ?>>
 
             <input type="text" class='w-100 d-block ps-3 p-2 mb-2 text-secondary theme-border' 
             name="title" placeholder='Заголовок' value='<?php echo $data['title']; ?>' required>

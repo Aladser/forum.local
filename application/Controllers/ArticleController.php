@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\Article;
 use App\Models\Comment;
-use App\Models\User;
 use App\Services\UserService;
 
 /** статьи */
@@ -91,7 +90,7 @@ class ArticleController extends Controller
             'title' => $args['title'],
             'summary' => $args['summary'],
             'content' => $args['content'],
-            'author_id' => User::where('login', $this->auth_user)->first()->id,
+            'author_id' => UserService::getAuthUser()->id,
         ];
         Article::insert($params);
 
@@ -101,15 +100,10 @@ class ArticleController extends Controller
     // --- EDIT ---
     public function edit(mixed $args): void
     {
-        $authuser = UserService::getAuthUser();
-        $data['article'] = Article::findOr($args['id'], function () {
-            header("Location: $this->home_url");
-        });
-
-        $author = User::find($data['article']->author_id);
+        $data['article'] = Article::find($args['id']);
         // проверка автора статьи
-        if ($author != $authuser) {
-            $data['error'] = 'Нет доступа';
+        if ($data['article']->author != UserService::getAuthUser()) {
+            $data['access_error'] = 'Нет доступа';
         } else {
             // проверка ошибок
             if (isset($args['error'])) {
@@ -135,7 +129,8 @@ class ArticleController extends Controller
     // --- UPDATE ---
     public function update(mixed $args): void
     {
-        Article::where('id', $args['id'])->update(['title' => $args['title'], 'summary' => $args['summary'], 'content' => $args['content']]);
+        $article = Article::where('id', $args['id']);
+        $article->update(['title' => $args['title'], 'summary' => $args['summary'], 'content' => $args['content']]);
         header('Location: /article/show/'.$args['id']);
     }
 
@@ -153,7 +148,7 @@ class ArticleController extends Controller
             page_name: 'Подтверждение удаления статьи',
             template_view: 'template_view.php',
             content_view: 'articles/article-confirm-delete_view.php',
-            data: ['article' => Article::find($args['id']), 'csrf' => $this->csrf],
+            data: ['article' => Article::find($args['id'])],
         );
     }
 }
