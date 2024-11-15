@@ -12,6 +12,11 @@ class User extends Model
 
     public function articles()
     {
-        return $this->hasMany(User::class, 'author_id', 'id');
+        return $this->hasMany(Article::class, 'author_id', 'id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'author_id', 'id');
     }
 }

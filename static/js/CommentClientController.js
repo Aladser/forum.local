@@ -1,44 +1,49 @@
 class CommentClientController {
-    constructor(URL, msgElement, sendCommentForm, commentList, csrf) {
+    constructor(URL, msgElement, commentList, sendCommentForm) {
         this.URL = URL;
         this.msgElement = msgElement;
         this.commentList = commentList;
-        this.csrf = csrf;
-        this.appendRemovingListeners();
-        // форма добавления комментария
         this.sendCommentForm = sendCommentForm;
         this.sendCommentForm.onsubmit = (event) => this.add(event);
+        this.addRemovingListeners();
     }
 
-    // добавить коммент в БД - comment/store
+    // добавить коммент - comment/store
     add(event) {
         event.preventDefault();
         // ---данные---
         let formData = new FormData(this.sendCommentForm);
         let timeNow = DBLocalTime.get();
+
         // ---обработка ответа от сервера---
         let process = (data) => {
-            data = JSON.parse(data);    
-            if (data.result < 1) {
-                this.msgElement.innerHTML = data;
-            } else {
-                event.target.reset();
-                this.commentList.innerHTML += `
-                    <article class='comment-list__item border-C4C4C4 mb-2' id='id-${data.comment.id}'>
-                        <p class='text-start m-0 ps-2 fw-bolder'>${data.comment.author}</p>
-                        <p class='text-start m-0 py-2 ps-3 fs-5'>${data.comment.content}</p>
-                        <p class='text-end m-0 pe-2'>
-                            <button class='comment-list__btn-remove border-0 me-1' title='Удалить'>🗑</button>
-                            ${timeNow}
-                        </p>
-                    </article>
-                `;
-                this.appendRemovingListeners();
+            try {
+                data = JSON.parse(data);
+            } catch {
+                this.msgElement.textContent = data;
+                return;
             }
+
+            event.target.reset();
+            this.commentList.innerHTML += `
+                <article class='comment-list__item border-C4C4C4 mb-2'>
+                    <p class='text-start m-0 ps-2 fw-bolder'>${data.author}</p>
+                    <p class='text-start m-0 py-2 ps-3 fs-5'>${data.content}</p>
+                    <div class="text-end m-0 pe-2">
+                        <form method="POST" action="/comment/remove/${data.id}" class="remove-comment-form d-inline-block">
+                            <input type="hidden" name="CSRF" value="${data.CSRF}">
+                            <input type="submit" class="comment-list__btn-remove border-0" title="Удалить" value="🗑">
+                        </form>
+                        <span>${timeNow}</span>
+                    </div>
+                </article>
+            `;
+            this.addRemovingListeners();
         };
+
         // ---запрос на сервер---
         ServerRequest.execute(
-            this.URL+'/store',
+            '/comment/store',
             process,
             "post",
             this.msgElement,
@@ -46,39 +51,37 @@ class CommentClientController {
         );
     }
 
-    // удалить коммент из БД - comment/remove
+    // удалить коммент - comment/remove/{id}
     remove(event) {
         event.preventDefault();
         // ---данные---
-        let comment = event.target.closest('.comment-list__item');
+        let commentDOM = event.target.closest('.comment-list__item');
+
         // ---действия после успешного удаления данных в БД---
         let process = (data) => {
             data = JSON.parse(data);
             if (data.result == 1) {
-                comment.remove();
+                commentDOM.remove();
                 this.msgElement.textContent = "";
             } else {
                 this.msgElement.textContent = data;
             }
         };
 
-        let params = new URLSearchParams();
-        params.set('id', comment.id.substring(3));
-        params.set('CSRF', this.csrf.content);
-
         // запрос на сервер
         ServerRequest.execute(
-            this.URL + '/remove',
+            event.target.action,
             process,
             "post",
             this.msgElement,
-            params
+            new FormData(event.target)
         );
     }
 
-    /** назначить события удаления комментариев */
-    appendRemovingListeners() {
-        this.removeBtnForms = this.commentList.querySelectorAll(`.comment-list__btn-remove`);
-        this.removeBtnForms.forEach((btn) => btn.onclick = (event) => this.remove(event));
+    /** Добавляет события удаления комментария*/
+    addRemovingListeners() {
+        Array.from(document.querySelectorAll('.remove-comment-form')).forEach(form => {
+            form.onsubmit = event => this.remove(event);
+        });
     }
 }

@@ -3,41 +3,44 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Models\Article;
 use App\Models\Comment;
-use App\Models\User;
+use App\Services\UserService;
 
 /** комментарии */
 class CommentController extends Controller
 {
+    private $authuser;
+
     public function __construct()
     {
-        parent::__construct();
-        $this->articles = new Article();
-        $this->users = new User();
-        $this->comments = new Comment();
+        $this->authuser = UserService::getAuthUser();
     }
 
     // сохранить комментарий
     public function store(mixed $args)
     {
-        $author = $args['author'];
-        $authorId = $this->users->getId($author);
-        $articleId = $args['article'];
-        $content = $args['message'];
+        $params = [
+            'author_id' => $this->authuser->id,
+            'article_id' => $args['article_id'],
+            'content' => $args['content'],
+        ];
+        Comment::insert($params);
 
-        $id = $this->comments->add($authorId, $articleId, $content);
         echo json_encode([
-            'result' => $id,
-            'comment' => ['author' => $author, 'content' => $content, 'id' => $id],
+            'author' => $this->authuser->login,
+            'content' => $args['content'],
+            'id' => Comment::max('id'),
+            'CSRF' => UserService::CSRF(),
         ]);
     }
 
     // удалить комментарий
     public function remove(mixed $args)
     {
-        $id = $args['id'];
-        $isRemoved = $this->comments->remove($id);
-        echo json_encode(['result' => (int) $isRemoved]);
+        $comment = Comment::where('id', $args['id']);
+        if ($this->authuser != $comment->first()->author) {
+            echo json_encode(['result' => 403]);
+        }
+        echo json_encode(['result' => $comment->delete()]);
     }
 }

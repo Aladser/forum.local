@@ -40,12 +40,11 @@ class ArticleController extends Controller
     // --- SHOW ---
     public function show(mixed $args): void
     {
-        $article = Article::find($args['id']);
-        $data['article'] = $article;
-        $data['comments'] = Comment::where('article_id', $article->id)->get();
+        $data['article'] = Article::find($args['id']);
+        $data['comments'] = Comment::where('article_id', $data['article']->id)->get();
 
         $this->view->generate(
-            page_name: "Статья - $article->title",
+            page_name: 'Статья - '.$data['article']->title,
             template_view: 'template_view.php',
             content_view: 'articles/show-article_view.php',
             data: $data,
@@ -57,7 +56,6 @@ class ArticleController extends Controller
                 'article/show-article.js',
             ],
             content_css: 'show-article.css',
-            add_head: '<meta name="csrf" content="'.UserService::createCSRFToken().'">',
         );
     }
 

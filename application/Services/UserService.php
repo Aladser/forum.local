@@ -30,6 +30,11 @@ class UserService
         return $csrfToken;
     }
 
+    public static function CSRF(): ?string
+    {
+        return $_SESSION['CSRF'];
+    }
+
     /** Сохраняет авторизацию в куки и сессии.
      *
      * @param string $login логин
