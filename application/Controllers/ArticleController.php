@@ -9,8 +9,7 @@ use App\Services\UserService;
 /** статьи */
 class ArticleController extends Controller
 {
-    private string $csrf;
-    private string $auth_user;
+    private int $articlesToPage;
 
     public function __construct(int $articlesToPage = 5)
     {
