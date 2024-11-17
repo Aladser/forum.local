@@ -1,14 +1,8 @@
 # Форум статей
 
-## Инструменты:
-- php 8
-- mysql
-- javascript
-- bootstrap
-
 ## Разворачивание
-+ Для запуска на сервере apache конфиг сервера */storage/forum.local.conf*
-+ дамп базы MySQL */storage/forum_create.sql*
++ Для запуска на сервере nginx конфиг сервера *install/forum.local*
++ дамп базы MySQL *install/create_db_tables.sql*
 + создать файл .env по аналогии .env.example
 
 ## Предисловие
